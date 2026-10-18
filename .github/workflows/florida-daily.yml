@@ -1,0 +1,50 @@
+
+name: OppNexa Florida Daily Scraper
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  florida-scraper:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Florida scraper
+        run: python main.py
+
+      - name: Record run date in GitHub
+        if: always()
+        run: |
+          mkdir -p run_logs
+          echo "Workflow run: $GITHUB_RUN_ID" > "run_logs/run-${GITHUB_RUN_ID}.txt"
+          echo "Run time UTC: $(date -u +'%Y-%m-%d %H:%M:%S')" >> "run_logs/run-${GITHUB_RUN_ID}.txt"
+          echo "Run time IST: $(TZ=Asia/Kolkata date +'%Y-%m-%d %H:%M:%S')" >> "run_logs/run-${GITHUB_RUN_ID}.txt"
+
+      - name: Commit run log
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add run_logs
+          git diff --cached --quiet || git commit -m "Record Florida scraper run"
+          git push
