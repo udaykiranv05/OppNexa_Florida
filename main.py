@@ -57,12 +57,52 @@ def listing(title, href, text):
     if m and re.search(r'\d',m.group(1)): sid=m.group(1)
     return {'title':clean(title),'url':urlnorm(href),'text':clean(text),'description':clean(text),'solicitation_id':sid,'agency':label(text,['Agency','Organization','Department']),'published_date':label(text,['Posted Date','Publish Date','Date Posted','Published']),'deadline_date':label(text,['Responses Due','Due Date','Closing Date','Deadline','End Date']),'opportunity_type':label(text,['Advertisement Type','Solicitation Type','Type'])}
 def get_candidates(page):
-    raw=page.evaluate("""() => {const out=[],seen=new Set(); for(const a of document.querySelectorAll('a[href]')) {const title=(a.innerText||a.textContent||'').replace(/\\s+/g,' ').trim(), href=a.href||''; if(title.length<4||title.length>500||!/^https?:/i.test(href)) continue; if(!/bid|advert|solicit|rfp|rfq|itn|contract|opportun|\\d{4}[-/]/i.test(href+' '+title)) continue; const box=a.closest('tr')||a.closest('[role=row]')||a.closest('article')||a.closest('li')||a.parentElement; const text=((box&&(box.innerText||box.textContent))||title).replace(/\\s+/g,' ').trim(); const key=href+'|'+title; if(!seen.has(key)){seen.add(key);out.push({title,href,text});}} return out;}""")
-    out=[]
-    for x in raw:
-        u=urlnorm(x['href']); host=urlparse(u).netloc.lower()
-        if u and (host.endswith('myfloridamarketplace.com') or host.endswith('myflorida.com')) and clean(x['title']).lower() not in {'home','login','register','search advertisements','search vendors'}: out.append(listing(x['title'],u,x['text']))
-    return out
+    """Read result rows (including rows whose links do not contain bid keywords), then useful links."""
+    raw = page.evaluate("""() => {
+      const out = [], seen = new Set();
+      const add = (title, href, text, source) => {
+        title = (title || '').replace(/\\s+/g, ' ').trim();
+        text = (text || '').replace(/\\s+/g, ' ').trim(); href = href || '';
+        const key = href + '|' + title + '|' + text;
+        if (title.length >= 4 && title.length < 500 && text.length >= 4 && !seen.has(key)) {
+          seen.add(key); out.push({title, href, text, source});
+        }
+      };
+      for (const tr of document.querySelectorAll('table tr, [role="row"]')) {
+        const text = (tr.innerText || tr.textContent || '').replace(/\\s+/g, ' ').trim();
+        if (!text) continue;
+        const links = [...tr.querySelectorAll('a[href]')];
+        const link = links.find(a => (a.innerText || a.textContent || '').trim());
+        const cells = [...tr.querySelectorAll('td,th,[role="cell"],[role="gridcell"]')];
+        const title = link ? (link.innerText || link.textContent || '').trim() :
+          cells.map(c => (c.innerText || c.textContent || '').trim()).find(Boolean) || '';
+        add(title, link ? link.href : location.href, text, 'row');
+      }
+      for (const a of document.querySelectorAll('a[href]')) {
+        const title = a.innerText || a.textContent || '';
+        const box = a.closest('tr,[role="row"],article,li') || a.parentElement;
+        add(title, a.href, (box && (box.innerText || box.textContent)) || title, 'link');
+      }
+      return out;
+    }""")
+    out = []
+    for item in raw:
+        u = urlnorm(item.get('href', ''))
+        host = urlparse(u).netloc.lower()
+        title, body = clean(item.get('title')), clean(item.get('text'))
+        if not u or not (host.endswith('myfloridamarketplace.com') or host.endswith('myflorida.com')):
+            continue
+        if title.lower() in {'home','login','register','search advertisements','search vendors','help','contact us'}:
+            continue
+        if item.get('source') == 'row' or re.search(r'advert|solicit|bid|request|proposal|contract|purchase|rfp|rfq|itb|itn|rfi|due date|open', title + ' ' + body, re.I):
+            rec = listing(title, u, body)
+            rec['detail_verified'] = 'Extracted from portal result row/link'
+            out.append(rec)
+    unique = {}
+    for item in out:
+        unique.setdefault((item.get('url','').lower(), item.get('title','').lower()), item)
+    return list(unique.values())
+
 def open_detail(page,x):
     try:
         page.goto(x['url'],wait_until='domcontentloaded',timeout=25000); page.wait_for_timeout(400); body=clean(page.locator('body').inner_text(timeout=8000))
@@ -92,14 +132,27 @@ def open_sheets():
     tracker=next((w for w in book.worksheets() if w.id==TRACKER_GID),None); rev=next((w for w in book.worksheets() if w.id==REVIEW_GID),None)
     if tracker is None: raise RuntimeError(f'Tracker tab gid {TRACKER_GID} not found')
     return tracker,rev
-def ensure_headers(ws,needed):
-    vals=ws.get_all_values()
-    if not vals or not any(clean(v) for v in vals[0]): ws.update('A1',[needed]); return needed
-    cur=vals[0]; missing=[h for h in needed if h not in cur]
-    if missing:
-        from gspread.utils import rowcol_to_a1
-        ws.update(rowcol_to_a1(1,len(cur)+1),[missing],value_input_option='USER_ENTERED'); cur+=missing
-    return cur
+def ensure_headers(ws, needed):
+    """Keep existing headers, add missing headers, and expand the worksheet first."""
+    from gspread.utils import rowcol_to_a1
+    values = ws.get_all_values()
+    current = list(values[0]) if values and values[0] else []
+    while current and not clean(current[-1]):
+        current.pop()
+    headers = list(current)
+    for header in needed:
+        if header not in headers:
+            headers.append(header)
+    if ws.col_count < len(headers):
+        ws.add_cols(len(headers) - ws.col_count)
+    if not current or headers != current:
+        ws.update(
+            range_name=f"A1:{rowcol_to_a1(1, len(headers))}",
+            values=[headers],
+            value_input_option="USER_ENTERED",
+        )
+    return headers
+
 def keyrow(r):
     sid=clean(r.get('Solicitation / Reference No.')) or clean(r.get('Portal Advertisement ID')); u=urlnorm(r.get('Official Source URL'))
     return 'id:'+sid.lower() if sid else ('url:'+u.lower() if u else '')
@@ -155,7 +208,7 @@ def main():
                     btn=page.locator('input[type=submit],button[type=submit]')
                     if btn.count(): btn.first.click(timeout=2500); page.wait_for_load_state('domcontentloaded',timeout=10000); page.wait_for_timeout(1500); clicked=True
                 except Exception: pass
-            diag['search_submitted']=clicked; diag['body_excerpt']=clean(page.locator('body').inner_text())[:6000]
+            diag['search_submitted']=clicked; diag['body_excerpt']=clean(page.locator('body').inner_text())[:10000]; diag['table_count']=page.locator('table').count(); diag['aria_row_count']=page.locator('[role=row]').count(); diag['anchor_count']=page.locator('a[href]').count()
             discovered.extend(get_candidates(page)); diag['pages'].append({'url':page.url,'link_count':page.locator('a[href]').count()})
             for _ in range(9):
                 if len(discovered)>=CAP*3: break
@@ -216,6 +269,13 @@ def main():
     except Exception as e:
         diag['sheets_sync']={'status':'failed','error':str(e)}; log.exception('Google Sheets sync failed; local files retained')
     writej(diag_path,diag)
-    if not candidates: log.warning('No candidates detected. Check data/portal_diagnostics.json and data/portal-error.png if present.')
-    log.info('Run complete.')
+    if not candidates:
+        diag['status']='failed'
+        diag.setdefault('errors', []).append('No advertisement candidates extracted; inspect body_excerpt and portal DOM.')
+        writej(diag_path,diag)
+        log.error('ZERO CANDIDATES: portal result extraction did not find any advertisement rows.')
+        raise RuntimeError('No Florida advertisement records extracted; see data/portal_diagnostics.json')
+    if diag.get('sheets_sync', {}).get('status') != 'success':
+        raise RuntimeError('Records extracted but Google Sheets sync failed; see data/portal_diagnostics.json')
+    log.info('Run complete: candidates=%d matched=%d history=%d', len(candidates), len(output), len(all_history))
 if __name__=='__main__': main()
