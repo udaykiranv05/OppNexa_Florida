@@ -57,50 +57,98 @@ def listing(title, href, text):
     if m and re.search(r'\d',m.group(1)): sid=m.group(1)
     return {'title':clean(title),'url':urlnorm(href),'text':clean(text),'description':clean(text),'solicitation_id':sid,'agency':label(text,['Agency','Organization','Department']),'published_date':label(text,['Posted Date','Publish Date','Date Posted','Published']),'deadline_date':label(text,['Responses Due','Due Date','Closing Date','Deadline','End Date']),'opportunity_type':label(text,['Advertisement Type','Solicitation Type','Type'])}
 def get_candidates(page):
-    """Read result rows (including rows whose links do not contain bid keywords), then useful links."""
-    raw = page.evaluate("""() => {
+    """Extract advertisement records from MFMP result tables and expandable result panels."""
+    raw = page.evaluate(r"""() => {
       const out = [], seen = new Set();
-      const add = (title, href, text, source) => {
-        title = (title || '').replace(/\\s+/g, ' ').trim();
-        text = (text || '').replace(/\\s+/g, ' ').trim(); href = href || '';
-        const key = href + '|' + title + '|' + text;
-        if (title.length >= 4 && title.length < 500 && text.length >= 4 && !seen.has(key)) {
-          seen.add(key); out.push({title, href, text, source});
+      const norm = v => (v || '').replace(/\s+/g, ' ').trim();
+      const add = (title, href, text, cells, source) => {
+        title = norm(title); text = norm(text); href = href || '';
+        cells = (cells || []).map(norm);
+        const key = [href, title, text].join('|');
+        if (text.length > 12 && !seen.has(key)) {
+          seen.add(key); out.push({title, href, text, cells, source});
         }
       };
-      for (const tr of document.querySelectorAll('table tr, [role="row"]')) {
-        const text = (tr.innerText || tr.textContent || '').replace(/\\s+/g, ' ').trim();
-        if (!text) continue;
-        const links = [...tr.querySelectorAll('a[href]')];
-        const link = links.find(a => (a.innerText || a.textContent || '').trim());
-        const cells = [...tr.querySelectorAll('td,th,[role="cell"],[role="gridcell"]')];
-        const title = link ? (link.innerText || link.textContent || '').trim() :
-          cells.map(c => (c.innerText || c.textContent || '').trim()).find(Boolean) || '';
-        add(title, link ? link.href : location.href, text, 'row');
+      // Standard HTML tables: use cell labels and the whole row, not only link text.
+      for (const table of document.querySelectorAll('table')) {
+        const headers = [...table.querySelectorAll('thead th')].map(x => norm(x.innerText || x.textContent));
+        for (const tr of table.querySelectorAll('tr')) {
+          const cells = [...tr.querySelectorAll(':scope > td, :scope > th')].map(x => norm(x.innerText || x.textContent));
+          if (!cells.length) continue;
+          const text = norm(tr.innerText || tr.textContent);
+          if (!text || /^(title number agency advertisement number version organization ad type start date end date status)$/i.test(text)) continue;
+          const links = [...tr.querySelectorAll('a[href]')];
+          const titleLink = links.find(a => norm(a.innerText || a.textContent).length > 2);
+          const titleIndex = headers.findIndex(h => /title/i.test(h));
+          let title = titleLink ? norm(titleLink.innerText || titleLink.textContent) : (titleIndex >= 0 ? cells[titleIndex] : cells[0]);
+          let href = titleLink ? titleLink.href : '';
+          if (!href) {
+            const clickable = tr.querySelector('[onclick]');
+            const js = clickable ? clickable.getAttribute('onclick') || '' : tr.getAttribute('onclick') || '';
+            const m = js.match(/(?:location(?:\.href)?\s*=|open\s*\()\s*['\"]([^'\"]+)/i);
+            if (m) href = m[1];
+          }
+          if (!href) href = location.href;
+          add(title, href, text, cells, 'table');
+        }
       }
+      // Angular/React/ARIA grid rows and common MFMP result panels.
+      for (const row of document.querySelectorAll('[role="row"], [role="listitem"], .search-result, .result-row, .advertisement-row')) {
+        const text = norm(row.innerText || row.textContent);
+        const cells = [...row.querySelectorAll('[role="cell"], [role="gridcell"], td')].map(x => norm(x.innerText || x.textContent));
+        const a = [...row.querySelectorAll('a[href]')].find(x => norm(x.innerText || x.textContent).length > 2);
+        if (text && !/^(title number agency advertisement number version organization ad type start date end date status)$/i.test(text)) add(a ? (a.innerText || a.textContent) : (cells[0] || text.slice(0,250)), a ? a.href : location.href, text, cells, 'aria');
+      }
+      // Links whose parent container contains the actual result metadata.
       for (const a of document.querySelectorAll('a[href]')) {
-        const title = a.innerText || a.textContent || '';
-        const box = a.closest('tr,[role="row"],article,li') || a.parentElement;
-        add(title, a.href, (box && (box.innerText || box.textContent)) || title, 'link');
+        const title = norm(a.innerText || a.textContent);
+        if (title.length < 3) continue;
+        const box = a.closest('tr,[role="row"],[role="listitem"],article,li') || a.parentElement;
+        const text = norm(box && (box.innerText || box.textContent) || title);
+        if (/advertisement|solicitation|bid|request|proposal|contract|purchase|rfp|rfq|itb|itn|rfi|\b\d{4,}\b/i.test(title + ' ' + text)) add(title, a.href, text, [], 'link');
       }
       return out;
     }""")
     out = []
     for item in raw:
-        u = urlnorm(item.get('href', ''))
-        host = urlparse(u).netloc.lower()
         title, body = clean(item.get('title')), clean(item.get('text'))
-        if not u or not (host.endswith('myfloridamarketplace.com') or host.endswith('myflorida.com')):
+        # Exclude navigation and header rows, but retain result rows even if the title has no keyword.
+        if not title or re.search(r'^(title|number|agency|advertisement number|version|organization|ad type|start date|end date|status)$', title, re.I):
             continue
-        if title.lower() in {'home','login','register','search advertisements','search vendors','help','contact us'}:
+        if len(body) < 12 or re.search(r'copyright ©|privacy statement|help desk:', body, re.I):
             continue
-        if item.get('source') == 'row' or re.search(r'advert|solicit|bid|request|proposal|contract|purchase|rfp|rfq|itb|itn|rfi|due date|open', title + ' ' + body, re.I):
+        cells = item.get('cells') or []
+        # MFMP search results columns: Title, Number, Agency, Advertisement Number, Version,
+        # Organization, Ad Type, Start Date, End Date, Status.
+        sid = clean(cells[1]) if len(cells) > 1 else ''
+        agency = clean(cells[2]) if len(cells) > 2 else ''
+        adno = clean(cells[3]) if len(cells) > 3 else ''
+        org = clean(cells[5]) if len(cells) > 5 else ''
+        adtype = clean(cells[6]) if len(cells) > 6 else ''
+        start_date = clean(cells[7]) if len(cells) > 7 else ''
+        end_date = clean(cells[8]) if len(cells) > 8 else ''
+        status = clean(cells[9]) if len(cells) > 9 else ''
+        u = urlnorm(item.get('href') or SEARCH)
+        # A result row must contain identifying fields beyond just the column headings.
+        has_listing_shape = bool((sid or adno) and title and title.lower() not in {'show more search results','export to excel'})
+        if item.get('source') in {'table','aria'} and has_listing_shape:
             rec = listing(title, u, body)
-            rec['detail_verified'] = 'Extracted from portal result row/link'
+            rec.update({'solicitation_id': sid or adno or rec.get('solicitation_id',''),
+                        'agency': agency or org or rec.get('agency',''),
+                        'published_date': start_date or rec.get('published_date',''),
+                        'deadline_date': end_date or rec.get('deadline_date',''),
+                        'opportunity_type': adtype or rec.get('opportunity_type',''),
+                        'status': status, 'advertisement_number': adno,
+                        'detail_verified': 'Extracted from MFMP result row'})
+            out.append(rec)
+        elif item.get('source') == 'link' and re.search(r'advert|solicit|bid|request|proposal|contract|purchase|rfp|rfq|itb|itn|rfi', title + ' ' + body, re.I):
+            rec = listing(title, u, body)
+            rec['detail_verified'] = 'Extracted from portal result link; row fields not fully available'
             out.append(rec)
     unique = {}
     for item in out:
-        unique.setdefault((item.get('url','').lower(), item.get('title','').lower()), item)
+        key = (clean(item.get('solicitation_id') or item.get('advertisement_number')).lower(), clean(item.get('title')).lower(), item.get('url','').lower())
+        unique.setdefault(key, item)
     return list(unique.values())
 
 def open_detail(page,x):
@@ -208,8 +256,18 @@ def main():
                     btn=page.locator('input[type=submit],button[type=submit]')
                     if btn.count(): btn.first.click(timeout=2500); page.wait_for_load_state('domcontentloaded',timeout=10000); page.wait_for_timeout(1500); clicked=True
                 except Exception: pass
+            # MFMP can collapse the results behind a Show More Search Results control.
+            for _ in range(8):
+                try:
+                    more = page.get_by_text(re.compile(r'Show More Search Results', re.I), exact=False)
+                    visible = next((more.nth(i) for i in range(min(more.count(), 3)) if more.nth(i).is_visible()), None)
+                    if not visible: break
+                    visible.click(timeout=2500); page.wait_for_timeout(700)
+                except Exception: break
             diag['search_submitted']=clicked; diag['body_excerpt']=clean(page.locator('body').inner_text())[:10000]; diag['table_count']=page.locator('table').count(); diag['aria_row_count']=page.locator('[role=row]').count(); diag['anchor_count']=page.locator('a[href]').count()
-            discovered.extend(get_candidates(page)); diag['pages'].append({'url':page.url,'link_count':page.locator('a[href]').count()})
+            discovered.extend(get_candidates(page)); diag['row_preview']=[{'title':x.get('title',''),'solicitation_id':x.get('solicitation_id',''),'agency':x.get('agency',''),'url':x.get('url','')} for x in discovered[:20]]; diag['pages'].append({'url':page.url,'link_count':page.locator('a[href]').count()})
+            try: (DATA/'portal-rendered.html').write_text(page.content(),encoding='utf-8')
+            except Exception: pass
             for _ in range(9):
                 if len(discovered)>=CAP*3: break
                 nxt=None
@@ -239,7 +297,9 @@ def main():
     for x in candidates:
         x['matched_keywords']=matches(x)
         if x['matched_keywords']: selected.append(x)
-    if not selected and candidates: diag['errors'].append('No listings matched keywords. Inspect body_excerpt and portal DOM/selectors in portal_diagnostics.json.')
+    if not selected and candidates: diag['errors'].append('Candidates extracted but none matched configured keywords; review row_preview and broaden keywords only if appropriate.')
+    if not selected and candidates:
+        reviews.extend(reviewrow(x, '', 'Keyword matching', 'Portal row extracted but no configured keyword matched the listing text; manual review required') for x in candidates)
     # Visit matching detail pages (up to configured cap).
     if selected:
         with sync_playwright() as p:
@@ -277,5 +337,7 @@ def main():
         raise RuntimeError('No Florida advertisement records extracted; see data/portal_diagnostics.json')
     if diag.get('sheets_sync', {}).get('status') != 'success':
         raise RuntimeError('Records extracted but Google Sheets sync failed; see data/portal_diagnostics.json')
-    log.info('Run complete: candidates=%d matched=%d history=%d', len(candidates), len(output), len(all_history))
+    diag['status'] = 'success' if output else ('no_keyword_matches' if candidates else 'no_candidates')
+    writej(diag_path,diag)
+    log.info('Run complete: candidates=%d matched=%d history=%d status=%s', len(candidates), len(output), len(all_history), diag['status'])
 if __name__=='__main__': main()
