@@ -1,0 +1,28 @@
+{
+  "run_utc": "2026-10-18T10:32:01.234517+00:00",
+  "run_ist": "2026-10-18T16:02:01.234517+05:30",
+  "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
+  "keywords": 26,
+  "errors": [
+    "No listings matched keywords. Inspect body_excerpt and portal DOM/selectors in portal_diagnostics.json."
+  ],
+  "pages": [
+    {
+      "url": "https://vendor.myfloridamarketplace.com/search/bids",
+      "link_count": 6
+    }
+  ],
+  "http_status": 200,
+  "final_url": "https://vendor.myfloridamarketplace.com/search/bids",
+  "title": "MyFloridaMarket Place Vendor Information Portal",
+  "search_submitted": true,
+  "body_excerpt": "MFMP MFMP for Vendors Vendor Disclosures State of Florida Advertisements Search Criteria double_arrow 25 Maximum Results Ad Type Ad Status Commodity Codes Organization Start Date End Date Ad Number Agency Advertisement Number Title Reset Search News ⚠️ Attention Vendors ⚠️ The MyFloridaMarketPlace (MFMP) Team has been made aware of an email impersonating MFMP regarding a new e-Bid platform. The email is sent from support@dbesbewob.tech with the subject line Announcing New Procurement Department e-Bid Platform. That email was not legitimate. If you have received this email, it should be reported as phishing through your organization’s security personnel. This email appears to have been sent to vendors. Please have your vendors work with their organization’s security personnel for any concerns, and contact the MFMP Customer Service Desk if you have any questions Monday – Friday from 8 a.m. – 6 p.m. ET by calling 866-352-3776 or emailing VendorHelp@MyFloridaMarketPlace.com or BuyerHelp@MyFloridaMarketPlace.com. Show More Search Results Export to Excel Title Number Agency Advertisement Number Version Organization Ad Type Start Date End Date Status Copyright © 2020 State of Florida MFMP Help Desk: 866-FLA-EPRO (866-352-3776) Privacy Statement",
+  "table_count": 1,
+  "aria_row_count": 1,
+  "anchor_count": 6,
+  "sheets_sync": {
+    "status": "success",
+    "appended": 0,
+    "updated_cells": 0
+  }
+}
