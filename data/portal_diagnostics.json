@@ -1,6 +1,6 @@
 {
-  "run_utc": "2026-10-18T10:52:56.697151+00:00",
-  "run_ist": "2026-10-18T16:22:56.697151+05:30",
+  "run_utc": "2026-10-18T11:05:17.682171+00:00",
+  "run_ist": "2026-10-18T16:35:17.682171+05:30",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
   "keywords": 26,
   "errors": [
@@ -107,34 +107,75 @@
     {
       "url": "https://vendor.myfloridamarketplace.com/mfmp/user/vipenv",
       "status": 200,
-      "content_type": "application/json; charset=utf-8"
+      "content_type": "application/json; charset=utf-8",
+      "method": "GET"
     },
     {
       "url": "https://vendor.myfloridamarketplace.com/mfmp/bids/AdTypes",
       "status": 200,
-      "content_type": "application/json; charset=utf-8"
+      "content_type": "application/json; charset=utf-8",
+      "method": "GET"
     },
     {
       "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/newsfeed",
       "status": 200,
-      "content_type": "application/json; charset=utf-8"
+      "content_type": "application/json; charset=utf-8",
+      "method": "GET"
     },
     {
       "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/picklistOrg",
       "status": 200,
-      "content_type": "application/json; charset=utf-8"
+      "content_type": "application/json; charset=utf-8",
+      "method": "GET"
     },
     {
       "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids/count",
       "status": 200,
-      "content_type": "application/json; charset=utf-8"
+      "content_type": "application/json; charset=utf-8",
+      "method": "POST",
+      "request_body": "{\"pageSize\":25,\"type\":[],\"status\":[],\"agency\":[],\"adNumber\":\"\",\"agencyAdvertisementNumber\":\"\",\"title\":\"\",\"publishedDate\":\"\",\"openDate\":\"\",\"endDate\":\"\",\"commodityCodes\":[],\"intendsToParticipate\":\"\",\"assignee\":\"\"}"
     },
     {
       "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
       "status": 200,
-      "content_type": "application/json; charset=utf-8"
+      "content_type": "application/json; charset=utf-8",
+      "method": "POST",
+      "request_body": "{\"pageSize\":25,\"type\":[],\"status\":[],\"agency\":[],\"adNumber\":\"\",\"agencyAdvertisementNumber\":\"\",\"title\":\"\",\"publishedDate\":\"\",\"openDate\":\"\",\"endDate\":\"\",\"commodityCodes\":[],\"intendsToParticipate\":\"\",\"assignee\":\"\",\"page\":1}"
     }
   ],
+  "api_payload_previews": [
+    {
+      "url": "https://vendor.myfloridamarketplace.com/mfmp/user/vipenv",
+      "payload_type": "dict",
+      "preview": "{'responseId': 'prod', 'responseMessage': ''}"
+    },
+    {
+      "url": "https://vendor.myfloridamarketplace.com/mfmp/bids/AdTypes",
+      "payload_type": "list",
+      "preview": "[{'id': '1', 'value': 'Agency Decision'}, {'id': '2', 'value': 'Grant Opportunities'}, {'id': '3', 'value': 'Informational Notice'}, {'id': '4', 'value': 'Invitation to Bid'}, {'id': '5', 'value': 'Invitation to Negotiate'}, {'id': '6', 'value': 'Request for Proposals'}, {'id': '7', 'value': 'Public Meeting Notice'}, {'id': '8', 'value': 'Request for Information'}, {'id': '9', 'value': 'Request for Statement of Qualifications'}, {'id': '10', 'value': 'Single Source'}]"
+    },
+    {
+      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/newsfeed",
+      "payload_type": "list",
+      "preview": "[{'title': None, 'content': '<p>⚠️&nbsp;Attention Vendors ⚠️</p><p>The MyFloridaMarketPlace (MFMP) Team has been made aware of an email impersonating MFMP regarding a new e-Bid platform. The email is sent from support@dbesbewob.tech with the subject line <i>Announcing New Procurement Department e-Bid Platform</i>. <strong>That email was not legitimate. If you have received this email, it should be reported as phishing through your organization’s security personnel.</strong></p><p>This email appears to have been sent to vendors. Please have your vendors work with their organization’s security personnel for any concerns, and contact the MFMP Customer Service Desk if you have any questions Monday – Friday from 8 a.m. – 6 p.m. ET by calling 866-352-3776 or emailing <a href=\"mailto:VendorHelp@MyFloridaMarketPlace.com\"><strong>VendorHelp@MyFloridaMarketPlace.com</strong></a> or <a href=\"mailto:BuyerHelp@MyFloridaMarketPlace.com\"><strong>BuyerHelp@MyFloridaMarketPlace.com</strong></a>.</p>'}]"
+    },
+    {
+      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/picklistOrg",
+      "payload_type": "list",
+      "preview": "[{'id': '30000004', 'value': 'Legislative Branch (LEG)'}, {'id': '30000010', 'value': 'Department of the Lottery (LOT)'}, {'id': '30000013', 'value': 'Department of Legal Affairs (DLA)'}, {'id': '30000021', 'value': 'Florida Department of Transportation (FDOT)'}, {'id': '30000029', 'value': 'Agency for Health Care Administration (AHCA)'}, {'id': '40000003', 'value': 'ELC of Alachua County'}, {'id': '40000004', 'value': 'ELC of Flagler and Volusia Counties'}, {'id': '40000036', 'value': 'Lake-Sumter Community College'}, {'id': '40000051', 'value': 'Valencia College'}, {'id': '40000057', 'value': 'South Fla Water Management Dist'}, {'id': '40000067', 'value': 'University of Central Florida'}, {'id': '40000071', 'value': 'Florida International University'}, {'id': '40000001', 'value': 'Volunteer Florida'}, {'id': '40000009', 'value': 'Treasure Coast Regional Planning Council'}, {'id': '30000006', 'value': 'Justice Administrative Commission (JAC)'}, {'id': '30000015', 'value': 'Department of Agriculture and Consumer Services (FDACS)'}, {'id': '30000018', 'value': 'Department of Education (DOE)'}, {'id': '30000026', 'value': 'Department of Health (DOH)'}, {'id': '30000036', 'value': 'Fl"
+    },
+    {
+      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids/count",
+      "payload_type": "int",
+      "preview": "0"
+    },
+    {
+      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
+      "payload_type": "list",
+      "preview": "[]"
+    }
+  ],
+  "api_records_count": 0,
   "body_excerpt": "MFMP MFMP for Vendors Vendor Disclosures State of Florida Advertisements Search Criteria double_arrow 25 Maximum Results Ad Type Ad Status Commodity Codes Organization Start Date End Date Ad Number Agency Advertisement Number Title Reset Search News ⚠️ Attention Vendors ⚠️ The MyFloridaMarketPlace (MFMP) Team has been made aware of an email impersonating MFMP regarding a new e-Bid platform. The email is sent from support@dbesbewob.tech with the subject line Announcing New Procurement Department e-Bid Platform. That email was not legitimate. If you have received this email, it should be reported as phishing through your organization’s security personnel. This email appears to have been sent to vendors. Please have your vendors work with their organization’s security personnel for any concerns, and contact the MFMP Customer Service Desk if you have any questions Monday – Friday from 8 a.m. – 6 p.m. ET by calling 866-352-3776 or emailing VendorHelp@MyFloridaMarketPlace.com or BuyerHelp@MyFloridaMarketPlace.com. Show Less Search Results Export to Excel Title Number Agency Advertisement Number Version Organization Ad Type Start Date End Date Status Copyright © 2020 State of Florida MFMP Help Desk: 866-FLA-EPRO (866-352-3776) Privacy Statement",
   "table_count": 1,
   "aria_row_count": 1,
