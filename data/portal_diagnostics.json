@@ -1,10 +1,10 @@
 {
-  "run_utc": "2026-10-18T10:32:01.234517+00:00",
-  "run_ist": "2026-10-18T16:02:01.234517+05:30",
+  "run_utc": "2026-10-18T10:41:38.968629+00:00",
+  "run_ist": "2026-10-18T16:11:38.968629+05:30",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
   "keywords": 26,
   "errors": [
-    "No listings matched keywords. Inspect body_excerpt and portal DOM/selectors in portal_diagnostics.json."
+    "No advertisement candidates extracted; inspect body_excerpt and portal DOM."
   ],
   "pages": [
     {
@@ -20,9 +20,11 @@
   "table_count": 1,
   "aria_row_count": 1,
   "anchor_count": 6,
+  "row_preview": [],
   "sheets_sync": {
     "status": "success",
     "appended": 0,
     "updated_cells": 0
-  }
+  },
+  "status": "failed"
 }
