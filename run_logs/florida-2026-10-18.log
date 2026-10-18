@@ -30,3 +30,7 @@ gspread.exceptions.APIError: APIError: [400]: Range ('Florida Tracker'!AJ1) exce
 2026-10-18 10:41:46,434 INFO Saved data: 0 historical, 0 matched this run, 0 new
 2026-10-18 10:41:48,124 INFO Sheets sync success: 0 appended; 0 cells updated
 2026-10-18 10:41:48,125 ERROR ZERO CANDIDATES: portal result extraction did not find any advertisement rows.
+2026-10-18 10:49:11,665 INFO Found 0 candidate links
+2026-10-18 10:49:11,678 INFO Saved data: 0 historical, 0 matched this run, 0 new
+2026-10-18 10:49:13,832 INFO Sheets sync success: 0 appended; 0 cells updated
+2026-10-18 10:49:13,834 ERROR ZERO CANDIDATES: portal result extraction did not find any advertisement rows.
