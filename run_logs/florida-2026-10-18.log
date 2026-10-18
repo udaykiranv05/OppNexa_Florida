@@ -1,0 +1,24 @@
+2026-10-18 10:17:33,324 INFO Found 0 candidate links
+2026-10-18 10:17:33,336 INFO Saved data: 0 historical, 0 matched this run, 0 new
+2026-10-18 10:17:35,155 ERROR Google Sheets sync failed; local files retained
+Traceback (most recent call last):
+  File "/home/runner/work/OppNexa_Florida/OppNexa_Florida/main.py", line 214, in main
+    added,updated=sync(output,reviews); diag['sheets_sync']={'status':'success','appended':added,'updated_cells':updated}
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/OppNexa_Florida/OppNexa_Florida/main.py", line 107, in sync
+    tracker,reviewws=open_sheets(); headers=ensure_headers(tracker,CORE+EXTRA); vals=tracker.get_all_values(); oldmap={}; rownum={}
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/OppNexa_Florida/OppNexa_Florida/main.py", line 101, in ensure_headers
+    ws.update(rowcol_to_a1(1,len(cur)+1),[missing],value_input_option='USER_ENTERED'); cur+=missing
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/gspread/worksheet.py", line 1246, in update
+    response = self.client.values_update(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/gspread/http_client.py", line 173, in values_update
+    r = self.request("put", url, params=params, json=body)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/gspread/http_client.py", line 128, in request
+    raise APIError(response)
+gspread.exceptions.APIError: APIError: [400]: Range ('Florida Tracker'!AJ1) exceeds grid limits. Max rows: 1000, max columns: 35
+2026-10-18 10:17:35,158 WARNING No candidates detected. Check data/portal_diagnostics.json and data/portal-error.png if present.
+2026-10-18 10:17:35,159 INFO Run complete.
