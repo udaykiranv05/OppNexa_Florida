@@ -237,6 +237,14 @@ def main():
     discovered=[]
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True); page=browser.new_page(viewport={'width':1440,'height':1000}); page.set_default_timeout(10000)
+        api_responses=[]
+        def capture_response(response):
+            try:
+                ct=response.headers.get('content-type','')
+                if ('json' in ct.lower() or '/api/' in response.url.lower()) and len(api_responses)<80:
+                    api_responses.append({'url':response.url[:500],'status':response.status,'content_type':ct[:120]})
+            except Exception: pass
+        page.on('response', capture_response)
         try:
             resp=page.goto(SEARCH,wait_until='domcontentloaded',timeout=45000); page.wait_for_timeout(2500); diag['http_status']=resp.status if resp else None; diag['final_url']=page.url; diag['title']=clean(page.title())
             # If search page is not already open, click the portal's search navigation.
@@ -281,18 +289,40 @@ def main():
                     if forms.count():
                         forms.first.evaluate('(f) => f.requestSubmit()'); page.wait_for_timeout(1800); clicked=True
                 except Exception as e: diag.setdefault('errors',[]).append('Form submit: '+str(e))
-            # Expand result panel/grid if collapsed; do not repeatedly click a static heading.
+            # MFMP's Angular UI renders the result header first; the control itself is
+            # labelled "Show More" (not "Show More Search Results"). Click that real
+            # button and wait for data rows to appear. Repeat only while the row count grows.
             for _ in range(8):
                 try:
-                    more = page.get_by_text(re.compile(r'Show More Search Results', re.I), exact=False)
-                    target = next((more.nth(i) for i in range(min(more.count(), 5)) if more.nth(i).is_visible() and more.nth(i).evaluate("e => ['BUTTON','A'].includes(e.tagName) || e.getAttribute('role')==='button' || /accordion|expansion/i.test(String(e.className))")), None)
-                    if not target: break
-                    target.click(timeout=2500); page.wait_for_timeout(1000)
-                except Exception: break
+                    before_rows = page.locator('table tbody tr, table tr, [role="row"], .mat-row, .mat-mdc-row').count()
+                    candidates_btn = page.locator('button, [role="button"], a, input[type="button"]')
+                    target = None
+                    for i in range(min(candidates_btn.count(), 100)):
+                        el = candidates_btn.nth(i)
+                        if not el.is_visible() or not el.is_enabled():
+                            continue
+                        label = clean(el.inner_text() if el.evaluate("e => e.tagName !== 'INPUT'") else el.get_attribute('value'))
+                        if re.fullmatch(r'show more(?:\s+search results)?', label, re.I):
+                            target = el; break
+                    if not target:
+                        break
+                    target.click(timeout=3000)
+                    page.wait_for_timeout(1800)
+                    try:
+                        page.wait_for_load_state('networkidle', timeout=2500)
+                    except Exception:
+                        pass
+                    after_rows = page.locator('table tbody tr, table tr, [role="row"], .mat-row, .mat-mdc-row').count()
+                    log.info('Clicked MFMP Show More: rows before=%s after=%s', before_rows, after_rows)
+                    if after_rows <= before_rows:
+                        break
+                except Exception as e:
+                    diag.setdefault('errors', []).append('Show More expansion: ' + str(e))
+                    break
             # Wait for client-rendered rows after submission.
             try: page.wait_for_function("() => [...document.querySelectorAll('tbody tr, [role=row], .mat-row, .ag-row')].some(r => (r.innerText||'').trim().length > 25)", timeout=6000)
             except Exception: pass
-            diag['search_submitted']=clicked; diag['body_excerpt']=clean(page.locator('body').inner_text())[:10000]; diag['table_count']=page.locator('table').count(); diag['aria_row_count']=page.locator('[role=row]').count(); diag['anchor_count']=page.locator('a[href]').count(); diag['dom_rows']=page.evaluate("() => [...document.querySelectorAll('table tr, [role=row], tbody tr, .mat-row, .ag-row')].map(r=>(r.innerText||r.textContent||'').replace(/\\s+/g,' ').trim()).filter(Boolean).slice(0,40)")
+            diag['search_submitted']=clicked; diag['api_responses']=api_responses; diag['body_excerpt']=clean(page.locator('body').inner_text())[:10000]; diag['table_count']=page.locator('table').count(); diag['aria_row_count']=page.locator('[role=row]').count(); diag['anchor_count']=page.locator('a[href]').count(); diag['dom_rows']=page.evaluate("() => [...document.querySelectorAll('table tr, [role=row], tbody tr, .mat-row, .ag-row')].map(r=>(r.innerText||r.textContent||'').replace(/\\s+/g,' ').trim()).filter(Boolean).slice(0,40)")
             discovered.extend(get_candidates(page)); diag['row_preview']=[{'title':x.get('title',''),'solicitation_id':x.get('solicitation_id',''),'agency':x.get('agency',''),'url':x.get('url','')} for x in discovered[:20]]; diag['pages'].append({'url':page.url,'link_count':page.locator('a[href]').count()})
             try: (DATA/'portal-rendered.html').write_text(page.content(),encoding='utf-8')
             except Exception: pass
