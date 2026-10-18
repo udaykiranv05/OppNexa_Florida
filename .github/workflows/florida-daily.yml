@@ -4,10 +4,15 @@ name: OppNexa Florida Daily Scraper
 on:
   workflow_dispatch:
   schedule:
+    # 09:00 AM IST = 03:30 UTC
     - cron: "30 3 * * *"
 
 permissions:
   contents: write
+
+concurrency:
+  group: oppnexa-florida-scraper
+  cancel-in-progress: false
 
 jobs:
   florida-scraper:
@@ -16,35 +21,68 @@ jobs:
 
     env:
       GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+      PYTHONUNBUFFERED: "1"
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright Chromium
+        run: python -m playwright install --with-deps chromium
 
       - name: Run Florida scraper
         run: python main.py
 
-      - name: Record run date in GitHub
+      - name: Record workflow run
         if: always()
         run: |
-          mkdir -p run_logs
-          echo "Workflow run: $GITHUB_RUN_ID" > "run_logs/run-${GITHUB_RUN_ID}.txt"
-          echo "Run time UTC: $(date -u +'%Y-%m-%d %H:%M:%S')" >> "run_logs/run-${GITHUB_RUN_ID}.txt"
-          echo "Run time IST: $(TZ=Asia/Kolkata date +'%Y-%m-%d %H:%M:%S')" >> "run_logs/run-${GITHUB_RUN_ID}.txt"
+          mkdir -p run_logs data
+          {
+            echo "Workflow: $GITHUB_WORKFLOW"
+            echo "Run ID: $GITHUB_RUN_ID"
+            echo "Run number: $GITHUB_RUN_NUMBER"
+            echo "Commit SHA: $GITHUB_SHA"
+            echo "Run result: ${{ job.status }}"
+            echo "Run time UTC: $(date -u +'%Y-%m-%d %H:%M:%S')"
+            echo "Run time IST: $(TZ=Asia/Kolkata date +'%Y-%m-%d %H:%M:%S')"
+          } > "run_logs/run-${GITHUB_RUN_ID}.txt"
 
-      - name: Commit run log
+      - name: Upload diagnostics if the run fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: florida-scraper-diagnostics-${{ github.run_id }}
+          path: |
+            data/
+            run_logs/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Commit generated data and run logs
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add run_logs
-          git diff --cached --quiet || git commit -m "Record Florida scraper run"
-          git push
+
+          git add data run_logs
+
+          if git diff --cached --quiet; then
+            echo "No generated files changed; nothing to commit."
+          else
+            git commit -m "Record Florida scraper run ${GITHUB_RUN_ID}"
+            git push
+          fi
