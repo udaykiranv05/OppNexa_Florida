@@ -56,6 +56,47 @@ def listing(title, href, text):
     m=re.search(r'\b([A-Z0-9][A-Z0-9._/-]{3,})\b',title)
     if m and re.search(r'\d',m.group(1)): sid=m.group(1)
     return {'title':clean(title),'url':urlnorm(href),'text':clean(text),'description':clean(text),'solicitation_id':sid,'agency':label(text,['Agency','Organization','Department']),'published_date':label(text,['Posted Date','Publish Date','Date Posted','Published']),'deadline_date':label(text,['Responses Due','Due Date','Closing Date','Deadline','End Date']),'opportunity_type':label(text,['Advertisement Type','Solicitation Type','Type'])}
+def records_from_api_payload(payload):
+    """Walk MFMP JSON responses and convert advertisement-like objects into records."""
+    found=[]; seen=set()
+    title_keys=('title','advertisementTitle','adTitle','bidTitle','solicitationTitle','name','description')
+    id_keys=('advertisementNumber','advertisementNo','adNumber','number','solicitationNumber','solicitationId','bidNumber','id')
+    agency_keys=('agency','agencyName','organization','organizationName','department','buyerName')
+    date_keys=('startDate','postedDate','publishDate','publishedDate','endDate','dueDate','responseDueDate','closeDate','deadline')
+    url_keys=('url','href','detailUrl','advertisementUrl','link','viewUrl')
+    def get(d, keys):
+        for k in keys:
+            v=d.get(k)
+            if isinstance(v,(str,int,float)) and clean(v): return clean(v)
+        return ''
+    def walk(obj):
+        if isinstance(obj,dict):
+            title=get(obj,title_keys); sid=get(obj,id_keys); agency=get(obj,agency_keys)
+            # Only treat objects with a title-like value plus an identifier or agency as a listing.
+            if title and (sid or agency) and title.lower() not in {'title','show more','search results'}:
+                text=' | '.join(f'{k}: {clean(v)}' for k,v in obj.items() if isinstance(v,(str,int,float)) and clean(v))
+                url=get(obj,url_keys)
+                if not url:
+                    # MFMP often exposes only an advertisement number; keep a portal search URL rather than inventing detail routes.
+                    url=SEARCH
+                key=(sid.lower(),title.lower(),url.lower())
+                if key not in seen:
+                    seen.add(key)
+                    rec=listing(title,url,text)
+                    rec.update({'solicitation_id':sid or rec.get('solicitation_id',''),'agency':agency or rec.get('agency',''),
+                                'published_date':get(obj,('startDate','postedDate','publishDate','publishedDate')),
+                                'deadline_date':get(obj,('endDate','dueDate','responseDueDate','closeDate','deadline')),
+                                'opportunity_type':get(obj,('adType','advertisementType','type','solicitationType')),
+                                'status':get(obj,('status','adStatus','advertisementStatus')),
+                                'advertisement_number':get(obj,('advertisementNumber','advertisementNo','adNumber')),
+                                'detail_verified':'Extracted from MFMP JSON response','api_record':obj})
+                    found.append(rec)
+            for v in obj.values(): walk(v)
+        elif isinstance(obj,list):
+            for v in obj: walk(v)
+    walk(payload)
+    return found
+
 def get_candidates(page):
     """Extract advertisement records from MFMP result tables and expandable result panels."""
     raw = page.evaluate(r"""() => {
@@ -237,12 +278,24 @@ def main():
     discovered=[]
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True); page=browser.new_page(viewport={'width':1440,'height':1000}); page.set_default_timeout(10000)
-        api_responses=[]
+        api_responses=[]; api_records=[]; api_payload_previews=[]
         def capture_response(response):
             try:
                 ct=response.headers.get('content-type','')
-                if ('json' in ct.lower() or '/api/' in response.url.lower()) and len(api_responses)<80:
-                    api_responses.append({'url':response.url[:500],'status':response.status,'content_type':ct[:120]})
+                if ('json' in ct.lower() or '/mfmp/pub/search/bids' in response.url.lower()) and len(api_responses)<100:
+                    entry={'url':response.url[:500],'status':response.status,'content_type':ct[:120]}
+                    try:
+                        req=response.request
+                        entry['method']=req.method
+                        if req.post_data: entry['request_body']=req.post_data[:3000]
+                    except Exception: pass
+                    api_responses.append(entry)
+                    try:
+                        payload=response.json()
+                        if len(api_payload_previews)<12: api_payload_previews.append({'url':response.url[:300],'payload_type':type(payload).__name__,'preview':str(payload)[:1200]})
+                        if re.search(r'/mfmp/pub/search/bids(?:\?|$)',response.url,re.I):
+                            api_records.extend(records_from_api_payload(payload))
+                    except Exception: pass
             except Exception: pass
         page.on('response', capture_response)
         try:
@@ -322,8 +375,8 @@ def main():
             # Wait for client-rendered rows after submission.
             try: page.wait_for_function("() => [...document.querySelectorAll('tbody tr, [role=row], .mat-row, .ag-row')].some(r => (r.innerText||'').trim().length > 25)", timeout=6000)
             except Exception: pass
-            diag['search_submitted']=clicked; diag['api_responses']=api_responses; diag['body_excerpt']=clean(page.locator('body').inner_text())[:10000]; diag['table_count']=page.locator('table').count(); diag['aria_row_count']=page.locator('[role=row]').count(); diag['anchor_count']=page.locator('a[href]').count(); diag['dom_rows']=page.evaluate("() => [...document.querySelectorAll('table tr, [role=row], tbody tr, .mat-row, .ag-row')].map(r=>(r.innerText||r.textContent||'').replace(/\\s+/g,' ').trim()).filter(Boolean).slice(0,40)")
-            discovered.extend(get_candidates(page)); diag['row_preview']=[{'title':x.get('title',''),'solicitation_id':x.get('solicitation_id',''),'agency':x.get('agency',''),'url':x.get('url','')} for x in discovered[:20]]; diag['pages'].append({'url':page.url,'link_count':page.locator('a[href]').count()})
+            diag['search_submitted']=clicked; diag['api_responses']=api_responses; diag['api_payload_previews']=api_payload_previews; diag['api_records_count']=len(api_records); diag['body_excerpt']=clean(page.locator('body').inner_text())[:10000]; diag['table_count']=page.locator('table').count(); diag['aria_row_count']=page.locator('[role=row]').count(); diag['anchor_count']=page.locator('a[href]').count(); diag['dom_rows']=page.evaluate("() => [...document.querySelectorAll('table tr, [role=row], tbody tr, .mat-row, .ag-row')].map(r=>(r.innerText||r.textContent||'').replace(/\\s+/g,' ').trim()).filter(Boolean).slice(0,40)")
+            discovered.extend(get_candidates(page)); discovered.extend(api_records); diag['row_preview']=[{'title':x.get('title',''),'solicitation_id':x.get('solicitation_id',''),'agency':x.get('agency',''),'url':x.get('url','')} for x in discovered[:20]]; diag['pages'].append({'url':page.url,'link_count':page.locator('a[href]').count()})
             try: (DATA/'portal-rendered.html').write_text(page.content(),encoding='utf-8')
             except Exception: pass
             for _ in range(9):
@@ -388,6 +441,10 @@ def main():
         diag['sheets_sync']={'status':'failed','error':str(e)}; log.exception('Google Sheets sync failed; local files retained')
     writej(diag_path,diag)
     if not candidates:
+        # Persist diagnostics and empty/previous history files even when extraction fails.
+        writej(leads_path, all_history if 'all_history' in locals() else history)
+        writecsv(DATA/'leads.csv',[sheetrow(x) for x in (all_history if 'all_history' in locals() else history)],CORE+EXTRA)
+        writej(reviews_path,reviews); writecsv(DATA/'manual_review.csv',reviews,REVIEW)
         diag['status']='failed'
         diag.setdefault('errors', []).append('No advertisement candidates extracted; inspect body_excerpt and portal DOM.')
         writej(diag_path,diag)
