@@ -60,10 +60,10 @@ def records_from_api_payload(payload):
     """Walk MFMP JSON responses and convert advertisement-like objects into records."""
     found=[]; seen=set()
     title_keys=('title','advertisementTitle','adTitle','bidTitle','solicitationTitle','name','description')
-    id_keys=('advertisementNumber','advertisementNo','adNumber','number','solicitationNumber','solicitationId','bidNumber','id')
-    agency_keys=('agency','agencyName','organization','organizationName','department','buyerName')
-    date_keys=('startDate','postedDate','publishDate','publishedDate','endDate','dueDate','responseDueDate','closeDate','deadline')
-    url_keys=('url','href','detailUrl','advertisementUrl','link','viewUrl')
+    id_keys=('advertisementId','uniqueName','advertisementNumber','advertisementNo','agencyAdNumber','adNumber','number','solicitationNumber','solicitationId','bidNumber','id')
+    agency_keys=('agency','agencyName','organization','organizationName','department','buyerName','organizationShortName')
+    date_keys=('startDate','postedDate','publishDate','publishDateLocal','publishedDate','openDate','closeDate','closeDateLocal','endDate','dueDate','responseDueDate','deadline')
+    url_keys=('url','href','detailUrl','advertisementUrl','source_url','link','viewUrl')
     def get(d, keys):
         for k in keys:
             v=d.get(k)
@@ -77,16 +77,19 @@ def records_from_api_payload(payload):
                 text=' | '.join(f'{k}: {clean(v)}' for k,v in obj.items() if isinstance(v,(str,int,float)) and clean(v))
                 url=get(obj,url_keys)
                 if not url:
-                    # MFMP often exposes only an advertisement number; keep a portal search URL rather than inventing detail routes.
-                    url=SEARCH
+                    detail_id=get(obj,('advertisementId','id'))
+                    if detail_id and detail_id.isdigit():
+                        url=urljoin(SOURCE, f'search/bids/detail/{detail_id}')
+                    else:
+                        url=SEARCH
                 key=(sid.lower(),title.lower(),url.lower())
                 if key not in seen:
                     seen.add(key)
                     rec=listing(title,url,text)
                     rec.update({'solicitation_id':sid or rec.get('solicitation_id',''),'agency':agency or rec.get('agency',''),
-                                'published_date':get(obj,('startDate','postedDate','publishDate','publishedDate')),
-                                'deadline_date':get(obj,('endDate','dueDate','responseDueDate','closeDate','deadline')),
-                                'opportunity_type':get(obj,('adType','advertisementType','type','solicitationType')),
+                                'published_date':get(obj,('publishDate','publishDateLocal','postedDate','startDate','publishedDate')),
+                                'deadline_date':get(obj,('closeDate','closeDateLocal','endDate','dueDate','responseDueDate','deadline')),
+                                'opportunity_type':get(obj,('type','adType','advertisementType','solicitationType')),
                                 'status':get(obj,('status','adStatus','advertisementStatus')),
                                 'advertisement_number':get(obj,('advertisementNumber','advertisementNo','adNumber')),
                                 'detail_verified':'Extracted from MFMP JSON response','api_record':obj})
@@ -293,7 +296,7 @@ def main():
                     try:
                         payload=response.json()
                         if len(api_payload_previews)<12: api_payload_previews.append({'url':response.url[:300],'payload_type':type(payload).__name__,'preview':str(payload)[:1200]})
-                        if re.search(r'/mfmp/pub/search/bids(?:\?|$)',response.url,re.I):
+                        if re.search(r'/mfmp/pub/search/bids(?:\?.*)?$',response.url,re.I):
                             api_records.extend(records_from_api_payload(payload))
                     except Exception: pass
             except Exception: pass
@@ -375,6 +378,23 @@ def main():
             # Wait for client-rendered rows after submission.
             try: page.wait_for_function("() => [...document.querySelectorAll('tbody tr, [role=row], .mat-row, .ag-row')].some(r => (r.innerText||'').trim().length > 25)", timeout=6000)
             except Exception: pass
+            # MFMP's current API returns zero results when status is left as an empty array.
+            # Explicitly request OPEN advertisements through the same-origin endpoint, using
+            # the portal's observed request schema and browser session cookies.
+            try:
+                forced = page.evaluate(r"""async () => {
+                  const base = {pageSize:25,type:[],status:['OPEN'],agency:[],adNumber:'',agencyAdvertisementNumber:'',title:'',publishedDate:'',openDate:'',endDate:'',commodityCodes:[],intendsToParticipate:'',assignee:''};
+                  const r = await fetch('/mfmp/pub/search/bids', {method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({...base,page:1})});
+                  const body = await r.text();
+                  let payload; try { payload=JSON.parse(body); } catch(e) { payload={_raw:body.slice(0,1500)}; }
+                  let count=null;
+                  try { const c=await fetch('/mfmp/pub/search/bids/count',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(base)}); const t=await c.text(); try { count=JSON.parse(t); } catch(e) { count=t.slice(0,500); } } catch(e) { count='count request failed: '+String(e); }
+                  return {status:r.status,payload,count,request:base};
+                }""")
+                diag['forced_open_search'] = {'http_status':forced.get('status'),'count_response':forced.get('count'),'payload_type':type(forced.get('payload')).__name__,'payload_preview':str(forced.get('payload'))[:2500],'request':forced.get('request')}
+                api_records.extend(records_from_api_payload(forced.get('payload')))
+            except Exception as e:
+                diag.setdefault('errors',[]).append('Explicit OPEN API search failed: '+str(e))
             diag['search_submitted']=clicked; diag['api_responses']=api_responses; diag['api_payload_previews']=api_payload_previews; diag['api_records_count']=len(api_records); diag['body_excerpt']=clean(page.locator('body').inner_text())[:10000]; diag['table_count']=page.locator('table').count(); diag['aria_row_count']=page.locator('[role=row]').count(); diag['anchor_count']=page.locator('a[href]').count(); diag['dom_rows']=page.evaluate("() => [...document.querySelectorAll('table tr, [role=row], tbody tr, .mat-row, .ag-row')].map(r=>(r.innerText||r.textContent||'').replace(/\\s+/g,' ').trim()).filter(Boolean).slice(0,40)")
             discovered.extend(get_candidates(page)); discovered.extend(api_records); diag['row_preview']=[{'title':x.get('title',''),'solicitation_id':x.get('solicitation_id',''),'agency':x.get('agency',''),'url':x.get('url','')} for x in discovered[:20]]; diag['pages'].append({'url':page.url,'link_count':page.locator('a[href]').count()})
             try: (DATA/'portal-rendered.html').write_text(page.content(),encoding='utf-8')
