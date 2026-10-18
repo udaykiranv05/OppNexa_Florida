@@ -1,0 +1,19 @@
+
+{
+  "search_url": "https://vendor.myfloridamarketplace.com/",
+  "spreadsheet_id": "1T_cg_DBR5WG7vrQZuNqV4hP6BC_BY5sMpwx1v7j5IoU",
+  "florida_worksheet_id": 1466561086,
+  "manual_review_worksheet_id": 53817621,
+  "max_details_per_run": 100,
+  "request_delay_seconds": 2,
+  "exclude_expired": true,
+  "keywords": [
+    "health information technology",
+    "healthcare data analytics",
+    "electronic health records",
+    "data integration",
+    "cybersecurity",
+    "cloud services",
+    "health information exchange"
+  ]
+}
