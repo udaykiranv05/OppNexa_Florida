@@ -54,3 +54,7 @@ gspread.exceptions.APIError: APIError: [400]: Range ('Florida Tracker'!AJ1) exce
 2026-10-18 11:21:00,810 INFO Saved data: 25 historical, 25 advertisements tracked this run, 25 new
 2026-10-18 11:21:03,413 INFO Sheets sync success: 25 appended; 0 cells updated
 2026-10-18 11:21:03,415 INFO Run complete: candidates=25 matched=0 tracked=25 history=25 status=no_keyword_matches
+2026-10-18 11:32:19,162 INFO Extracted 159 real portal records from API
+2026-10-18 11:32:19,213 INFO Saved data: 159 historical, 0 matched this run, 159 new
+2026-10-18 11:32:22,126 INFO Sheets sync success: 159 appended; 0 cells updated
+2026-10-18 11:32:22,127 INFO Run complete: candidates=159 matched=0 history=159

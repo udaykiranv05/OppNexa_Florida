@@ -1,363 +1,54 @@
 {
-  "run_utc": "2026-10-18T11:20:52.452905+00:00",
-  "run_ist": "2026-10-18T16:50:52.452905+05:30",
+  "run_utc": "2026-10-18T11:32:05.833591+00:00",
+  "run_ist": "2026-10-18T17:02:05.833591+05:30",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
   "keywords": 26,
-  "errors": [
-    "Candidates extracted but none matched configured keywords; review row_preview and broaden keywords only if appropriate."
-  ],
+  "errors": [],
   "pages": [
     {
-      "url": "https://vendor.myfloridamarketplace.com/search/bids",
-      "link_count": 6
+      "page": 1,
+      "records_found": 25
+    },
+    {
+      "page": 2,
+      "records_found": 25
+    },
+    {
+      "page": 3,
+      "records_found": 25
+    },
+    {
+      "page": 4,
+      "records_found": 25
+    },
+    {
+      "page": 5,
+      "records_found": 25
+    },
+    {
+      "page": 6,
+      "records_found": 25
+    },
+    {
+      "page": 7,
+      "records_found": 9
     }
   ],
-  "http_status": 200,
-  "final_url": "https://vendor.myfloridamarketplace.com/search/bids",
-  "title": "MyFloridaMarket Place Vendor Information Portal",
-  "controls": {
-    "buttons": [
-      {
-        "tag": "BUTTON",
-        "text": "double_arrow",
-        "disabled": false
-      },
-      {
-        "tag": "MAT-EXPANSION-PANEL-HEADER",
-        "text": "Ad Type",
-        "disabled": false
-      },
-      {
-        "tag": "MAT-EXPANSION-PANEL-HEADER",
-        "text": "Ad Status",
-        "disabled": false
-      },
-      {
-        "tag": "MAT-EXPANSION-PANEL-HEADER",
-        "text": "Commodity Codes",
-        "disabled": false
-      },
-      {
-        "tag": "BUTTON",
-        "text": "Open calendar",
-        "disabled": false
-      },
-      {
-        "tag": "BUTTON",
-        "text": "Open calendar",
-        "disabled": false
-      },
-      {
-        "tag": "BUTTON",
-        "text": "Reset",
-        "disabled": false
-      },
-      {
-        "tag": "BUTTON",
-        "text": "Search",
-        "disabled": false
-      },
-      {
-        "tag": "BUTTON",
-        "text": "Show More",
-        "disabled": false
-      }
-    ],
-    "selects": [],
-    "inputs": [
-      {
-        "type": "text",
-        "name": "",
-        "id": "mat-input-0",
-        "placeholder": "",
-        "aria": null
-      },
-      {
-        "type": "text",
-        "name": "",
-        "id": "mat-input-1",
-        "placeholder": "",
-        "aria": null
-      },
-      {
-        "type": "text",
-        "name": "",
-        "id": "mat-input-2",
-        "placeholder": "",
-        "aria": null
-      },
-      {
-        "type": "text",
-        "name": "",
-        "id": "mat-input-3",
-        "placeholder": "",
-        "aria": null
-      },
-      {
-        "type": "text",
-        "name": "",
-        "id": "mat-input-4",
-        "placeholder": "",
-        "aria": null
-      }
-    ]
-  },
-  "forced_open_search": {
-    "http_status": 200,
-    "count_response": 159,
-    "payload_type": "list",
-    "payload_preview": "[{'agencyAdNumber': 'RFP 26-003', 'type': 'Agency Decision', 'title': 'RFP 26-003 NWFWMD Independent Financial Audit Services', 'openDate': '2026-10-14T20:03:17.000+00:00', 'closeDate': '2026-10-19T20:10:00.000+00:00', 'favorite': False, 'status': 'OPEN', 'typeId': '1', 'version': 1, 'advertisementId': 17246, 'uniqueName': 'AD-17246', 'publishDate': '2026-10-14T20:03:17.000+00:00', 'organization': {'organizationId': 40000054, 'entity': ' - EU', 'shortName': None, 'vbsAgency': True, 'version': 0, 'name': 'Northwest Fla Water Management Dist'}, 'agency': 'Northwest Fla Water Management Dist'}, {'agencyAdNumber': 'FWC 26/27-33C', 'type': 'Agency Decision', 'title': 'Alligator Creek Weir Structure Repairs', 'openDate': '2026-10-15T12:10:24.000+00:00', 'closeDate': '2026-10-20T12:30:00.000+00:00', 'favorite': False, 'status': 'OPEN', 'typeId': '1', 'version': 1, 'advertisementId': 17249, 'uniqueName': 'AD-17249', 'publishDate': '2026-10-15T12:10:24.000+00:00', 'organization': {'organizationId': 30000036, 'entity': '770000', 'shortName': 'FWC', 'vbsAgency': True, 'version': 0, 'name': 'Florida Fish and Wildlife Conservation Commission (FWC)'}, 'agency': 'Florida Fish and Wildlife Conservation Commission (FWC)'}, {'agencyAdNumber': 'FWC 26/27-24', 'type': 'Agency Decision', 'title': 'Okaloacoochee Slough WMA Fire Line Installation - Agency Decision', 'openDate': '2026-10-16T16:30:00.000+00:00', 'closeDate': '2026-10-21T16:30:00.000+00:00', 'favorite': False, 'status': 'OPEN', 'typeId': '1', 'version': 1, 'advertisementId': 17254, 'uniqueName': 'AD-17254', 'publishDate': '2026-10-16T16:29:48.000+00:00', 'organization': {'organizationId': 30000036, 'entity': '770000', 'shortName': 'FWC', 'vbsAgency': True, 'version': 0, 'name': 'Florida Fish and Wildlife Conservation Commission (FWC)'}, 'agency': 'Florida Fish and Wildlife Conservation Commission (FWC)'}, {'agencyAdNumber': 'FWC 26/27-30', 'type': 'Agency Decision', 'title': 'Babcock Ranch Preserve Road Work - Agency Decision', 'openDate': '2026-10-15T15:30:18.000+00:00', 'closeDate': '2026-10-20T15:30:00.000+00:00', 'favorite': False, 'status': 'OPEN', 'typeId': '1', 'version': 1, 'advertisementId': 17262, 'uniqueName': 'AD-17262', 'publishDate': '2026-10-15T15:08:53.000+00:00', 'organization': {'organizationId': 30000036, 'entity': '770000', 'shortName': 'FWC', 'vbsAgency': True, 'version': 0, 'name': 'Florida Fish and Wildlife Conservation Commission (FWC)'}, 'agency': 'Florida Fish and Wildlife Conservation Com",
-    "request": {
-      "pageSize": 25,
-      "type": [],
-      "status": [
-        "OPEN"
-      ],
-      "agency": [],
-      "adNumber": "",
-      "agencyAdvertisementNumber": "",
-      "title": "",
-      "publishedDate": "",
-      "openDate": "",
-      "endDate": "",
-      "commodityCodes": [],
-      "intendsToParticipate": "",
-      "assignee": ""
-    }
-  },
-  "search_submitted": true,
-  "api_responses": [
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/user/vipenv",
-      "status": 200,
-      "content_type": "application/json; charset=utf-8",
-      "method": "GET"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/bids/AdTypes",
-      "status": 200,
-      "content_type": "application/json; charset=utf-8",
-      "method": "GET"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/newsfeed",
-      "status": 200,
-      "content_type": "application/json; charset=utf-8",
-      "method": "GET"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/picklistOrg",
-      "status": 200,
-      "content_type": "application/json; charset=utf-8",
-      "method": "GET"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids/count",
-      "status": 200,
-      "content_type": "application/json; charset=utf-8",
-      "method": "POST",
-      "request_body": "{\"pageSize\":25,\"type\":[],\"status\":[],\"agency\":[],\"adNumber\":\"\",\"agencyAdvertisementNumber\":\"\",\"title\":\"\",\"publishedDate\":\"\",\"openDate\":\"\",\"endDate\":\"\",\"commodityCodes\":[],\"intendsToParticipate\":\"\",\"assignee\":\"\"}"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
-      "status": 200,
-      "content_type": "application/json; charset=utf-8",
-      "method": "POST",
-      "request_body": "{\"pageSize\":25,\"type\":[],\"status\":[],\"agency\":[],\"adNumber\":\"\",\"agencyAdvertisementNumber\":\"\",\"title\":\"\",\"publishedDate\":\"\",\"openDate\":\"\",\"endDate\":\"\",\"commodityCodes\":[],\"intendsToParticipate\":\"\",\"assignee\":\"\",\"page\":1}"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
-      "status": 200,
-      "content_type": "application/json; charset=utf-8",
-      "method": "POST",
-      "request_body": "{\"pageSize\":25,\"type\":[],\"status\":[\"OPEN\"],\"agency\":[],\"adNumber\":\"\",\"agencyAdvertisementNumber\":\"\",\"title\":\"\",\"publishedDate\":\"\",\"openDate\":\"\",\"endDate\":\"\",\"commodityCodes\":[],\"intendsToParticipate\":\"\",\"assignee\":\"\",\"page\":1}"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids/count",
-      "status": 200,
-      "content_type": "application/json; charset=utf-8",
-      "method": "POST",
-      "request_body": "{\"pageSize\":25,\"type\":[],\"status\":[\"OPEN\"],\"agency\":[],\"adNumber\":\"\",\"agencyAdvertisementNumber\":\"\",\"title\":\"\",\"publishedDate\":\"\",\"openDate\":\"\",\"endDate\":\"\",\"commodityCodes\":[],\"intendsToParticipate\":\"\",\"assignee\":\"\"}"
-    }
-  ],
-  "api_payload_previews": [
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/user/vipenv",
-      "payload_type": "dict",
-      "preview": "{'responseId': 'prod', 'responseMessage': ''}"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/bids/AdTypes",
-      "payload_type": "list",
-      "preview": "[{'id': '1', 'value': 'Agency Decision'}, {'id': '2', 'value': 'Grant Opportunities'}, {'id': '3', 'value': 'Informational Notice'}, {'id': '4', 'value': 'Invitation to Bid'}, {'id': '5', 'value': 'Invitation to Negotiate'}, {'id': '6', 'value': 'Request for Proposals'}, {'id': '7', 'value': 'Public Meeting Notice'}, {'id': '8', 'value': 'Request for Information'}, {'id': '9', 'value': 'Request for Statement of Qualifications'}, {'id': '10', 'value': 'Single Source'}]"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/newsfeed",
-      "payload_type": "list",
-      "preview": "[{'title': None, 'content': '<p>⚠️&nbsp;Attention Vendors ⚠️</p><p>The MyFloridaMarketPlace (MFMP) Team has been made aware of an email impersonating MFMP regarding a new e-Bid platform. The email is sent from support@dbesbewob.tech with the subject line <i>Announcing New Procurement Department e-Bid Platform</i>. <strong>That email was not legitimate. If you have received this email, it should be reported as phishing through your organization’s security personnel.</strong></p><p>This email appears to have been sent to vendors. Please have your vendors work with their organization’s security personnel for any concerns, and contact the MFMP Customer Service Desk if you have any questions Monday – Friday from 8 a.m. – 6 p.m. ET by calling 866-352-3776 or emailing <a href=\"mailto:VendorHelp@MyFloridaMarketPlace.com\"><strong>VendorHelp@MyFloridaMarketPlace.com</strong></a> or <a href=\"mailto:BuyerHelp@MyFloridaMarketPlace.com\"><strong>BuyerHelp@MyFloridaMarketPlace.com</strong></a>.</p>'}]"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/picklistOrg",
-      "payload_type": "list",
-      "preview": "[{'id': '30000004', 'value': 'Legislative Branch (LEG)'}, {'id': '30000010', 'value': 'Department of the Lottery (LOT)'}, {'id': '30000013', 'value': 'Department of Legal Affairs (DLA)'}, {'id': '30000021', 'value': 'Florida Department of Transportation (FDOT)'}, {'id': '30000029', 'value': 'Agency for Health Care Administration (AHCA)'}, {'id': '40000003', 'value': 'ELC of Alachua County'}, {'id': '40000004', 'value': 'ELC of Flagler and Volusia Counties'}, {'id': '40000036', 'value': 'Lake-Sumter Community College'}, {'id': '40000051', 'value': 'Valencia College'}, {'id': '40000057', 'value': 'South Fla Water Management Dist'}, {'id': '40000067', 'value': 'University of Central Florida'}, {'id': '40000071', 'value': 'Florida International University'}, {'id': '40000001', 'value': 'Volunteer Florida'}, {'id': '40000009', 'value': 'Treasure Coast Regional Planning Council'}, {'id': '30000006', 'value': 'Justice Administrative Commission (JAC)'}, {'id': '30000015', 'value': 'Department of Agriculture and Consumer Services (FDACS)'}, {'id': '30000018', 'value': 'Department of Education (DOE)'}, {'id': '30000026', 'value': 'Department of Health (DOH)'}, {'id': '30000036', 'value': 'Fl"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids/count",
-      "payload_type": "int",
-      "preview": "0"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
-      "payload_type": "list",
-      "preview": "[]"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
-      "payload_type": "list",
-      "preview": "[{'agencyAdNumber': 'RFP 26-003', 'type': 'Agency Decision', 'title': 'RFP 26-003 NWFWMD Independent Financial Audit Services', 'openDate': '2026-10-14T20:03:17.000+00:00', 'closeDate': '2026-10-19T20:10:00.000+00:00', 'favorite': False, 'status': 'OPEN', 'typeId': '1', 'version': 1, 'advertisementId': 17246, 'uniqueName': 'AD-17246', 'publishDate': '2026-10-14T20:03:17.000+00:00', 'organization': {'organizationId': 40000054, 'entity': ' - EU', 'shortName': None, 'vbsAgency': True, 'version': 0, 'name': 'Northwest Fla Water Management Dist'}, 'agency': 'Northwest Fla Water Management Dist'}, {'agencyAdNumber': 'FWC 26/27-33C', 'type': 'Agency Decision', 'title': 'Alligator Creek Weir Structure Repairs', 'openDate': '2026-10-15T12:10:24.000+00:00', 'closeDate': '2026-10-20T12:30:00.000+00:00', 'favorite': False, 'status': 'OPEN', 'typeId': '1', 'version': 1, 'advertisementId': 17249, 'uniqueName': 'AD-17249', 'publishDate': '2026-10-15T12:10:24.000+00:00', 'organization': {'organizationId': 30000036, 'entity': '770000', 'shortName': 'FWC', 'vbsAgency': True, 'version': 0, 'name': 'Florida Fish and Wildlife Conservation Commission (FWC)'}, 'agency': 'Florida Fish and Wildlife Conserv"
-    },
-    {
-      "url": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids/count",
-      "payload_type": "int",
-      "preview": "159"
-    }
-  ],
-  "api_records_count": 50,
-  "body_excerpt": "MFMP MFMP for Vendors Vendor Disclosures State of Florida Advertisements Search Criteria double_arrow 25 Maximum Results Ad Type Ad Status Commodity Codes Organization Start Date End Date Ad Number Agency Advertisement Number Title Reset Search News ⚠️ Attention Vendors ⚠️ The MyFloridaMarketPlace (MFMP) Team has been made aware of an email impersonating MFMP regarding a new e-Bid platform. The email is sent from support@dbesbewob.tech with the subject line Announcing New Procurement Department e-Bid Platform. That email was not legitimate. If you have received this email, it should be reported as phishing through your organization’s security personnel. This email appears to have been sent to vendors. Please have your vendors work with their organization’s security personnel for any concerns, and contact the MFMP Customer Service Desk if you have any questions Monday – Friday from 8 a.m. – 6 p.m. ET by calling 866-352-3776 or emailing VendorHelp@MyFloridaMarketPlace.com or BuyerHelp@MyFloridaMarketPlace.com. Show Less Search Results Export to Excel Title Number Agency Advertisement Number Version Organization Ad Type Start Date End Date Status Copyright © 2020 State of Florida MFMP Help Desk: 866-FLA-EPRO (866-352-3776) Privacy Statement",
-  "table_count": 1,
-  "aria_row_count": 1,
-  "anchor_count": 6,
-  "dom_rows": [
-    "Title Number Agency Advertisement Number Version Organization Ad Type Start Date End Date Status"
-  ],
-  "row_preview": [
-    {
-      "title": "RFP 26-003 NWFWMD Independent Financial Audit Services",
-      "solicitation_id": "17246",
-      "agency": "Northwest Fla Water Management Dist",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17246"
-    },
-    {
-      "title": "Alligator Creek Weir Structure Repairs",
-      "solicitation_id": "17249",
-      "agency": "Florida Fish and Wildlife Conservation Commission (FWC)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17249"
-    },
-    {
-      "title": "Okaloacoochee Slough WMA Fire Line Installation - Agency Decision",
-      "solicitation_id": "17254",
-      "agency": "Florida Fish and Wildlife Conservation Commission (FWC)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17254"
-    },
-    {
-      "title": "Babcock Ranch Preserve Road Work - Agency Decision",
-      "solicitation_id": "17262",
-      "agency": "Florida Fish and Wildlife Conservation Commission (FWC)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17262"
-    },
-    {
-      "title": "Maintenance on DMT Solutions Global Corporation d/b/a BlueCrest Equipment",
-      "solicitation_id": "17266",
-      "agency": "Department of Revenue (REV)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17266"
-    },
-    {
-      "title": "Criminal Justice, Mental Health, and Substance Abuse Reinvestment Grant Program",
-      "solicitation_id": "14963",
-      "agency": "Department of Children and Families (DCF)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/14963"
-    },
-    {
-      "title": "Integrated Mobile Community and Jail Medication Assisted Treatment (MAT)",
-      "solicitation_id": "16456",
-      "agency": "Department of Children and Families (DCF)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/16456"
-    },
-    {
-      "title": "Responsible Fatherhood Initiative Direct Services Grant",
-      "solicitation_id": "16688",
-      "agency": "Department of Children and Families (DCF)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/16688"
-    },
-    {
-      "title": "FOSTER AND FAMILY SUPPORT GRANT PROGRAM",
-      "solicitation_id": "16819",
-      "agency": "Department of Children and Families (DCF)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/16819"
-    },
-    {
-      "title": "Targeted Outreach for Pregnant Women Act (TOPWA)",
-      "solicitation_id": "16832",
-      "agency": "Department of Health (DOH)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/16832"
-    },
-    {
-      "title": "State Sexual Risk Avoidance Education Grant",
-      "solicitation_id": "17178",
-      "agency": "Department of Health (DOH)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17178"
-    },
-    {
-      "title": "Advanced Business Intelligence and Analytics Platform",
-      "solicitation_id": "17231",
-      "agency": "Department of Commerce (DOC)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17231"
-    },
-    {
-      "title": "Conner Lab Corridor Structural Improvement - FDACS Project No. 1116",
-      "solicitation_id": "17234",
-      "agency": "Department of Agriculture and Consumer Services (FDACS)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17234"
-    },
-    {
-      "title": "Lawn Care Services",
-      "solicitation_id": "17251",
-      "agency": "Department of Management Services (DMS)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17251"
-    },
-    {
-      "title": "Statewide Roof Maintenance, Repair, and Replacement Services",
-      "solicitation_id": "14026",
-      "agency": "Florida Department of Corrections (FDC)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/14026"
-    },
-    {
-      "title": "Laundry Equipment",
-      "solicitation_id": "14231",
-      "agency": "Florida Department of Corrections (FDC)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/14231"
-    },
-    {
-      "title": "Non-Regulated Trash Collection Services Regions 1 and 2",
-      "solicitation_id": "15047",
-      "agency": "Florida Department of Corrections (FDC)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/15047"
-    },
-    {
-      "title": "FDC-CM20007 Lake CI Modernization Project",
-      "solicitation_id": "15842",
-      "agency": "Florida Department of Corrections (FDC)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/15842"
-    },
-    {
-      "title": "ITB-26-0010B Chester Sims Nurse Call System Replacement",
-      "solicitation_id": "15952",
-      "agency": "Department of Veterans' Affairs (FDVA)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/15952"
-    },
-    {
-      "title": "Florida State Hospital Elevator Maintenance and Repair",
-      "solicitation_id": "16049",
-      "agency": "Department of Children and Families (DCF)",
-      "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/16049"
-    }
-  ],
+  "method": "official_json_api",
+  "endpoint": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
+  "count_response": 159,
+  "api_count": 159,
+  "pages_requested": 7,
+  "records_extracted": 159,
+  "candidate_count": 159,
+  "matched_candidates_count": 0,
+  "unmatched_candidates_count": 159,
+  "historical_record_count": 159,
+  "new_records_this_run": 159,
   "sheets_sync": {
     "status": "success",
-    "appended": 25,
+    "appended": 159,
     "updated_cells": 0
   },
-  "status": "no_keyword_matches",
-  "matched_candidates_count": 0,
-  "tracked_candidates_count": 25
+  "status": "success"
 }
