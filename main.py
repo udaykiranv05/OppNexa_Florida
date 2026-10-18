@@ -21,7 +21,7 @@ DELAY=max(.5,float(CFG.get('request_delay_seconds',2))); CAP=min(100,max(1,int(C
 SHEET_ID=CFG.get('spreadsheet_id',''); TRACKER_GID=int(CFG.get('worksheet_id',1466561086)); REVIEW_GID=int(CFG.get('manual_review_worksheet_id',53817621))
 CORE=['Opportunity ID','Date Found','State','Agency','Opportunity Title','Solicitation / Reference No.','Opportunity Type','Service Category','Official Source URL','Published Date','Deadline Date','Deadline Time / Time Zone','Estimated Value (if published)','Scope Summary','Eligibility / Mandatory Requirements','Required Certifications / Experience','Contract Duration / Options','Incumbent / Prior Award (verified only)','Healthcare IT Fit (0-25)','Eligibility & Compliance (0-20)','Customer / Contract Fit (0-15)','Delivery Capability (0-15)','Deadline Feasibility (0-10)','Commercial Attractiveness (0-10)','Information Completeness (0-5)','Total Score (0-100)','Mandatory Gate (Pass / Fail / Unknown)','Recommendation (Go / Investigate / No-Go)','Fit Rationale','Risks / Gaps','Next Action','Last Verified Date','Owner','Review Status','Reviewer Notes']
 EXTRA=['Portal Advertisement ID','Advertisement Status','Matched Keywords','Keyword Match Count','First Seen Date','Last Seen Date','Last Source Update','Record Fingerprint','Scrape / Extraction Status','Detail Verification Status','Source Document URLs']
-REVIEW=['Date Detected','Keyword','Solicitation ID','Official Source URL','Failure Stage','Failure Reason','Retry Status','Last Attempt']
+REVIEW=['Date Detected','Keyword','Title','Solicitation ID','Official Source URL','Failure Stage','Failure Reason','Retry Status','Last Attempt']
 
 def readj(path, default):
     try: return json.loads(path.read_text(encoding='utf-8')) if path.exists() else default
@@ -206,13 +206,16 @@ def open_detail(page,x):
         x['opportunity_type']=x.get('opportunity_type') or label(body,['Advertisement Type','Solicitation Type','Type']); x['detail_verified']='Visited detail page'
     except Exception as e: x['detail_verified']=f'Failed: {e}'
     return x
-def reviewrow(x,kw,stage,reason): return {'Date Detected':TODAY,'Keyword':kw or '(no keyword matched)','Solicitation ID':x.get('solicitation_id',''),'Official Source URL':x.get('url',''),'Failure Stage':stage,'Failure Reason':str(reason)[:1000],'Retry Status':'Pending','Last Attempt':IST.strftime('%Y-%m-%d %H:%M:%S %Z')}
+def reviewrow(x,kw,stage,reason): return {'Date Detected':TODAY,'Keyword':kw or '(no keyword matched)','Title':clean(x.get('title') or x.get('advertisement_title') or x.get('name')),'Solicitation ID':x.get('solicitation_id',''),'Official Source URL':x.get('url',''),'Failure Stage':stage,'Failure Reason':str(reason)[:1000],'Retry Status':'Pending','Last Attempt':IST.strftime('%Y-%m-%d %H:%M:%S %Z')}
 def sheetrow(x,old=None):
     old=old or {}; ms=x.get('matched_keywords',[]); u=urlnorm(x.get('url')); sid=clean(x.get('solicitation_id')); ident=sid or u or fp(x)
     r={h:'' for h in CORE+EXTRA}; r.update(old)
-    vals={'Opportunity ID':ident,'Date Found':old.get('Date Found') or TODAY,'State':STATE,'Agency':clean(x.get('agency')),'Opportunity Title':clean(x.get('title')),'Solicitation / Reference No.':sid,'Opportunity Type':clean(x.get('opportunity_type')),'Service Category':', '.join(ms[:5]),'Official Source URL':u,'Published Date':clean(x.get('published_date')),'Deadline Date':clean(x.get('deadline_date')),'Scope Summary':clean(x.get('description'))[:1500],'Last Verified Date':TODAY,'Portal Advertisement ID':sid,'Matched Keywords':', '.join(ms),'Keyword Match Count':len(ms),'First Seen Date':old.get('First Seen Date') or x.get('first_seen_date') or TODAY,'Last Seen Date':TODAY,'Last Source Update':TODAY,'Record Fingerprint':fp(x),'Scrape / Extraction Status':'Listing extracted; keyword matched','Detail Verification Status':x.get('detail_verified','Not visited'),'Source Document URLs':u}
+    vals={'Opportunity ID':ident,'Date Found':old.get('Date Found') or TODAY,'State':STATE,'Agency':clean(x.get('agency')),'Opportunity Title':clean(x.get('title')),'Solicitation / Reference No.':sid,'Opportunity Type':clean(x.get('opportunity_type')),'Service Category':', '.join(ms[:5]),'Official Source URL':u,'Published Date':clean(x.get('published_date')),'Deadline Date':clean(x.get('deadline_date')),'Scope Summary':clean(x.get('description'))[:1500],'Last Verified Date':TODAY,'Portal Advertisement ID':sid,'Matched Keywords':', '.join(ms),'Keyword Match Count':len(ms),'First Seen Date':old.get('First Seen Date') or x.get('first_seen_date') or TODAY,'Last Seen Date':TODAY,'Last Source Update':TODAY,'Record Fingerprint':fp(x),'Scrape / Extraction Status':('Listing extracted; keyword matched' if ms else 'Listing extracted; manual keyword review required'),'Detail Verification Status':x.get('detail_verified','Not visited'),'Source Document URLs':u}
     r.update({k:v for k,v in vals.items() if v!=''})
-    r.setdefault('Mandatory Gate','Unknown'); r.setdefault('Recommendation','Investigate'); r.setdefault('Review Status','Pending Review')
+    r.setdefault('Mandatory Gate','Unknown'); r.setdefault('Recommendation','Investigate')
+    r.setdefault('Review Status','Pending Review' if ms else 'Manual Review')
+    if not ms and not r.get('Reviewer Notes'):
+        r['Reviewer Notes']='No configured keyword matched listing text; manually assess relevance before pursuing.'
     if not r.get('Next Action'): r['Next Action']='Review official advertisement and download solicitation documents'
     if not r.get('Risks / Gaps'): r['Risks / Gaps']='Confirm eligibility, scope, deadline and mandatory requirements from official documents'
     return r
@@ -443,17 +446,30 @@ def main():
                 else: reviews.append(reviewrow(x,'','Detail extraction','Listing no longer matched configured keywords after opening detail page'))
                 time.sleep(DELAY)
             browser.close(); selected=refined
+    # Keep ALL extracted advertisements in local leads history. Keyword-matched items
+    # are pursued normally; non-matches remain visible for human review instead of vanishing.
     output=[]; new_count=0
+    selected_by_key={}
     for x in selected:
-        sid=clean(x.get('solicitation_id')); k='id:'+sid.lower() if sid else 'url:'+urlnorm(x.get('url')).lower(); prior=histmap.get(k,{})
-        x['first_seen_date']=prior.get('first_seen_date') or prior.get('Date Found') or TODAY; x['last_seen_date']=TODAY
+        sid=clean(x.get('solicitation_id')); k='id:'+sid.lower() if sid else 'url:'+urlnorm(x.get('url')).lower()
+        selected_by_key[k]=x
+    for x in candidates:
+        sid=clean(x.get('solicitation_id')); k='id:'+sid.lower() if sid else 'url:'+urlnorm(x.get('url')).lower()
+        # Prefer the detail-verified version if this candidate matched a configured keyword.
+        x=selected_by_key.get(k, x)
+        prior=histmap.get(k,{})
+        x['first_seen_date']=prior.get('first_seen_date') or prior.get('Date Found') or TODAY
+        x['last_seen_date']=TODAY
         if not prior: new_count+=1
-        # Store raw data history with first/last seen.
-        saved=dict(prior); saved.update({a:b for a,b in x.items() if b not in ('',None,[])})
-        histmap[k]=saved; output.append(sheetrow(x,prior))
-    all_history=list(histmap.values()); writej(leads_path,all_history); writecsv(DATA/'leads.csv',[sheetrow(x) for x in all_history],CORE+EXTRA)
+        saved=dict(prior)
+        saved.update({a:b for a,b in x.items() if b not in ('',None,[])})
+        histmap[k]=saved
+        output.append(sheetrow(x,prior))
+    all_history=list(histmap.values())
+    writej(leads_path,all_history)
+    writecsv(DATA/'leads.csv',[sheetrow(x) for x in all_history],CORE+EXTRA)
     writej(reviews_path,reviews); writecsv(DATA/'manual_review.csv',reviews,REVIEW); writej(diag_path,diag)
-    log.info('Saved data: %d historical, %d matched this run, %d new',len(all_history),len(output),new_count)
+    log.info('Saved data: %d historical, %d advertisements tracked this run, %d new',len(all_history),len(output),new_count)
     try:
         added,updated=sync(output,reviews); diag['sheets_sync']={'status':'success','appended':added,'updated_cells':updated}
         log.info('Sheets sync success: %d appended; %d cells updated',added,updated)
@@ -472,7 +488,9 @@ def main():
         raise RuntimeError('No Florida advertisement records extracted; see data/portal_diagnostics.json')
     if diag.get('sheets_sync', {}).get('status') != 'success':
         raise RuntimeError('Records extracted but Google Sheets sync failed; see data/portal_diagnostics.json')
-    diag['status'] = 'success' if output else ('no_keyword_matches' if candidates else 'no_candidates')
+    diag['status'] = 'success' if selected else ('no_keyword_matches' if candidates else 'no_candidates')
+    diag['matched_candidates_count'] = len(selected)
+    diag['tracked_candidates_count'] = len(candidates)
     writej(diag_path,diag)
-    log.info('Run complete: candidates=%d matched=%d history=%d status=%s', len(candidates), len(output), len(all_history), diag['status'])
+    log.info('Run complete: candidates=%d matched=%d tracked=%d history=%d status=%s', len(candidates), len(selected), len(output), len(all_history), diag['status'])
 if __name__=='__main__': main()
