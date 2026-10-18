@@ -244,27 +244,55 @@ def main():
                 link=page.get_by_role('link',name=re.compile('Search Advertisements',re.I))
                 if link.count() and link.first.is_visible(): link.first.click(timeout=2500); page.wait_for_load_state('domcontentloaded',timeout=10000); page.wait_for_timeout(800)
             except Exception: pass
-            # Submit blank search; official Florida vendor guidance says blank search returns open ads.
+            # Inspect controls first. MFMP may render the result grid shell before rows load.
+            try:
+                diag['controls'] = page.evaluate(r"""() => ({
+                  buttons:[...document.querySelectorAll('button,input[type=submit],input[type=button],[role=button]')].map(e=>({tag:e.tagName,text:(e.innerText||e.value||e.getAttribute('aria-label')||'').trim(),disabled:!!e.disabled})).slice(0,60),
+                  selects:[...document.querySelectorAll('select')].map(e=>({name:e.name,id:e.id,label:(e.labels&&[...e.labels].map(x=>x.innerText).join(' '))||'',options:[...e.options].map(o=>({text:o.text,value:o.value})).slice(0,40)})),
+                  inputs:[...document.querySelectorAll('input')].map(e=>({type:e.type,name:e.name,id:e.id,placeholder:e.placeholder,aria:e.getAttribute('aria-label')})).slice(0,60)
+                })""")
+            except Exception: pass
+            # If the status selector offers Open/Active, choose it so blank search returns open ads.
+            try:
+                for sel in page.locator('select').all():
+                    info = sel.evaluate("e => ({name:e.name,id:e.id,label:((e.labels&&[...e.labels].map(x=>x.innerText).join(' '))||'')+' '+(e.getAttribute('aria-label')||'')})")
+                    if re.search(r'ad\s*status|status', clean(info.get('label','')+' '+info.get('name','')+' '+info.get('id','')), re.I):
+                        opts = sel.locator('option').all_text_contents()
+                        choice = next((v for v in opts if re.search(r'open|active|published',v,re.I)), None)
+                        if choice: sel.select_option(label=choice, timeout=2500); page.wait_for_timeout(300)
+            except Exception as e: diag.setdefault('errors',[]).append('Status filter: '+str(e))
+            # Submit the actual form containing the search criteria, preferring exact button names.
             clicked=False
-            for pat in ['Advertisement Search','Search']:
+            for selector in [
+                'button:has-text("Search Advertisements")','input[value*="Search Advertisements" i]',
+                'button:has-text("Advertisement Search")','input[value*="Search" i]',
+                'button[type="submit"]','input[type="submit"]','[role="button"]:has-text("Search")'
+            ]:
                 try:
-                    btn=page.get_by_role('button',name=re.compile(pat,re.I))
-                    if btn.count() and btn.first.is_visible(): btn.first.click(timeout=2500); page.wait_for_load_state('domcontentloaded',timeout=10000); page.wait_for_timeout(1500); clicked=True; break
+                    loc=page.locator(selector)
+                    target=next((loc.nth(i) for i in range(min(loc.count(),8)) if loc.nth(i).is_visible() and loc.nth(i).is_enabled()),None)
+                    if target:
+                        target.click(timeout=3000); page.wait_for_timeout(1800); clicked=True; break
                 except Exception: pass
+            # Some versions bind search to a form submit event rather than a native button.
             if not clicked:
                 try:
-                    btn=page.locator('input[type=submit],button[type=submit]')
-                    if btn.count(): btn.first.click(timeout=2500); page.wait_for_load_state('domcontentloaded',timeout=10000); page.wait_for_timeout(1500); clicked=True
-                except Exception: pass
-            # MFMP can collapse the results behind a Show More Search Results control.
+                    forms=page.locator('form')
+                    if forms.count():
+                        forms.first.evaluate('(f) => f.requestSubmit()'); page.wait_for_timeout(1800); clicked=True
+                except Exception as e: diag.setdefault('errors',[]).append('Form submit: '+str(e))
+            # Expand result panel/grid if collapsed; do not repeatedly click a static heading.
             for _ in range(8):
                 try:
                     more = page.get_by_text(re.compile(r'Show More Search Results', re.I), exact=False)
-                    visible = next((more.nth(i) for i in range(min(more.count(), 3)) if more.nth(i).is_visible()), None)
-                    if not visible: break
-                    visible.click(timeout=2500); page.wait_for_timeout(700)
+                    target = next((more.nth(i) for i in range(min(more.count(), 5)) if more.nth(i).is_visible() and more.nth(i).evaluate("e => ['BUTTON','A'].includes(e.tagName) || e.getAttribute('role')==='button' || /accordion|expansion/i.test(String(e.className))")), None)
+                    if not target: break
+                    target.click(timeout=2500); page.wait_for_timeout(1000)
                 except Exception: break
-            diag['search_submitted']=clicked; diag['body_excerpt']=clean(page.locator('body').inner_text())[:10000]; diag['table_count']=page.locator('table').count(); diag['aria_row_count']=page.locator('[role=row]').count(); diag['anchor_count']=page.locator('a[href]').count()
+            # Wait for client-rendered rows after submission.
+            try: page.wait_for_function("() => [...document.querySelectorAll('tbody tr, [role=row], .mat-row, .ag-row')].some(r => (r.innerText||'').trim().length > 25)", timeout=6000)
+            except Exception: pass
+            diag['search_submitted']=clicked; diag['body_excerpt']=clean(page.locator('body').inner_text())[:10000]; diag['table_count']=page.locator('table').count(); diag['aria_row_count']=page.locator('[role=row]').count(); diag['anchor_count']=page.locator('a[href]').count(); diag['dom_rows']=page.evaluate("() => [...document.querySelectorAll('table tr, [role=row], tbody tr, .mat-row, .ag-row')].map(r=>(r.innerText||r.textContent||'').replace(/\\s+/g,' ').trim()).filter(Boolean).slice(0,40)")
             discovered.extend(get_candidates(page)); diag['row_preview']=[{'title':x.get('title',''),'solicitation_id':x.get('solicitation_id',''),'agency':x.get('agency',''),'url':x.get('url','')} for x in discovered[:20]]; diag['pages'].append({'url':page.url,'link_count':page.locator('a[href]').count()})
             try: (DATA/'portal-rendered.html').write_text(page.content(),encoding='utf-8')
             except Exception: pass
