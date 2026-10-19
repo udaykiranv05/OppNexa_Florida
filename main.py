@@ -44,24 +44,49 @@ def urlnorm(u):
     return u.rstrip('/') if p.scheme in ('http','https') and p.path not in ('','/') else (f'{p.scheme}://{p.netloc}/' if p.scheme in ('http','https') else '')
 def fp(x): return hashlib.sha256('|'.join([clean(x.get('solicitation_id')).lower(),clean(x.get('title')).lower(),urlnorm(x.get('url')).lower()]).encode()).hexdigest()[:20]
 def matches(x):
-    """Strict phrase matching on the opportunity title, agency and actual scope text.
+    """Conservative healthcare-IT matching; agency names alone never qualify.
 
-    Do not match against raw API JSON or contact/footer metadata; that causes false
-    positives from unrelated records and portal boilerplate.
+    Search only the opportunity title, procurement scope/description, commodity,
+    and category. Exclude agency metadata and the contact/footer boilerplate, which
+    previously caused unrelated bids to match Florida health-agency keywords.
     """
-    description = clean(x.get('description', ''))
+    title = clean(x.get('title', ''))
+    description = clean(x.get('description', '') or x.get('text', ''))
+    # Remove known page boilerplate/contact blocks before testing scope.
     description = re.split(r'Please direct all questions to\s*:', description, flags=re.I)[0]
-    description = re.split(r'Copyright ©', description, flags=re.I)[0]
-    text = ' '.join([clean(x.get('title')), description, clean(x.get('agency')), clean(x.get('commodity')), clean(x.get('category'))]).casefold()
+    description = re.split(r'Copyright\s*©|Copyright\s+20\d\d|All rights reserved', description, flags=re.I)[0]
+    description = re.split(r'Downloadable Files for Advertisement|Click here to view the original advertisement', description, flags=re.I)[0]
+    scope = ' '.join([
+        description,
+        clean(x.get('commodity', '')),
+        clean(x.get('category', '')),
+    ])
+    # Only technical / system / data phrases qualify. Agency names are deliberately
+    # not searched, and generic words such as "health", "technology", or "services"
+    # are never sufficient on their own.
     found = []
     for keyword in KEYWORDS:
-        kw = clean(keyword).casefold()
-        # Ignore broad, high-noise phrases if accidentally left in config.
-        if len(kw) < 5 or kw in {'healthcare', 'health care', 'medical', 'it services', 'technology', 'services'}:
+        kw = clean(keyword)
+        low = kw.casefold()
+        if len(low) < 6 or low in {
+            'healthcare', 'health care', 'medical', 'technology', 'services',
+            'florida agency for health care administration',
+            'agency for health care administration', 'florida department of health',
+            'florida medicaid', 'integrated eligibility'
+        }:
             continue
-        if kw and kw in text and keyword not in found:
-            found.append(keyword)
-    return found
+        # Phrase boundaries prevent e.g. short terms matching inside unrelated words.
+        pattern = r'(?<![a-z0-9])' + re.escape(low) + r'(?![a-z0-9])'
+        # A specific technical phrase in the title is strong evidence. In scope text,
+        # require an explicit health/clinical/Medicaid/public-health context as well.
+        in_title = bool(re.search(pattern, title, re.I))
+        in_scope = bool(re.search(pattern, scope, re.I))
+        if in_title or (in_scope and re.search(
+            r'\b(health|healthcare|health care|clinical|patient|hospital|medical|medicaid|public health|immunization|disease surveillance)\b',
+            scope, re.I
+        )):
+            found.append(kw)
+    return list(dict.fromkeys(found))
 
 def label(text, names):
     text=clean(text)
