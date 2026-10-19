@@ -1,9 +1,9 @@
 {
-  "run_utc": "2026-10-19T08:01:40.736307+00:00",
-  "run_ist": "2026-10-19T13:31:40.736307+05:30",
-  "run_florida": "2026-10-19T04:01:40.736307-04:00",
+  "run_utc": "2026-10-19T08:33:11.684178+00:00",
+  "run_ist": "2026-10-19T14:03:11.684178+05:30",
+  "run_florida": "2026-10-19T04:33:11.684178-04:00",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
-  "configured_keyword_count": 50,
+  "configured_keyword_count": 63,
   "errors": [],
   "pages": [
     {
@@ -42,23 +42,28 @@
   "api_count": 160,
   "pages_requested": 7,
   "records_extracted": 156,
-  "detail_pages_attempted": 100,
-  "detail_pages_visited": 100,
+  "detail_contact_enrichment": {
+    "attempted": 100,
+    "visited": 100,
+    "contacts_found": 94,
+    "errors": []
+  },
+  "contact_policy": "Contact fields are extracted from each official opportunity detail page visited. No user-provided contact is substituted. Records beyond max_details_per_run remain unverified until a later run.",
   "candidate_count": 156,
   "historical_record_count": 156,
-  "matched_candidates_count": 12,
-  "tracker_eligible_count": 12,
-  "unmatched_valid_count": 144,
+  "matched_candidates_count": 1,
+  "tracker_eligible_count": 1,
+  "unmatched_valid_count": 155,
   "manual_review_exception_count": 0,
   "new_records_this_run": 156,
   "status": "success",
-  "tracker_policy": "Only valid listings matching at least one configured keyword are sent to Florida Tracker; existing unmatched rows are preserved and duplicate rows only are removed.",
+  "tracker_policy": "Only valid listings matching at least one configured keyword are sent to Florida Tracker; existing rows are never automatically deleted.",
   "date_time_policy": "Published/open and closing date-time values are copied from official API fields when available. Source timestamps are preserved; missing times/time zones are left blank rather than guessed.",
   "sheets_sync": {
     "status": "success",
-    "appended_rows": 12,
+    "appended_rows": 1,
     "updated_cells": 0,
-    "tracker_candidates_sent": 12,
+    "tracker_candidates_sent": 1,
     "manual_review_exceptions_sent": 0
   }
 }
