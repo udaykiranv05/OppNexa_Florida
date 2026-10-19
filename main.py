@@ -43,16 +43,29 @@ def urlnorm(u):
     u,_=urldefrag(urljoin(SOURCE,str(u).strip())); p=urlparse(u)
     return u.rstrip('/') if p.scheme in ('http','https') and p.path not in ('','/') else (f'{p.scheme}://{p.netloc}/' if p.scheme in ('http','https') else '')
 def fp(x): return hashlib.sha256('|'.join([clean(x.get('solicitation_id')).lower(),clean(x.get('title')).lower(),urlnorm(x.get('url')).lower()]).encode()).hexdigest()[:20]
+def _match_normalize(value):
+    # Make punctuation, hyphens, line breaks, and repeated spaces equivalent.
+    value = clean(value).casefold()
+    value = re.sub(r'[^\w]+', ' ', value, flags=re.UNICODE)
+    return re.sub(r'\s+', ' ', value).strip()
+
 def matches(x):
-    # Match against useful procurement fields; normalize whitespace/case, and allow
-    # any configured keyword to qualify a record. One or more matches are sufficient.
-    text = ' '.join(clean(x.get(k, '')) for k in
-                    ('title', 'description', 'agency', 'commodity', 'category', 'text')).casefold()
+    # Search all known procurement fields plus the serialized API record.
+    # Punctuation-insensitive matching catches forms like health-care / healthcare
+    # only when their normalized words actually align; it does not use fuzzy guesses.
+    raw_text = ' '.join(clean(x.get(k, '')) for k in
+                        ('title', 'description', 'agency', 'commodity', 'category', 'text'))
+    text = _match_normalize(raw_text)
+    compact_text = text.replace(' ', '')
     found = []
     for keyword in KEYWORDS:
-        kw = clean(keyword).casefold()
-        if kw and kw in text and keyword not in found:
-            found.append(keyword)
+        kw = _match_normalize(keyword)
+        if not kw:
+            continue
+        # Standard phrase matching, with a compact fallback for common hyphen/spacing variants.
+        if kw in text or (len(kw.replace(' ', '')) >= 5 and kw.replace(' ', '') in compact_text):
+            if keyword not in found:
+                found.append(keyword)
     return found
 def label(text, names):
     text=clean(text)
@@ -194,8 +207,8 @@ def sync(rows, reviews):
     tracker, reviewws = open_sheets()
     headers = with_retry(lambda: ensure_headers(tracker, CORE + EXTRA))
     vals = with_retry(lambda: tracker.get_all_values())
-    # Remove legacy non-matching rows and duplicate rows from the tracker first.
-    # This is safe only when config.json contains keywords; main() checks that before sync.
+    # Safety: never delete existing Tracker rows just because a run returns zero matches.
+    # Only remove duplicate rows that share the same stable key; unmatched legacy rows are preserved.
     delete_rows = []
     seen_sheet_keys = set()
     for i, v in enumerate(vals[1:], start=2):
@@ -203,21 +216,14 @@ def sync(rows, reviews):
         if not clean(r.get('Opportunity Title')):
             continue
         k = keyrow(r)
-        probe = {
-            'title': r.get('Opportunity Title', ''),
-            'description': r.get('Scope Summary', ''),
-            'agency': r.get('Agency', ''),
-            'category': r.get('Service Category', ''),
-            'text': r.get('Opportunity Title', '') + ' ' + r.get('Scope Summary', '') + ' ' + r.get('Agency', '')
-        }
-        if not matches(probe) or (k and k in seen_sheet_keys):
+        if k and k in seen_sheet_keys:
             delete_rows.append(i)
         elif k:
             seen_sheet_keys.add(k)
     for row_index in reversed(delete_rows):
         with_retry(lambda row_index=row_index: tracker.delete_rows(row_index))
     if delete_rows:
-        log.info('Removed %d non-matching/duplicate legacy rows from Florida Tracker', len(delete_rows))
+        log.info('Removed %d duplicate rows from Florida Tracker; retained all non-duplicate rows', len(delete_rows))
         vals = with_retry(lambda: tracker.get_all_values())
 
     oldmap, rownum = {}, {}
@@ -443,6 +449,37 @@ def main():
         writej(diag_path, diag)
         raise RuntimeError('No valid API records extracted; refusing to overwrite outputs with empty data.')
 
+    # The search API may omit the full scope/description. Visit official detail pages
+    # for up to max_details_per_run records before keyword matching.
+    detail_limit = min(len(candidates), CAP)
+    if detail_limit:
+        try:
+            with sync_playwright() as playwright:
+                browser = playwright.chromium.launch(headless=True)
+                page = browser.new_page()
+                detail_ok = 0
+                for idx, record in enumerate(candidates[:detail_limit], start=1):
+                    if record.get('url'):
+                        open_detail(page, record)
+                        if record.get('detail_verified') == 'Visited detail page':
+                            detail_ok += 1
+                    if idx % 10 == 0:
+                        log.info('Detail-page enrichment: checked %d/%d records', idx, detail_limit)
+                    time.sleep(DELAY)
+                browser.close()
+                diag['detail_pages_attempted'] = detail_limit
+                diag['detail_pages_visited'] = detail_ok
+        except Exception as exc:
+            diag.setdefault('errors', []).append('Detail-page enrichment issue: ' + str(exc))
+            log.warning('Detail-page enrichment was unavailable; matching will use API fields: %s', exc)
+
+    # Rebuild searchable text after detail pages have added the full body.
+    for record in candidates:
+        record['text'] = ' '.join([
+            clean(record.get('title')), clean(record.get('agency')),
+            clean(record.get('description')), clean(record.get('text'))
+        ])
+
     all_records = []
     matched_records = []
     exceptions = []
@@ -498,7 +535,7 @@ def main():
         if (('id:' + clean(x.get('solicitation_id')).lower()) if clean(x.get('solicitation_id')) else ('url:' + urlnorm(x.get('url')).lower())) not in previous_keys
     )
     diag['status'] = 'extracted_local_pending_sheets'
-    diag['tracker_policy'] = 'Only valid listings matching at least one configured keyword are sent to Florida Tracker; existing unmatched rows are pruned.'
+    diag['tracker_policy'] = 'Only valid listings matching at least one configured keyword are sent to Florida Tracker; existing unmatched rows are preserved and duplicate rows only are removed.'
     diag['date_time_policy'] = 'Published/open and closing date-time values are copied from official API fields when available. Source timestamps are preserved; missing times/time zones are left blank rather than guessed.'
     writej(diag_path, diag)
     log.info('Saved %d portal records locally; %d keyword-matching Tracker records; %d critical exceptions for Manual Review', len(all_history), len(matched_records), diag['manual_review_exception_count'])
