@@ -1,7 +1,7 @@
 {
-  "run_utc": "2026-10-19T08:46:21.018631+00:00",
-  "run_ist": "2026-10-19T14:16:21.018631+05:30",
-  "run_florida": "2026-10-19T04:46:21.018631-04:00",
+  "run_utc": "2026-10-19T08:55:07.637678+00:00",
+  "run_ist": "2026-10-19T14:25:07.637678+05:30",
+  "run_florida": "2026-10-19T04:55:07.637678-04:00",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
   "configured_keyword_count": 58,
   "errors": [],
@@ -42,28 +42,22 @@
   "api_count": 160,
   "pages_requested": 7,
   "records_extracted": 156,
-  "detail_contact_enrichment": {
-    "attempted": 100,
-    "visited": 100,
-    "contacts_found": 94,
-    "errors": []
-  },
-  "contact_policy": "Contact fields are extracted from each official opportunity detail page visited. No user-provided contact is substituted. Records beyond max_details_per_run remain unverified until a later run.",
   "candidate_count": 156,
   "historical_record_count": 156,
   "matched_candidates_count": 0,
-  "tracker_eligible_count": 0,
+  "tracker_eligible_count": 156,
   "unmatched_valid_count": 156,
   "manual_review_exception_count": 0,
   "new_records_this_run": 156,
   "status": "success",
-  "tracker_policy": "Only valid listings matching at least one configured keyword are sent to Florida Tracker; existing rows are never automatically deleted.",
+  "tracker_policy": "All valid portal listings are sent to Florida Tracker; keyword matches are labeled for review and unmatched listings are explicitly marked for manual screening. Existing rows are never automatically deleted.",
   "date_time_policy": "Published/open and closing date-time values are copied from official API fields when available. Source timestamps are preserved; missing times/time zones are left blank rather than guessed.",
   "sheets_sync": {
     "status": "success",
-    "appended_rows": 0,
+    "appended_rows": 156,
     "updated_cells": 0,
-    "tracker_candidates_sent": 0,
-    "manual_review_exceptions_sent": 0
+    "tracker_candidates_sent": 156,
+    "manual_review_exceptions_sent": 0,
+    "write_verified": true
   }
 }
