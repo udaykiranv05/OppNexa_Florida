@@ -119,9 +119,11 @@ def reviewrow(x,kw,stage,reason): return {'Date Detected':TODAY,'Keyword':kw or 
 def sheetrow(x,old=None):
     old=old or {}; ms=x.get('matched_keywords',[]); u=urlnorm(x.get('url')); sid=clean(x.get('solicitation_id')); ident=sid or u or fp(x)
     r={h:'' for h in CORE+EXTRA}; r.update(old)
-    vals={'Opportunity ID':ident,'Date Found':old.get('Date Found') or TODAY,'State':STATE,'Agency':clean(x.get('agency')),'Opportunity Title':clean(x.get('title')),'Solicitation / Reference No.':sid,'Opportunity Type':clean(x.get('opportunity_type')),'Service Category':', '.join(ms[:5]),'Official Source URL':u,'Published Date':clean(x.get('published_date')),'Deadline Date':clean(x.get('deadline_date')),'Scope Summary':clean(x.get('description'))[:1500],'Last Verified Date':TODAY,'Portal Advertisement ID':sid,'Matched Keywords':', '.join(ms),'Keyword Match Count':len(ms),'First Seen Date':old.get('First Seen Date') or x.get('first_seen_date') or TODAY,'Last Seen Date':TODAY,'Last Source Update':TODAY,'Record Fingerprint':fp(x),'Scrape / Extraction Status':('Listing extracted; keyword matched' if ms else 'Listing extracted; manual relevance review'),'Detail Verification Status':x.get('detail_verified','Not visited'),'Source Document URLs':u}
+    vals={'Opportunity ID':ident,'Date Found':old.get('Date Found') or TODAY,'State':STATE,'Agency':clean(x.get('agency')),'Opportunity Title':clean(x.get('title')),'Solicitation / Reference No.':sid,'Opportunity Type':clean(x.get('opportunity_type')),'Service Category':', '.join(ms[:5]),'Official Source URL':u,'Published Date':clean(x.get('published_date')),'Deadline Date':clean(x.get('deadline_date')),'Scope Summary':clean(x.get('description'))[:1500],'Last Verified Date':TODAY,'Portal Advertisement ID':sid,'Matched Keywords':', '.join(ms),'Keyword Match Count':len(ms),'First Seen Date':old.get('First Seen Date') or x.get('first_seen_date') or TODAY,'Last Seen Date':TODAY,'Last Source Update':TODAY,'Record Fingerprint':fp(x),'Scrape / Extraction Status':('Listing extracted; keyword matched' if ms else 'Valid listing; no configured keyword matched'),'Detail Verification Status':x.get('detail_verified','Not visited'),'Source Document URLs':u}
     r.update({k:v for k,v in vals.items() if v!=''})
-    r.setdefault('Mandatory Gate','Unknown'); r.setdefault('Recommendation','Investigate'); r.setdefault('Review Status','Pending Review' if ms else 'Manual Review')
+    if not r.get('Mandatory Gate'): r['Mandatory Gate'] = 'Unknown'
+    if not r.get('Recommendation'): r['Recommendation'] = 'Investigate'
+    if not r.get('Review Status'): r['Review Status'] = 'Pending Review'
     if not r.get('Next Action'): r['Next Action']='Review official advertisement and download solicitation documents'
     if not r.get('Risks / Gaps'): r['Risks / Gaps']='Confirm eligibility, scope, deadline and mandatory requirements from official documents'
     return r
@@ -157,39 +159,104 @@ def ensure_headers(ws, needed):
 def keyrow(r):
     sid=clean(r.get('Solicitation / Reference No.')) or clean(r.get('Portal Advertisement ID')); u=urlnorm(r.get('Official Source URL'))
     return 'id:'+sid.lower() if sid else ('url:'+u.lower() if u else '')
-def sync(rows,reviews):
-    tracker,reviewws=open_sheets(); headers=ensure_headers(tracker,CORE+EXTRA); vals=tracker.get_all_values(); oldmap={}; rownum={}
-    for i,v in enumerate(vals[1:],start=2):
-        r={h:(v[j] if j<len(v) else '') for j,h in enumerate(headers)}; k=keyrow(r)
-        # Ignore legacy malformed rows (blank title or generic search URL) so they are not reused.
-        if not clean(r.get('Opportunity Title')): continue
-        if urlnorm(r.get('Official Source URL')) == urlnorm(SEARCH) and not clean(r.get('Solicitation / Reference No.') or r.get('Portal Advertisement ID')): continue
-        if k: oldmap[k]=r; rownum[k]=i
-    protected={'Risks / Gaps','Next Action','Owner','Review Status','Reviewer Notes','Healthcare IT Fit (0-25)','Eligibility & Compliance (0-20)','Customer / Contract Fit (0-15)','Delivery Capability (0-15)','Deadline Feasibility (0-10)','Commercial Attractiveness (0-10)','Information Completeness (0-5)','Total Score (0-100)','Mandatory Gate (Pass / Fail / Unknown)','Recommendation (Go / Investigate / No-Go)'}
-    append=[]; updates=[]
+def with_retry(fn, attempts=6):
+    """Retry Google API calls on quota/rate-limit/transient errors."""
+    delay = 2
+    for attempt in range(attempts):
+        try:
+            return fn()
+        except Exception as exc:
+            msg = str(exc).lower()
+            retryable = any(t in msg for t in ('429', 'quota', 'rate limit', '500', '502', '503', '504', 'timed out'))
+            if not retryable or attempt == attempts - 1:
+                raise
+            log.warning('Google Sheets transient error (attempt %s/%s): %s; retrying in %ss', attempt + 1, attempts, exc, delay)
+            time.sleep(delay)
+            delay = min(delay * 2, 60)
+
+def sync(rows, reviews):
+    """Upsert matching opportunities and append only genuine data exceptions to Manual Review.
+
+    All cell changes are sent in a small number of batch requests to avoid per-cell write quota.
+    """
+    from gspread.utils import rowcol_to_a1
+    tracker, reviewws = open_sheets()
+    headers = with_retry(lambda: ensure_headers(tracker, CORE + EXTRA))
+    vals = with_retry(lambda: tracker.get_all_values())
+    oldmap, rownum = {}, {}
+    for i, v in enumerate(vals[1:], start=2):
+        r = {h: (v[j] if j < len(v) else '') for j, h in enumerate(headers)}
+        k = keyrow(r)
+        if not clean(r.get('Opportunity Title')):
+            continue
+        if k:
+            oldmap[k] = r
+            rownum[k] = i
+    protected = {
+        'Risks / Gaps','Next Action','Owner','Review Status','Reviewer Notes',
+        'Healthcare IT Fit (0-25)','Eligibility & Compliance (0-20)',
+        'Customer / Contract Fit (0-15)','Delivery Capability (0-15)',
+        'Deadline Feasibility (0-10)','Commercial Attractiveness (0-10)',
+        'Information Completeness (0-5)','Total Score (0-100)',
+        'Mandatory Gate (Pass / Fail / Unknown)','Recommendation (Go / Investigate / No-Go)'
+    }
+    append_rows, cell_updates = [], []
     for x in rows:
-        k=keyrow(x); old=oldmap.get(k); merged=sheetrow(x,old)
+        if 'solicitation_id' in x or 'title' in x:
+            sid = clean(x.get('solicitation_id'))
+            u = urlnorm(x.get('url'))
+            k = 'id:' + sid.lower() if sid else ('url:' + u.lower() if u else '')
+            merged = sheetrow(x, oldmap.get(k))
+        else:
+            k = keyrow(x)
+            merged = dict(oldmap.get(k, {}))
+            merged.update(x)
+        if not k:
+            continue
+        old = oldmap.get(k)
         if old and k in rownum:
-            for j,h in enumerate(headers,1):
-                if h not in protected and merged.get(h,'') not in ('',old.get(h,'')): updates.append((rownum[k],j,merged[h]))
-        else: append.append([merged.get(h,'') for h in headers])
-    # Use batch update ranges grouped by cell to avoid slow per-cell requests.
-    for rn,cn,val in updates: tracker.update_cell(rn,cn,val); time.sleep(.03)
-    if append: tracker.append_rows(append,value_input_option='USER_ENTERED',table_range='A1')
+            rn = rownum[k]
+            for j, h in enumerate(headers, start=1):
+                if h in protected:
+                    continue
+                newval = merged.get(h, '')
+                if newval not in ('', old.get(h, '')):
+                    cell_updates.append({'range': rowcol_to_a1(rn, j), 'values': [[newval]]})
+        else:
+            append_rows.append([merged.get(h, '') for h in headers])
+
+    # Batch cell updates; do not call update_cell in a loop.
+    if cell_updates:
+        for i in range(0, len(cell_updates), 400):
+            chunk = cell_updates[i:i + 400]
+            with_retry(lambda chunk=chunk: tracker.batch_update(chunk, value_input_option='USER_ENTERED'))
+    if append_rows:
+        with_retry(lambda: tracker.append_rows(append_rows, value_input_option='USER_ENTERED', table_range='A1'))
+
     if reviewws is not None and reviews:
-        rh=ensure_headers(reviewws,REVIEW); old=reviewws.get_all_values(); known=set()
-        for v in old[1:]:
-            row={h:(v[j] if j<len(v) else '') for j,h in enumerate(rh)}
-            sid=clean(row.get('Solicitation ID')); u=urlnorm(row.get('Official Source URL'))
-            if sid: known.add('id:'+sid.lower())
-            elif u: known.add('url:'+u.lower())
-        new=[]
+        rh = with_retry(lambda: ensure_headers(reviewws, REVIEW))
+        existing = with_retry(lambda: reviewws.get_all_values())
+        known = set()
+        for v in existing[1:]:
+            row = {h: (v[j] if j < len(v) else '') for j, h in enumerate(rh)}
+            sid = clean(row.get('Solicitation ID'))
+            u = urlnorm(row.get('Official Source URL'))
+            k = 'id:' + sid.lower() if sid else ('url:' + u.lower() if u else '')
+            if k:
+                known.add(k)
+        new_review_rows = []
         for x in reviews:
-            sid=clean(x.get('Solicitation ID')); u=urlnorm(x.get('Official Source URL'))
-            k='id:'+sid.lower() if sid else ('url:'+u.lower() if u else '')
-            if k and k not in known: new.append([x.get(h,'') for h in rh]); known.add(k)
-        if new: reviewws.append_rows(new,value_input_option='USER_ENTERED',table_range='A1')
-    return len(append),len(updates)
+            sid = clean(x.get('Solicitation ID'))
+            u = urlnorm(x.get('Official Source URL'))
+            k = 'id:' + sid.lower() if sid else ('url:' + u.lower() if u else '')
+            # For malformed records without either key, don't insert duplicates blindly.
+            if k and k not in known:
+                new_review_rows.append([x.get(h, '') for h in rh])
+                known.add(k)
+        if new_review_rows:
+            with_retry(lambda: reviewws.append_rows(new_review_rows, value_input_option='USER_ENTERED', table_range='A1'))
+    return len(append_rows), len(cell_updates)
+
 def fetch_api_candidates():
     """Fetch every page from the official MyFloridaMarketPlace JSON API."""
     endpoint = 'https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids'
@@ -258,11 +325,11 @@ def fetch_api_candidates():
             pub=clean(getv(raw,'publishedDate','publicationDate','postedDate','datePosted','createdDate'))
             due=clean(getv(raw,'endDate','closeDate','dueDate','responseDueDate','openingDate'))
             desc=clean(getv(raw,'description','summary','scope','advertisementDescription','details','shortDescription')) or clean(raw)
-            url=clean(getv(raw,'url','detailUrl','advertisementUrl','bidUrl','href','link'))
-            url=urlnorm(url) if url else (SEARCH if sid else '')
+            url=clean(getv(raw,'url','detailUrl','detailPageUrl','advertisementDetailUrl','advertisementUrl','advertisementLink','bidUrl','href','link'))
+            url=urlnorm(url) if url else ''
             if len(title)<4 or not (sid or url):continue
             rec={'title':title,'solicitation_id':sid,'agency':agency,'status':status,
-                'published_date':pub,'deadline_date':due,'description':desc,'text':' '.join([title,agency,desc]),
+                'published_date':pub,'deadline_date':due,'description':desc,'text':' '.join([title,agency,desc,json.dumps(raw,ensure_ascii=False,default=str)]),
                 'url':url,'detail_verified':'Extracted from official MyFloridaMarketPlace JSON API'}
             key=('id:'+sid.lower()) if sid else ('url:'+url.lower())
             if key not in seen:seen.add(key);allrows.append(rec)
@@ -272,60 +339,113 @@ def fetch_api_candidates():
     return allrows,diag
 
 def main():
-    leads_path=DATA/'leads.json'; reviews_path=DATA/'manual_review.json'; diag_path=DATA/'portal_diagnostics.json'
-    history=readj(leads_path,[]); reviews=readj(reviews_path,[]); histmap={}
-    for x in history:
-        k=('id:'+clean(x.get('solicitation_id')).lower()) if clean(x.get('solicitation_id')) else ('url:'+urlnorm(x.get('url')).lower())
-        if k!='url:': histmap[k]=x
-    diag={'run_utc':NOW.isoformat(),'run_ist':IST.isoformat(),'search_url':SEARCH,'keywords':len(KEYWORDS),'errors':[],'pages':[]}
+    leads_path = DATA / 'leads.json'
+    reviews_path = DATA / 'manual_review.json'
+    diag_path = DATA / 'portal_diagnostics.json'
+    history = readj(leads_path, [])
+    histmap = {}
+    for item in history:
+        sid = clean(item.get('solicitation_id'))
+        u = urlnorm(item.get('url'))
+        k = 'id:' + sid.lower() if sid else ('url:' + u.lower() if u else '')
+        if k:
+            histmap[k] = item
+
+    diag = {
+        'run_utc': NOW.isoformat(),
+        'run_ist': IST.isoformat(),
+        'run_florida': NOW.astimezone(ZoneInfo('America/New_York')).isoformat(),
+        'search_url': SEARCH,
+        'configured_keyword_count': len(KEYWORDS),
+        'errors': [], 'pages': [],
+        'manual_review_policy': 'Only missing/invalid critical fields or extraction/data problems; keyword mismatch alone is not a manual-review exception.'
+    }
     try:
         candidates, api_diag = fetch_api_candidates()
         diag.update(api_diag)
-    except Exception as e:
-        diag['errors'].append('Official API extraction failed: '+str(e))
-        writej(diag_path,diag)
+    except Exception as exc:
+        diag['errors'].append('Official API extraction failed: ' + str(exc))
+        diag['status'] = 'failed_extraction'
+        writej(diag_path, diag)
         log.exception('Official API extraction failed')
         raise
-    log.info('Extracted %d real portal records from API', len(candidates))
+
+    log.info('Extracted %d records from official portal API', len(candidates))
     if not candidates:
-        diag['status']='failed_no_records'; writej(diag_path,diag)
-        raise RuntimeError('No valid API records extracted; no placeholder rows were written')
-    selected=[]
-    reviews=[]
-    previous_keys=set(histmap)
+        diag['status'] = 'failed_no_records'
+        writej(diag_path, diag)
+        raise RuntimeError('No valid API records extracted; refusing to overwrite outputs with empty data.')
+
+    all_records = []
+    matched_records = []
+    exceptions = []
+    seen_this_run = set()
+    previous_keys = set(histmap)
     for x in candidates:
-        x['matched_keywords']=matches(x)
-        x['record_fingerprint']=fp(x)
-        sid=clean(x.get('solicitation_id')); k='id:'+sid.lower() if sid else 'url:'+urlnorm(x.get('url')).lower()
-        prior=histmap.get(k,{})
-        x['first_seen_date']=prior.get('first_seen_date') or prior.get('Date Found') or TODAY
-        x['last_seen_date']=TODAY
-        if not x['matched_keywords']:
-            reviews.append(reviewrow(x,'','Keyword matching','Portal listing extracted but no configured keyword matched available listing text; manually assess relevance'))
-        saved=dict(prior); saved.update({a:b for a,b in x.items() if b not in ('',None,[])})
-        histmap[k]=saved
-        selected.append(x)
-    output=[sheetrow(x,histmap.get(('id:'+clean(x.get('solicitation_id')).lower()) if clean(x.get('solicitation_id')) else 'url:'+urlnorm(x.get('url')).lower(),{})) for x in selected]
-    new_count=sum(1 for x in selected if (('id:'+clean(x.get('solicitation_id')).lower()) if clean(x.get('solicitation_id')) else ('url:'+urlnorm(x.get('url')).lower())) not in previous_keys)
-    all_history=list(histmap.values()); writej(leads_path,all_history); writecsv(DATA/'leads.csv',[sheetrow(x) for x in all_history],CORE+EXTRA)
-    writej(reviews_path,reviews); writecsv(DATA/'manual_review.csv',reviews,REVIEW); writej(diag_path,diag)
-    diag['candidate_count']=len(candidates); diag['matched_candidates_count']=sum(bool(x.get('matched_keywords')) for x in selected); diag['unmatched_candidates_count']=len(reviews); diag['historical_record_count']=len(all_history); diag['new_records_this_run']=new_count
-    log.info('Saved data: %d historical, %d matched this run, %d new',len(all_history),diag['matched_candidates_count'],new_count)
+        x['matched_keywords'] = matches(x)
+        x['record_fingerprint'] = fp(x)
+        sid = clean(x.get('solicitation_id'))
+        u = urlnorm(x.get('url'))
+        k = 'id:' + sid.lower() if sid else ('url:' + u.lower() if u else '')
+        if not k:
+            exceptions.append(reviewrow(x, '', 'Identity validation', 'Record has neither a stable advertisement/solicitation ID nor an official detail URL.'))
+            continue
+        if k in seen_this_run:
+            continue
+        seen_this_run.add(k)
+        prior = histmap.get(k, {})
+        x['first_seen_date'] = prior.get('first_seen_date') or prior.get('Date Found') or TODAY
+        x['last_seen_date'] = TODAY
+        # Missing critical data is an exception. A keyword mismatch by itself is NOT.
+        missing = []
+        if len(clean(x.get('title'))) < 4:
+            missing.append('title is missing or too short')
+        if not sid:
+            missing.append('official advertisement/solicitation ID is missing')
+        if not u or urlparse(u).netloc.lower() not in ('vendor.myfloridamarketplace.com', 'www.myfloridamarketplace.com'):
+            missing.append('official individual listing URL is missing or invalid')
+        if missing:
+            exceptions.append(reviewrow(x, ', '.join(x.get('matched_keywords', [])), 'Critical field validation', '; '.join(missing)))
+
+        saved = dict(prior)
+        saved.update({a: b for a, b in x.items() if b not in ('', None, [])})
+        histmap[k] = saved
+        all_records.append(saved)
+        # Tracker contains valid, keyword-matched opportunities only. Unmatched valid listings remain in leads.* for audit/keyword tuning.
+        if x.get('matched_keywords') and not missing:
+            matched_records.append(x)
+
+    all_history = list(histmap.values())
+    # Always write complete extracted history to local files, regardless of whether Google Sheets sync succeeds.
+    writej(leads_path, all_history)
+    writecsv(DATA / 'leads.csv', [sheetrow(x) for x in all_history], CORE + EXTRA)
+    writej(reviews_path, exceptions)
+    writecsv(DATA / 'manual_review.csv', exceptions, REVIEW)
+
+    diag['candidate_count'] = len(candidates)
+    diag['historical_record_count'] = len(all_history)
+    diag['matched_candidates_count'] = len(matched_records)
+    diag['unmatched_valid_count'] = sum(1 for x in all_records if not x.get('matched_keywords'))
+    diag['manual_review_exception_count'] = len(exceptions)
+    diag['new_records_this_run'] = sum(
+        1 for x in all_records
+        if (('id:' + clean(x.get('solicitation_id')).lower()) if clean(x.get('solicitation_id')) else ('url:' + urlnorm(x.get('url')).lower())) not in previous_keys
+    )
+    diag['status'] = 'extracted_local_pending_sheets'
+    writej(diag_path, diag)
+    log.info('Saved %d total records; %d keyword matches for Tracker; %d critical exceptions for Manual Review', len(all_history), len(matched_records), len(exceptions))
+
     try:
-        added,updated=sync(output,reviews); diag['sheets_sync']={'status':'success','appended':added,'updated_cells':updated}
-        log.info('Sheets sync success: %d appended; %d cells updated',added,updated)
-    except Exception as e:
-        diag['sheets_sync']={'status':'failed','error':str(e)}; log.exception('Google Sheets sync failed; local files retained')
-    writej(diag_path,diag)
-    if not candidates:
-        diag['status']='failed'
-        diag.setdefault('errors', []).append('No advertisement candidates extracted from the official API.')
-        writej(diag_path,diag)
-        log.error('ZERO CANDIDATES: portal result extraction did not find any advertisement rows.')
-        raise RuntimeError('No Florida advertisement records extracted; see data/portal_diagnostics.json')
-    if diag.get('sheets_sync', {}).get('status') != 'success':
-        diag['status']='partial_failure'; writej(diag_path,diag)
-        raise RuntimeError('Records extracted but Google Sheets sync failed; see data/portal_diagnostics.json')
-    diag['status']='success'; writej(diag_path,diag)
-    log.info('Run complete: candidates=%d matched=%d history=%d', len(candidates), diag['matched_candidates_count'], len(all_history))
+        added, updated = sync(matched_records, exceptions)
+        diag['sheets_sync'] = {'status': 'success', 'appended_rows': added, 'updated_cells': updated, 'tracker_candidates_sent': len(matched_records), 'manual_review_exceptions_sent': len(exceptions)}
+        diag['status'] = 'success'
+        log.info('Google Sheets sync succeeded: %d appended rows; %d cell updates', added, updated)
+    except Exception as exc:
+        diag['sheets_sync'] = {'status': 'failed', 'error': str(exc)}
+        diag['status'] = 'partial_failure'
+        log.exception('Google Sheets sync failed; local files retained')
+    writej(diag_path, diag)
+    if diag['status'] != 'success':
+        raise RuntimeError('Portal extraction saved locally, but Google Sheets sync failed. See data/portal_diagnostics.json and run_logs.')
+    log.info('Run complete: extracted=%d matched=%d exceptions=%d', len(candidates), len(matched_records), len(exceptions))
 if __name__=='__main__': main()
