@@ -21,7 +21,7 @@ KEYWORDS=[str(x).strip() for x in CFG.get('keywords',[]) if str(x).strip()]
 DELAY=max(.5,float(CFG.get('request_delay_seconds',2))); CAP = max(1, int(CFG.get("max_details_per_run", 200)))
 SHEET_ID=CFG.get('spreadsheet_id',''); TRACKER_GID=int(CFG.get('worksheet_id',1466561086)); REVIEW_GID=int(CFG.get('manual_review_worksheet_id',53817621))
 CORE=['Opportunity ID','Date Found','State','Agency','Opportunity Title','Solicitation / Reference No.','Opportunity Type','Service Category','Official Source URL','Published Date','Opportunity Open Date & Time','Deadline Date','Deadline Time / Time Zone','Closing Date & Time (Source Time Zone)','Estimated Value (if published)','Scope Summary','Eligibility / Mandatory Requirements','Required Certifications / Experience','Contract Duration / Options','Incumbent / Prior Award (verified only)','Healthcare IT Fit (0-25)','Eligibility & Compliance (0-20)','Customer / Contract Fit (0-15)','Delivery Capability (0-15)','Deadline Feasibility (0-10)','Commercial Attractiveness (0-10)','Information Completeness (0-5)','Total Score (0-100)','Mandatory Gate (Pass / Fail / Unknown)','Recommendation (Go / Investigate / No-Go)','Fit Rationale','Risks / Gaps','Next Action','Last Verified Date','Owner','Review Status','Reviewer Notes']
-EXTRA=['Portal Advertisement ID','Advertisement Status','Matched Keywords','Keyword Match Count','Healthcare IT Screening','First Seen Date','Last Seen Date','Last Source Update','Record Fingerprint','Scrape / Extraction Status','Detail Verification Status','Source Document URLs']
+EXTRA=['Portal Advertisement ID','Advertisement Status','Matched Keywords','Keyword Match Count','Healthcare IT Screening','First Seen Date','Last Seen Date','Last Source Update','Record Fingerprint','Scrape / Extraction Status','Detail Verification Status','Source Document URLs','Opportunity Contact Name','Opportunity Contact Phone','Opportunity Contact Email','Opportunity Contact Address','Contact Source','Contact Verification Status','Contact Extraction Status']
 REVIEW=['Date Detected','Keyword','Solicitation ID','Opportunity Title','Official Source URL','Failure Stage','Failure Reason','Retry Status','Last Attempt']
 
 def readj(path, default):
@@ -123,11 +123,104 @@ def open_detail(page,x):
         x['opportunity_type']=x.get('opportunity_type') or label(body,['Advertisement Type','Solicitation Type','Type']); x['detail_verified']='Visited detail page'
     except Exception as e: x['detail_verified']=f'Failed: {e}'
     return x
+def extract_contact_from_text(text):
+    """Extract contact details only from the official opportunity's contact section."""
+    raw = str(text or '').replace('\xa0', ' ')
+    normalized = clean(raw)
+    start = re.search(r'please\s+direct\s+all\s+questions\s+to\s*:?\s*', normalized, re.I)
+    if not start:
+        return {}
+    block = normalized[start.end():]
+    stop = re.search(r'\s+(?:click here to view the original advertisement|downloadable files for advertisement|copyright\s*©|related advertisements|attachments)\b', block, re.I)
+    if stop:
+        block = block[:stop.start()]
+
+    def field(name):
+        # Contact labels are usually rendered as Name: ..., Phone: ..., etc.
+        pattern = rf'\b{re.escape(name)}\s*:\s*(.*?)(?=\s+\b(?:Name|Phone|Address|Email)\s*:|$)'
+        m = re.search(pattern, block, re.I)
+        return clean(m.group(1)).strip(' ,;') if m else ''
+
+    name = field('Name')
+    phone = field('Phone')
+    address = field('Address')
+    email = field('Email')
+    # Fallbacks help when the page formats one or more fields differently.
+    if not email:
+        m = re.search(r'[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}', block, re.I)
+        email = m.group(0) if m else ''
+    if not phone:
+        m = re.search(r'(?<!\d)(?:\+?1[ .-]?)?\(?\d{3}\)?[ .-]\d{3}[ .-]\d{4}(?!\d)', block)
+        phone = m.group(0) if m else ''
+    found = any((name, phone, email, address))
+    return {
+        'contact_name': name,
+        'contact_phone': phone,
+        'contact_email': email,
+        'contact_address': address,
+        'contact_source': 'Official MyFloridaMarketPlace opportunity detail page' if found else '',
+        'contact_verification_status': 'Extracted from official detail page' if found else 'No contact details found in official contact section',
+        'contact_extraction_status': 'Contact found' if found else 'No contact details found',
+    }
+
+def enrich_opportunity_contacts(rows, limit):
+    """Visit official detail pages; prioritize rows without a prior contact attempt."""
+    stats = {'attempted': 0, 'visited': 0, 'contacts_found': 0, 'errors': 0, 'skipped_no_url': 0}
+    targets = [x for x in rows if urlnorm(x.get('url')) and urlparse(urlnorm(x.get('url'))).netloc.lower().endswith(('myfloridamarketplace.com', 'myflorida.com'))]
+    # Prioritize records not yet checked, then records with no contact details. This prevents
+    # the same first 100 records monopolizing the detail-page budget every day.
+    targets.sort(key=lambda x: (
+        0 if not x.get('contact_extraction_status') else 1,
+        0 if not any(clean(x.get(k)) for k in ('contact_name','contact_phone','contact_email','contact_address')) else 1,
+        clean(x.get('portal_id') or x.get('solicitation_id'))
+    ))
+    targets = targets[:max(0, int(limit))]
+    if not targets:
+        return stats
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page()
+            for x in targets:
+                stats['attempted'] += 1
+                try:
+                    page.goto(urlnorm(x.get('url')), wait_until='domcontentloaded', timeout=30000)
+                    page.wait_for_timeout(500)
+                    body = page.locator('body').inner_text(timeout=10000)
+                    stats['visited'] += 1
+                    contact = extract_contact_from_text(body)
+                    # Keep prior valid values if the page could not expose them on this run.
+                    for key, value in contact.items():
+                        if value:
+                            x[key] = value
+                    if contact.get('contact_extraction_status') == 'Contact found':
+                        stats['contacts_found'] += 1
+                    else:
+                        x['contact_extraction_status'] = 'No contact details found on checked official detail page'
+                        x['contact_verification_status'] = 'Checked; no contact section/details found'
+                    x['detail_verified'] = 'Visited official detail page; contact extraction attempted'
+                except Exception as exc:
+                    stats['errors'] += 1
+                    x['contact_extraction_status'] = 'Page visit failed'
+                    x['contact_verification_status'] = 'Not verified: detail page visit failed'
+                    x['contact_error'] = str(exc)[:500]
+                    log.warning('Contact extraction failed for %s: %s', x.get('url',''), exc)
+                time.sleep(DELAY)
+            browser.close()
+    except Exception as exc:
+        stats['errors'] += 1
+        log.exception('Could not start browser for contact extraction: %s', exc)
+        for x in targets:
+            if not x.get('contact_extraction_status'):
+                x['contact_extraction_status'] = 'Browser setup failed'
+                x['contact_verification_status'] = 'Not verified: browser setup failed'
+    return stats
+
 def reviewrow(x,kw,stage,reason): return {'Date Detected':TODAY,'Keyword':kw or '(no keyword matched)','Solicitation ID':x.get('solicitation_id',''),'Opportunity Title':x.get('title',''),'Official Source URL':x.get('url',''),'Failure Stage':stage,'Failure Reason':str(reason)[:1000],'Retry Status':'Pending','Last Attempt':IST.strftime('%Y-%m-%d %H:%M:%S %Z')}
 def sheetrow(x,old=None):
     old=old or {}; ms=x.get('matched_keywords',[]); u=urlnorm(x.get('url')); sid=clean(x.get('solicitation_id')); pid=clean(x.get('portal_id')) or (sid if sid.isdigit() else ''); ident=pid or sid or u or fp(x)
     r={h:'' for h in CORE+EXTRA}; r.update(old)
-    vals={'Opportunity ID':ident,'Date Found':old.get('Date Found') or TODAY,'State':STATE,'Agency':clean(x.get('agency')),'Opportunity Title':clean(x.get('title')),'Solicitation / Reference No.':sid,'Opportunity Type':clean(x.get('opportunity_type')),'Service Category':', '.join(ms[:5]),'Official Source URL':u,'Published Date':clean(x.get('published_date')),'Opportunity Open Date & Time':clean(x.get('open_datetime') or x.get('opening_datetime')),'Deadline Date':clean(x.get('deadline_date')),'Deadline Time / Time Zone':clean(x.get('deadline_time_timezone')),'Closing Date & Time (Source Time Zone)':clean(x.get('closing_datetime') or x.get('deadline_date')),'Scope Summary':clean(x.get('description'))[:1500],'Last Verified Date':TODAY,'Portal Advertisement ID':pid,'Matched Keywords':', '.join(ms),'Keyword Match Count':len(ms),'Healthcare IT Screening':('Keyword matched — verify scope' if ms else 'Not matched — manual screening required'),'First Seen Date':old.get('First Seen Date') or x.get('first_seen_date') or TODAY,'Last Seen Date':TODAY,'Last Source Update':TODAY,'Record Fingerprint':fp(x),'Scrape / Extraction Status':('Listing extracted; keyword matched' if ms else 'Valid listing; no configured keyword matched'),'Detail Verification Status':x.get('detail_verified','Not visited'),'Source Document URLs':clean(x.get('document_urls'))}
+    vals={'Opportunity ID':ident,'Date Found':old.get('Date Found') or TODAY,'State':STATE,'Agency':clean(x.get('agency')),'Opportunity Title':clean(x.get('title')),'Solicitation / Reference No.':sid,'Opportunity Type':clean(x.get('opportunity_type')),'Service Category':', '.join(ms[:5]),'Official Source URL':u,'Published Date':clean(x.get('published_date')),'Opportunity Open Date & Time':clean(x.get('open_datetime') or x.get('opening_datetime')),'Deadline Date':clean(x.get('deadline_date')),'Deadline Time / Time Zone':clean(x.get('deadline_time_timezone')),'Closing Date & Time (Source Time Zone)':clean(x.get('closing_datetime') or x.get('deadline_date')),'Scope Summary':clean(x.get('description'))[:1500],'Last Verified Date':TODAY,'Portal Advertisement ID':pid,'Matched Keywords':', '.join(ms),'Keyword Match Count':len(ms),'Healthcare IT Screening':('Keyword matched — verify scope' if ms else 'Not matched — manual screening required'),'First Seen Date':old.get('First Seen Date') or x.get('first_seen_date') or TODAY,'Last Seen Date':TODAY,'Last Source Update':TODAY,'Record Fingerprint':fp(x),'Scrape / Extraction Status':('Listing extracted; keyword matched' if ms else 'Valid listing; no configured keyword matched'),'Detail Verification Status':x.get('detail_verified','Not visited'),'Source Document URLs':clean(x.get('document_urls')),'Opportunity Contact Name':clean(x.get('contact_name')),'Opportunity Contact Phone':clean(x.get('contact_phone')),'Opportunity Contact Email':clean(x.get('contact_email')),'Opportunity Contact Address':clean(x.get('contact_address')),'Contact Source':clean(x.get('contact_source')),'Contact Verification Status':clean(x.get('contact_verification_status') or 'Not checked'),'Contact Extraction Status':clean(x.get('contact_extraction_status') or 'Not checked')}
     r.update({k:v for k,v in vals.items() if v!=''})
     if not r.get('Mandatory Gate'): r['Mandatory Gate'] = 'Unknown'
     if not r.get('Recommendation'): r['Recommendation'] = 'Investigate'
@@ -455,6 +548,12 @@ def main():
         diag['status'] = 'failed_no_records'
         writej(diag_path, diag)
         raise RuntimeError('No valid API records extracted; refusing to overwrite outputs with empty data.')
+
+    # Enrich official detail pages before writing JSON/CSV and syncing Google Sheets.
+    contact_stats = enrich_opportunity_contacts(candidates, min(CAP, len(candidates)))
+    diag['contact_enrichment'] = contact_stats
+    log.info('Contact enrichment: attempted=%d visited=%d contacts_found=%d errors=%d',
+             contact_stats['attempted'], contact_stats['visited'], contact_stats['contacts_found'], contact_stats['errors'])
 
     all_records = []
     matched_records = []
