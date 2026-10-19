@@ -5,7 +5,7 @@
   "spreadsheet_id": "1T_cg_DBR5WG7vrQZuNqV4hP6BC_BY5sMpwx1v7j5IoU",
   "worksheet_id": 1466561086,
   "manual_review_worksheet_id": 53817621,
-  "max_details_per_run": 100,
+  "max_details_per_run": 200,
   "max_pages": 100,
   "page_size": 25,
   "request_delay_seconds": 1.0,
