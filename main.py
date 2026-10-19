@@ -20,8 +20,8 @@ SEARCH=CFG.get('search_url','https://vendor.myfloridamarketplace.com/search/bids
 KEYWORDS=[str(x).strip() for x in CFG.get('keywords',[]) if str(x).strip()]
 DELAY=max(.5,float(CFG.get('request_delay_seconds',2))); CAP=min(100,max(1,int(CFG.get('max_details_per_run',100))))
 SHEET_ID=CFG.get('spreadsheet_id',''); TRACKER_GID=int(CFG.get('worksheet_id',1466561086)); REVIEW_GID=int(CFG.get('manual_review_worksheet_id',53817621))
-CORE=['Opportunity ID','Date Found','State','Agency','Opportunity Title','Solicitation / Reference No.','Opportunity Type','Service Category','Official Source URL','Published Date','Opportunity Open Date & Time','Deadline Date','Deadline Time / Time Zone','Closing Date & Time (Source Time Zone)','Estimated Value (if published)','Scope Summary','Eligibility / Mandatory Requirements','Required Certifications / Experience','Contract Duration / Options','Incumbent / Prior Award (verified only)','Healthcare IT Fit (0-25)','Eligibility & Compliance (0-20)','Customer / Contract Fit (0-15)','Delivery Capability (0-15)','Deadline Feasibility (0-10)','Commercial Attractiveness (0-10)','Information Completeness (0-5)','Total Score (0-100)','Mandatory Gate (Pass / Fail / Unknown)','Recommendation (Go / Investigate / No-Go)','Fit Rationale','Risks / Gaps','Next Action','Last Verified Date','Owner','Review Status','Reviewer Notes','Opportunity Contact Name','Opportunity Contact Phone','Opportunity Contact Email','Opportunity Contact Address','Contact Source','Contact Verification Status']
-EXTRA=['Portal Advertisement ID','Advertisement Status','Matched Keywords','Keyword Match Count','First Seen Date','Last Seen Date','Last Source Update','Record Fingerprint','Scrape / Extraction Status','Detail Verification Status','Source Document URLs','Contact Extraction Status']
+CORE=['Opportunity ID','Date Found','State','Agency','Opportunity Title','Solicitation / Reference No.','Opportunity Type','Service Category','Official Source URL','Published Date','Opportunity Open Date & Time','Deadline Date','Deadline Time / Time Zone','Closing Date & Time (Source Time Zone)','Estimated Value (if published)','Scope Summary','Eligibility / Mandatory Requirements','Required Certifications / Experience','Contract Duration / Options','Incumbent / Prior Award (verified only)','Healthcare IT Fit (0-25)','Eligibility & Compliance (0-20)','Customer / Contract Fit (0-15)','Delivery Capability (0-15)','Deadline Feasibility (0-10)','Commercial Attractiveness (0-10)','Information Completeness (0-5)','Total Score (0-100)','Mandatory Gate (Pass / Fail / Unknown)','Recommendation (Go / Investigate / No-Go)','Fit Rationale','Risks / Gaps','Next Action','Last Verified Date','Owner','Review Status','Reviewer Notes']
+EXTRA=['Portal Advertisement ID','Advertisement Status','Matched Keywords','Keyword Match Count','Healthcare IT Screening','First Seen Date','Last Seen Date','Last Source Update','Record Fingerprint','Scrape / Extraction Status','Detail Verification Status','Source Document URLs']
 REVIEW=['Date Detected','Keyword','Solicitation ID','Opportunity Title','Official Source URL','Failure Stage','Failure Reason','Retry Status','Last Attempt']
 
 def readj(path, default):
@@ -44,50 +44,16 @@ def urlnorm(u):
     return u.rstrip('/') if p.scheme in ('http','https') and p.path not in ('','/') else (f'{p.scheme}://{p.netloc}/' if p.scheme in ('http','https') else '')
 def fp(x): return hashlib.sha256('|'.join([clean(x.get('solicitation_id')).lower(),clean(x.get('title')).lower(),urlnorm(x.get('url')).lower()]).encode()).hexdigest()[:20]
 def matches(x):
-    """Conservative healthcare-IT matching; agency names alone never qualify.
-
-    Search only the opportunity title, procurement scope/description, commodity,
-    and category. Exclude agency metadata and the contact/footer boilerplate, which
-    previously caused unrelated bids to match Florida health-agency keywords.
-    """
-    title = clean(x.get('title', ''))
-    description = clean(x.get('description', '') or x.get('text', ''))
-    # Remove known page boilerplate/contact blocks before testing scope.
-    description = re.split(r'Please direct all questions to\s*:', description, flags=re.I)[0]
-    description = re.split(r'Copyright\s*©|Copyright\s+20\d\d|All rights reserved', description, flags=re.I)[0]
-    description = re.split(r'Downloadable Files for Advertisement|Click here to view the original advertisement', description, flags=re.I)[0]
-    scope = ' '.join([
-        description,
-        clean(x.get('commodity', '')),
-        clean(x.get('category', '')),
-    ])
-    # Only technical / system / data phrases qualify. Agency names are deliberately
-    # not searched, and generic words such as "health", "technology", or "services"
-    # are never sufficient on their own.
+    # Match against useful procurement fields; normalize whitespace/case, and allow
+    # any configured keyword to qualify a record. One or more matches are sufficient.
+    text = ' '.join(clean(x.get(k, '')) for k in
+                    ('title', 'description', 'agency', 'commodity', 'category', 'text')).casefold()
     found = []
     for keyword in KEYWORDS:
-        kw = clean(keyword)
-        low = kw.casefold()
-        if len(low) < 6 or low in {
-            'healthcare', 'health care', 'medical', 'technology', 'services',
-            'florida agency for health care administration',
-            'agency for health care administration', 'florida department of health',
-            'florida medicaid', 'integrated eligibility'
-        }:
-            continue
-        # Phrase boundaries prevent e.g. short terms matching inside unrelated words.
-        pattern = r'(?<![a-z0-9])' + re.escape(low) + r'(?![a-z0-9])'
-        # A specific technical phrase in the title is strong evidence. In scope text,
-        # require an explicit health/clinical/Medicaid/public-health context as well.
-        in_title = bool(re.search(pattern, title, re.I))
-        in_scope = bool(re.search(pattern, scope, re.I))
-        if in_title or (in_scope and re.search(
-            r'\b(health|healthcare|health care|clinical|patient|hospital|medical|medicaid|public health|immunization|disease surveillance)\b',
-            scope, re.I
-        )):
-            found.append(kw)
-    return list(dict.fromkeys(found))
-
+        kw = clean(keyword).casefold()
+        if kw and kw in text and keyword not in found:
+            found.append(keyword)
+    return found
 def label(text, names):
     text=clean(text)
     for n in names:
@@ -157,87 +123,11 @@ def open_detail(page,x):
         x['opportunity_type']=x.get('opportunity_type') or label(body,['Advertisement Type','Solicitation Type','Type']); x['detail_verified']='Visited detail page'
     except Exception as e: x['detail_verified']=f'Failed: {e}'
     return x
-def extract_contact_from_text(text):
-    """Extract the opportunity's own contact block from its official detail page."""
-    text = clean(text)
-    # MFMP detail pages explicitly introduce the owner/contact block this way.
-    m = re.search(r'Please direct all questions to\s*:\s*(.*?)(?=Click here to view the original advertisement|Downloadable Files for Advertisement|Copyright ©|$)', text, re.I)
-    block = m.group(1) if m else ''
-    if not block:
-        return {}
-    def field(names):
-        for name in names:
-            hit = re.search(rf'{name}\s*:\s*(.*?)(?=\s+(?:Name|Phone|Address|Email)\s*:|$)', block, re.I)
-            if hit:
-                value = clean(hit.group(1))
-                if value:
-                    return value
-        return ''
-    name = field(['Name'])
-    phone = field(['Phone'])
-    address = field(['Address'])
-    email = field(['Email'])
-    em = re.search(r'[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}', block, re.I)
-    if em:
-        email = em.group(0)
-    ph = re.search(r'\(?\d{3}\)?[ .-]\d{3}[ .-]\d{4}', block)
-    if ph:
-        phone = ph.group(0)
-    return {'contact_name':name, 'contact_phone':phone, 'contact_email':email, 'contact_address':address,
-            'contact_source':'Official MyFloridaMarketPlace opportunity detail page' if any((name,phone,email,address)) else '',
-            'contact_verification_status':'Extracted from official opportunity page' if any((name,phone,email,address)) else 'Not published / not found on official page'}
-
-def enrich_opportunity_contacts(rows, limit):
-    """Visit official opportunity pages and extract the contact specified on each listing."""
-    targets = [x for x in rows if x.get('url')][:limit]
-    if not targets:
-        return {'attempted':0,'visited':0,'contacts_found':0,'errors':[]}
-    stats={'attempted':len(targets),'visited':0,'contacts_found':0,'errors':[]}
-    try:
-        with sync_playwright() as pw:
-            browser = pw.chromium.launch(headless=True)
-            page = browser.new_page()
-            for i, x in enumerate(targets, 1):
-                try:
-                    page.goto(x['url'], wait_until='domcontentloaded', timeout=30000)
-                    page.wait_for_timeout(350)
-                    body = clean(page.locator('body').inner_text(timeout=10000))
-                    stats['visited'] += 1
-                    # Prefer the full detail-page text over the API's short metadata fallback.
-                    if len(body) > len(clean(x.get('description'))):
-                        x['description'] = body[:30000]
-                        x['text'] = body[:30000]
-                    contact = extract_contact_from_text(body)
-                    x.update({k:v for k,v in contact.items() if v})
-                    if any(x.get(k) for k in ('contact_name','contact_phone','contact_email','contact_address')):
-                        stats['contacts_found'] += 1
-                    # Pick up official downloadable document URLs, if linked from the page.
-                    try:
-                        links = page.locator('a[href]').evaluate_all("els => els.map(a => ({text:(a.innerText||a.textContent||'').trim(), href:a.href}))")
-                        docs=[]
-                        for a in links:
-                            label=(a.get('text') or '').lower(); href=a.get('href') or ''
-                            if href.startswith('http') and (any(ext in href.lower() for ext in ('.pdf','.doc','.docx','.xls','.xlsx','.zip')) or any(w in label for w in ('download','solicitation document','attachment','original advertisement'))):
-                                docs.append(href)
-                        if docs: x['document_urls'] = '; '.join(dict.fromkeys(docs))
-                    except Exception:
-                        pass
-                except Exception as exc:
-                    stats['errors'].append({'id':x.get('portal_id') or x.get('solicitation_id'),'error':str(exc)[:300]})
-                    x.setdefault('contact_verification_status','Detail page visit failed; contact not verified')
-                if i % 10 == 0:
-                    log.info('Opportunity detail/contact enrichment: %d/%d pages visited', i, len(targets))
-                time.sleep(DELAY)
-            browser.close()
-    except Exception as exc:
-        stats['errors'].append({'error':'Browser initialization failed: '+str(exc)[:300]})
-    return stats
-
 def reviewrow(x,kw,stage,reason): return {'Date Detected':TODAY,'Keyword':kw or '(no keyword matched)','Solicitation ID':x.get('solicitation_id',''),'Opportunity Title':x.get('title',''),'Official Source URL':x.get('url',''),'Failure Stage':stage,'Failure Reason':str(reason)[:1000],'Retry Status':'Pending','Last Attempt':IST.strftime('%Y-%m-%d %H:%M:%S %Z')}
 def sheetrow(x,old=None):
     old=old or {}; ms=x.get('matched_keywords',[]); u=urlnorm(x.get('url')); sid=clean(x.get('solicitation_id')); pid=clean(x.get('portal_id')) or (sid if sid.isdigit() else ''); ident=pid or sid or u or fp(x)
     r={h:'' for h in CORE+EXTRA}; r.update(old)
-    vals={'Opportunity ID':ident,'Date Found':old.get('Date Found') or TODAY,'State':STATE,'Agency':clean(x.get('agency')),'Opportunity Title':clean(x.get('title')),'Solicitation / Reference No.':sid,'Opportunity Type':clean(x.get('opportunity_type')),'Service Category':', '.join(ms[:5]),'Official Source URL':u,'Published Date':clean(x.get('published_date')),'Opportunity Open Date & Time':clean(x.get('open_datetime') or x.get('opening_datetime')),'Deadline Date':clean(x.get('deadline_date')),'Deadline Time / Time Zone':clean(x.get('deadline_time_timezone')),'Closing Date & Time (Source Time Zone)':clean(x.get('closing_datetime') or x.get('deadline_date')),'Scope Summary':clean(x.get('description'))[:1500],'Last Verified Date':TODAY,'Portal Advertisement ID':pid,'Matched Keywords':', '.join(ms),'Keyword Match Count':len(ms),'First Seen Date':old.get('First Seen Date') or x.get('first_seen_date') or TODAY,'Last Seen Date':TODAY,'Last Source Update':TODAY,'Record Fingerprint':fp(x),'Scrape / Extraction Status':('Listing extracted; keyword matched' if ms else 'Valid listing; no configured keyword matched'),'Detail Verification Status':x.get('detail_verified','Not visited'),'Source Document URLs':clean(x.get('document_urls')),'Opportunity Contact Name':clean(x.get('contact_name')),'Opportunity Contact Phone':clean(x.get('contact_phone')),'Opportunity Contact Email':clean(x.get('contact_email')),'Opportunity Contact Address':clean(x.get('contact_address')),'Contact Source':clean(x.get('contact_source')),'Contact Verification Status':clean(x.get('contact_verification_status') or 'Not checked'),'Contact Extraction Status':('Contact found' if any(x.get(k) for k in ('contact_name','contact_phone','contact_email','contact_address')) else 'Not found on official detail page / page not checked')}
+    vals={'Opportunity ID':ident,'Date Found':old.get('Date Found') or TODAY,'State':STATE,'Agency':clean(x.get('agency')),'Opportunity Title':clean(x.get('title')),'Solicitation / Reference No.':sid,'Opportunity Type':clean(x.get('opportunity_type')),'Service Category':', '.join(ms[:5]),'Official Source URL':u,'Published Date':clean(x.get('published_date')),'Opportunity Open Date & Time':clean(x.get('open_datetime') or x.get('opening_datetime')),'Deadline Date':clean(x.get('deadline_date')),'Deadline Time / Time Zone':clean(x.get('deadline_time_timezone')),'Closing Date & Time (Source Time Zone)':clean(x.get('closing_datetime') or x.get('deadline_date')),'Scope Summary':clean(x.get('description'))[:1500],'Last Verified Date':TODAY,'Portal Advertisement ID':pid,'Matched Keywords':', '.join(ms),'Keyword Match Count':len(ms),'Healthcare IT Screening':('Keyword matched — verify scope' if ms else 'Not matched — manual screening required'),'First Seen Date':old.get('First Seen Date') or x.get('first_seen_date') or TODAY,'Last Seen Date':TODAY,'Last Source Update':TODAY,'Record Fingerprint':fp(x),'Scrape / Extraction Status':('Listing extracted; keyword matched' if ms else 'Valid listing; no configured keyword matched'),'Detail Verification Status':x.get('detail_verified','Not visited'),'Source Document URLs':clean(x.get('document_urls'))}
     r.update({k:v for k,v in vals.items() if v!=''})
     if not r.get('Mandatory Gate'): r['Mandatory Gate'] = 'Unknown'
     if not r.get('Recommendation'): r['Recommendation'] = 'Investigate'
@@ -304,9 +194,9 @@ def sync(rows, reviews):
     tracker, reviewws = open_sheets()
     headers = with_retry(lambda: ensure_headers(tracker, CORE + EXTRA))
     vals = with_retry(lambda: tracker.get_all_values())
-    # Never delete existing opportunities automatically. Relevance changes and partial
-    # API runs must not erase previously collected rows or user annotations.
-    seen_sheet_keys = set()
+    # Never delete existing Tracker rows during routine sync. A matching-rule change
+    # must not erase the user's history. Existing rows are upserted by stable ID.
+    vals = with_retry(lambda: tracker.get_all_values())
     oldmap, rownum = {}, {}
     for i, v in enumerate(vals[1:], start=2):
         r = {h: (v[j] if j < len(v) else '') for j, h in enumerate(headers)}
@@ -355,7 +245,31 @@ def sync(rows, reviews):
             chunk = cell_updates[i:i + 400]
             with_retry(lambda chunk=chunk: tracker.batch_update(chunk, value_input_option='USER_ENTERED'))
     if append_rows:
-        with_retry(lambda: tracker.append_rows(append_rows, value_input_option='USER_ENTERED', table_range='A1'))
+        # Write to a deterministic range, then read back the IDs to verify persistence.
+        first_row = max(2, len(vals) + 1)
+        last_row = first_row + len(append_rows) - 1
+        end_col = rowcol_to_a1(1, len(headers)).rstrip('1')
+        target_range = f'A{first_row}:{end_col}{last_row}'
+        with_retry(lambda: tracker.update(
+            range_name=target_range,
+            values=append_rows,
+            value_input_option='USER_ENTERED',
+        ))
+        expected_ids = {clean(row[headers.index('Portal Advertisement ID')])
+                        for row in append_rows if 'Portal Advertisement ID' in headers}
+        check = with_retry(lambda: tracker.get(f'A{first_row}:{end_col}{last_row}'))
+        written_ids = set()
+        if 'Portal Advertisement ID' in headers:
+            idx = headers.index('Portal Advertisement ID')
+            written_ids = {clean(v[idx]) for v in check if idx < len(v) and clean(v[idx])}
+        if expected_ids and not expected_ids.issubset(written_ids):
+            raise RuntimeError(
+                f'Google Sheets write verification failed for {len(expected_ids - written_ids)} '
+                f'Portal Advertisement IDs in {target_range} on worksheet {tracker.title!r} '
+                f'(gid={tracker.id}).'
+            )
+        log.info('Verified %d newly written rows in Google Sheets tab %r (gid=%s), range %s',
+                 len(append_rows), tracker.title, tracker.id, target_range)
 
     if reviewws is not None and reviews:
         rh = with_retry(lambda: ensure_headers(reviewws, REVIEW))
@@ -530,11 +444,6 @@ def main():
         writej(diag_path, diag)
         raise RuntimeError('No valid API records extracted; refusing to overwrite outputs with empty data.')
 
-    detail_stats = enrich_opportunity_contacts(candidates, CAP)
-    diag['detail_contact_enrichment'] = detail_stats
-    diag['contact_policy'] = 'Contact fields are extracted from each official opportunity detail page visited. No user-provided contact is substituted. Records beyond max_details_per_run remain unverified until a later run.'
-    log.info('Official detail pages visited=%d; opportunity contacts found=%d', detail_stats.get('visited',0), detail_stats.get('contacts_found',0))
-
     all_records = []
     matched_records = []
     exceptions = []
@@ -568,8 +477,10 @@ def main():
         saved.update({a: b for a, b in x.items() if b not in ('', None, [])})
         histmap[k] = saved
         all_records.append(saved)
-        # Only records matching at least one configured keyword enter Florida Tracker.
-        if len(clean(x.get('title'))) >= 4 and (clean(x.get('portal_id')) or sid) and not missing and x.get('matched_keywords'):
+        # Store every valid open portal listing in the Tracker so the Google Sheet
+        # receives the full scrape. Healthcare IT keyword matches are labeled; all
+        # others are explicitly marked for manual screening, not presented as confirmed leads.
+        if len(clean(x.get('title'))) >= 4 and (clean(x.get('portal_id')) or sid) and not missing:
             matched_records.append(x)
 
     all_history = list(histmap.values())
@@ -590,14 +501,14 @@ def main():
         if (('id:' + clean(x.get('solicitation_id')).lower()) if clean(x.get('solicitation_id')) else ('url:' + urlnorm(x.get('url')).lower())) not in previous_keys
     )
     diag['status'] = 'extracted_local_pending_sheets'
-    diag['tracker_policy'] = 'Only valid listings matching at least one configured keyword are sent to Florida Tracker; existing rows are never automatically deleted.'
+    diag['tracker_policy'] = 'All valid portal listings are sent to Florida Tracker; keyword matches are labeled for review and unmatched listings are explicitly marked for manual screening. Existing rows are never automatically deleted.'
     diag['date_time_policy'] = 'Published/open and closing date-time values are copied from official API fields when available. Source timestamps are preserved; missing times/time zones are left blank rather than guessed.'
     writej(diag_path, diag)
     log.info('Saved %d portal records locally; %d keyword-matching Tracker records; %d critical exceptions for Manual Review', len(all_history), len(matched_records), diag['manual_review_exception_count'])
 
     try:
         added, updated = sync(matched_records, exceptions)
-        diag['sheets_sync'] = {'status': 'success', 'appended_rows': added, 'updated_cells': updated, 'tracker_candidates_sent': len(matched_records), 'manual_review_exceptions_sent': len(exceptions)}
+        diag['sheets_sync'] = {'status': 'success', 'appended_rows': added, 'updated_cells': updated, 'tracker_candidates_sent': len(matched_records), 'manual_review_exceptions_sent': len(exceptions), 'write_verified': True}
         diag['status'] = 'success'
         log.info('Google Sheets sync succeeded: %d appended rows; %d cell updates', added, updated)
     except Exception as exc:
