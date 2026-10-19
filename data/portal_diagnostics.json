@@ -1,7 +1,7 @@
 {
-  "run_utc": "2026-10-19T08:55:07.637678+00:00",
-  "run_ist": "2026-10-19T14:25:07.637678+05:30",
-  "run_florida": "2026-10-19T04:55:07.637678-04:00",
+  "run_utc": "2026-10-19T13:33:08.194415+00:00",
+  "run_ist": "2026-10-19T19:03:08.194415+05:30",
+  "run_florida": "2026-10-19T09:33:08.194415-04:00",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
   "configured_keyword_count": 58,
   "errors": [],
@@ -32,32 +32,33 @@
     },
     {
       "page": 7,
-      "records_found": 10
+      "records_found": 12
     }
   ],
-  "manual_review_policy": "Only missing/invalid critical fields or extraction/data problems; keyword mismatch alone is filtered out, not sent to Manual Review.",
+  "manual_review_policy": "Manual Review contains extraction/data exceptions only; valid unmatched listings remain in Tracker with a screening label. Both Google Sheets tabs are upserted from the corresponding GitHub JSON/CSV records.",
   "method": "official_json_api",
   "endpoint": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
-  "count_response": 160,
-  "api_count": 160,
+  "count_response": 162,
+  "api_count": 162,
   "pages_requested": 7,
-  "records_extracted": 156,
-  "candidate_count": 156,
-  "historical_record_count": 156,
+  "records_extracted": 157,
+  "candidate_count": 157,
+  "historical_record_count": 157,
   "matched_candidates_count": 0,
-  "tracker_eligible_count": 156,
-  "unmatched_valid_count": 156,
+  "tracker_eligible_count": 157,
+  "unmatched_valid_count": 157,
   "manual_review_exception_count": 0,
-  "new_records_this_run": 156,
+  "new_records_this_run": 157,
   "status": "success",
-  "tracker_policy": "All valid portal listings are sent to Florida Tracker; keyword matches are labeled for review and unmatched listings are explicitly marked for manual screening. Existing rows are never automatically deleted.",
+  "tracker_policy": "All valid portal listings are upserted to Florida Tracker; keyword matches are labeled and unmatched listings are explicitly marked for manual screening. Existing rows and user-owned columns are preserved.",
   "date_time_policy": "Published/open and closing date-time values are copied from official API fields when available. Source timestamps are preserved; missing times/time zones are left blank rather than guessed.",
   "sheets_sync": {
     "status": "success",
-    "appended_rows": 156,
+    "appended_rows": 157,
     "updated_cells": 0,
-    "tracker_candidates_sent": 156,
+    "tracker_candidates_sent": 157,
     "manual_review_exceptions_sent": 0,
+    "manual_review_rows_appended": 0,
     "write_verified": true
   }
 }

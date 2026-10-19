@@ -78,3 +78,8 @@ gspread.exceptions.APIError: APIError: [429]: Quota exceeded for quota metric 'W
 2026-10-19 08:55:16,937 INFO Verified 156 newly written rows in Google Sheets tab 'Florida Tracker' (gid=1466561086), range A2:BD157
 2026-10-19 08:55:16,939 INFO Google Sheets sync succeeded: 156 appended rows; 0 cell updates
 2026-10-19 08:55:16,939 INFO Run complete: extracted=156 tracker_rows=156 keyword_matches=0 exceptions=0
+2026-10-19 13:33:15,113 INFO Extracted 157 records from official portal API
+2026-10-19 13:33:15,164 INFO Saved 157 portal records locally; 157 keyword-matching Tracker records; 0 critical exceptions for Manual Review
+2026-10-19 13:33:16,486 INFO Verified 157 appended rows in tracker 'Florida Tracker' (gid=1466561086), range A2:BD158
+2026-10-19 13:33:16,745 INFO Google Sheets sync succeeded: 157 appended rows; 0 cell updates
+2026-10-19 13:33:16,747 INFO Run complete: extracted=157 tracker_rows=157 keyword_matches=0 exceptions=0
