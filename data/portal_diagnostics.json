@@ -1,6 +1,6 @@
 {
-  "run_utc": "2026-10-18T11:32:05.833591+00:00",
-  "run_ist": "2026-10-18T17:02:05.833591+05:30",
+  "run_utc": "2026-10-19T04:04:55.346219+00:00",
+  "run_ist": "2026-10-19T09:34:55.346219+05:30",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
   "keywords": 26,
   "errors": [],
@@ -31,24 +31,23 @@
     },
     {
       "page": 7,
-      "records_found": 9
+      "records_found": 10
     }
   ],
   "method": "official_json_api",
   "endpoint": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
-  "count_response": 159,
-  "api_count": 159,
+  "count_response": 160,
+  "api_count": 160,
   "pages_requested": 7,
-  "records_extracted": 159,
-  "candidate_count": 159,
+  "records_extracted": 160,
+  "candidate_count": 160,
   "matched_candidates_count": 0,
-  "unmatched_candidates_count": 159,
-  "historical_record_count": 159,
-  "new_records_this_run": 159,
+  "unmatched_candidates_count": 160,
+  "historical_record_count": 160,
+  "new_records_this_run": 1,
   "sheets_sync": {
-    "status": "success",
-    "appended": 159,
-    "updated_cells": 0
+    "status": "failed",
+    "error": "APIError: [429]: Quota exceeded for quota metric 'Write requests' and limit 'Write requests per minute per user' of service 'sheets.googleapis.com' for consumer 'project_number:983091685531'."
   },
-  "status": "success"
+  "status": "partial_failure"
 }

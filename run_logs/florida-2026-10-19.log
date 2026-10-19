@@ -1,0 +1,19 @@
+2026-10-19 04:05:07,884 INFO Extracted 160 real portal records from API
+2026-10-19 04:05:07,936 INFO Saved data: 160 historical, 0 matched this run, 1 new
+2026-10-19 04:05:25,002 ERROR Google Sheets sync failed; local files retained
+Traceback (most recent call last):
+  File "/home/runner/work/OppNexa_Florida/OppNexa_Florida/main.py", line 315, in main
+    added,updated=sync(output,reviews); diag['sheets_sync']={'status':'success','appended':added,'updated_cells':updated}
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/OppNexa_Florida/OppNexa_Florida/main.py", line 177, in sync
+    for rn,cn,val in updates: tracker.update_cell(rn,cn,val); time.sleep(.03)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/gspread/worksheet.py", line 760, in update_cell
+    data = self.client.values_update(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/gspread/http_client.py", line 173, in values_update
+    r = self.request("put", url, params=params, json=body)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/gspread/http_client.py", line 128, in request
+    raise APIError(response)
+gspread.exceptions.APIError: APIError: [429]: Quota exceeded for quota metric 'Write requests' and limit 'Write requests per minute per user' of service 'sheets.googleapis.com' for consumer 'project_number:983091685531'.
