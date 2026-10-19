@@ -29,3 +29,17 @@ gspread.exceptions.APIError: APIError: [429]: Quota exceeded for quota metric 'W
 2026-10-19 07:53:35,721 INFO Saved 156 portal records locally; 0 keyword-matching Tracker records; 0 critical exceptions for Manual Review
 2026-10-19 07:53:37,364 INFO Google Sheets sync succeeded: 0 appended rows; 0 cell updates
 2026-10-19 07:53:37,365 INFO Run complete: extracted=156 tracker_rows=0 keyword_matches=0 exceptions=0
+2026-10-19 08:01:44,748 INFO Extracted 156 records from official portal API
+2026-10-19 08:01:56,838 INFO Detail-page enrichment: checked 10/100 records
+2026-10-19 08:02:08,078 INFO Detail-page enrichment: checked 20/100 records
+2026-10-19 08:02:19,504 INFO Detail-page enrichment: checked 30/100 records
+2026-10-19 08:02:31,283 INFO Detail-page enrichment: checked 40/100 records
+2026-10-19 08:02:42,687 INFO Detail-page enrichment: checked 50/100 records
+2026-10-19 08:02:54,388 INFO Detail-page enrichment: checked 60/100 records
+2026-10-19 08:03:06,235 INFO Detail-page enrichment: checked 70/100 records
+2026-10-19 08:03:17,389 INFO Detail-page enrichment: checked 80/100 records
+2026-10-19 08:03:28,718 INFO Detail-page enrichment: checked 90/100 records
+2026-10-19 08:03:39,749 INFO Detail-page enrichment: checked 100/100 records
+2026-10-19 08:03:40,470 INFO Saved 156 portal records locally; 12 keyword-matching Tracker records; 0 critical exceptions for Manual Review
+2026-10-19 08:03:41,786 INFO Google Sheets sync succeeded: 12 appended rows; 0 cell updates
+2026-10-19 08:03:41,787 INFO Run complete: extracted=156 tracker_rows=12 keyword_matches=12 exceptions=0
