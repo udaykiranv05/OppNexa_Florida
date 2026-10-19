@@ -186,114 +186,126 @@ def with_retry(fn, attempts=6):
             delay = min(delay * 2, 60)
 
 def sync(rows, reviews):
-    """Upsert matching opportunities and append only genuine data exceptions to Manual Review.
+    """Sync GitHub outputs to the two configured tabs without overwriting user columns.
 
-    All cell changes are sent in a small number of batch requests to avoid per-cell write quota.
+    Tracker is an upsert keyed by Portal Advertisement ID. Existing user-created columns
+    and values are preserved. Known automation columns are refreshed from the same
+    canonical row used to create data/leads.csv. Manual Review is an upsert as well.
     """
     from gspread.utils import rowcol_to_a1
     tracker, reviewws = open_sheets()
     headers = with_retry(lambda: ensure_headers(tracker, CORE + EXTRA))
-    vals = with_retry(lambda: tracker.get_all_values())
-    # Never delete existing Tracker rows during routine sync. A matching-rule change
-    # must not erase the user's history. Existing rows are upserted by stable ID.
-    vals = with_retry(lambda: tracker.get_all_values())
+    values = with_retry(lambda: tracker.get_all_values())
+    # Use the first occurrence of each header as the canonical automation column.
+    # Keep duplicate/custom columns in the worksheet untouched for the user's own use.
+    unique_headers = []
+    for h in headers:
+        if h not in unique_headers:
+            unique_headers.append(h)
     oldmap, rownum = {}, {}
-    for i, v in enumerate(vals[1:], start=2):
-        r = {h: (v[j] if j < len(v) else '') for j, h in enumerate(headers)}
-        k = keyrow(r)
-        if not clean(r.get('Opportunity Title')):
-            continue
-        if k:
-            oldmap[k] = r
+    for i, v in enumerate(values[1:], start=2):
+        row = {}
+        for j, h in enumerate(headers):
+            if h not in row:
+                row[h] = v[j] if j < len(v) else ''
+        k = keyrow(row)
+        if k and clean(row.get('Opportunity Title')):
+            oldmap[k] = row
             rownum[k] = i
+
+    # These columns are human-owned; automation never overwrites them.
     protected = {
-        'Risks / Gaps','Next Action','Owner','Review Status','Reviewer Notes',
-        'Healthcare IT Fit (0-25)','Eligibility & Compliance (0-20)',
-        'Customer / Contract Fit (0-15)','Delivery Capability (0-15)',
-        'Deadline Feasibility (0-10)','Commercial Attractiveness (0-10)',
-        'Information Completeness (0-5)','Total Score (0-100)',
-        'Mandatory Gate (Pass / Fail / Unknown)','Recommendation (Go / Investigate / No-Go)'
+        'Owner', 'Review Status', 'Reviewer Notes',
+        'Healthcare IT Fit (0-25)', 'Eligibility & Compliance (0-20)',
+        'Customer / Contract Fit (0-15)', 'Delivery Capability (0-15)',
+        'Deadline Feasibility (0-10)', 'Commercial Attractiveness (0-10)',
+        'Information Completeness (0-5)', 'Total Score (0-100)',
+        'Mandatory Gate (Pass / Fail / Unknown)', 'Recommendation (Go / Investigate / No-Go)',
+        'Mandatory Gate', 'Recommendation'
     }
     append_rows, cell_updates = [], []
     for x in rows:
-        if 'solicitation_id' in x or 'title' in x:
-            sid = clean(x.get('portal_id')) or clean(x.get('solicitation_id'))
-            u = urlnorm(x.get('url'))
-            k = 'id:' + sid.casefold() if sid else ('url:' + u.casefold() if u else '')
-            merged = sheetrow(x, oldmap.get(k))
-        else:
-            k = keyrow(x)
-            merged = dict(oldmap.get(k, {}))
-            merged.update(x)
+        sid = clean(x.get('portal_id')) or clean(x.get('solicitation_id'))
+        u = urlnorm(x.get('url'))
+        k = 'id:' + sid.casefold() if sid else ('url:' + u.casefold() if u else '')
         if not k:
             continue
-        old = oldmap.get(k)
-        if old and k in rownum:
+        old = oldmap.get(k, {})
+        canonical = sheetrow(x, old)
+        if k in rownum:
             rn = rownum[k]
             for j, h in enumerate(headers, start=1):
-                if h in protected:
+                # Only touch the first copy of a duplicated header; custom duplicate
+                # columns are deliberately left as the user has set them.
+                if h in protected or headers.index(h) != j - 1:
                     continue
-                newval = merged.get(h, '')
-                if newval not in ('', old.get(h, '')):
+                newval = canonical.get(h, '')
+                oldval = old.get(h, '')
+                # Clear stale automation-owned values as well as updating changed ones.
+                if newval != oldval:
                     cell_updates.append({'range': rowcol_to_a1(rn, j), 'values': [[newval]]})
         else:
-            append_rows.append([merged.get(h, '') for h in headers])
+            # Preserve custom columns by leaving their cells blank on newly inserted rows.
+            append_rows.append([canonical.get(h, '') if headers.index(h) == j else '' for j, h in enumerate(headers)])
 
-    # Batch cell updates; do not call update_cell in a loop.
     if cell_updates:
         for i in range(0, len(cell_updates), 400):
             chunk = cell_updates[i:i + 400]
             with_retry(lambda chunk=chunk: tracker.batch_update(chunk, value_input_option='USER_ENTERED'))
+
     if append_rows:
-        # Write to a deterministic range, then read back the IDs to verify persistence.
-        first_row = max(2, len(vals) + 1)
+        first_row = max(2, len(values) + 1)
         last_row = first_row + len(append_rows) - 1
         end_col = rowcol_to_a1(1, len(headers)).rstrip('1')
         target_range = f'A{first_row}:{end_col}{last_row}'
-        with_retry(lambda: tracker.update(
-            range_name=target_range,
-            values=append_rows,
-            value_input_option='USER_ENTERED',
-        ))
-        expected_ids = {clean(row[headers.index('Portal Advertisement ID')])
-                        for row in append_rows if 'Portal Advertisement ID' in headers}
+        with_retry(lambda: tracker.update(range_name=target_range, values=append_rows,
+                                          value_input_option='USER_ENTERED'))
         check = with_retry(lambda: tracker.get(f'A{first_row}:{end_col}{last_row}'))
-        written_ids = set()
-        if 'Portal Advertisement ID' in headers:
-            idx = headers.index('Portal Advertisement ID')
-            written_ids = {clean(v[idx]) for v in check if idx < len(v) and clean(v[idx])}
+        id_idx = headers.index('Portal Advertisement ID') if 'Portal Advertisement ID' in headers else None
+        expected_ids = {clean(r[id_idx]) for r in append_rows if id_idx is not None and clean(r[id_idx])}
+        written_ids = {clean(v[id_idx]) for v in check if id_idx is not None and id_idx < len(v) and clean(v[id_idx])}
         if expected_ids and not expected_ids.issubset(written_ids):
-            raise RuntimeError(
-                f'Google Sheets write verification failed for {len(expected_ids - written_ids)} '
-                f'Portal Advertisement IDs in {target_range} on worksheet {tracker.title!r} '
-                f'(gid={tracker.id}).'
-            )
-        log.info('Verified %d newly written rows in Google Sheets tab %r (gid=%s), range %s',
-                 len(append_rows), tracker.title, tracker.id, target_range)
+            raise RuntimeError(f'Google Sheets write verification failed for {len(expected_ids-written_ids)} IDs in {target_range} on {tracker.title!r} (gid={tracker.id}).')
+        log.info('Verified %d appended rows in tracker %r (gid=%s), range %s', len(append_rows), tracker.title, tracker.id, target_range)
 
-    if reviewws is not None and reviews:
+    review_added = 0
+    if reviewws is not None:
         rh = with_retry(lambda: ensure_headers(reviewws, REVIEW))
-        existing = with_retry(lambda: reviewws.get_all_values())
-        known = set()
-        for v in existing[1:]:
-            row = {h: (v[j] if j < len(v) else '') for j, h in enumerate(rh)}
-            sid = clean(row.get('Solicitation ID'))
-            u = urlnorm(row.get('Official Source URL'))
-            k = 'id:' + sid.lower() if sid else ('url:' + u.lower() if u else '')
-            if k:
-                known.add(k)
-        new_review_rows = []
+        rv = with_retry(lambda: reviewws.get_all_values())
+        # Keep manual review sheet's existing user columns and entries; upsert known exception IDs.
+        existing_map, existing_rows = {}, {}
+        for i, v in enumerate(rv[1:], start=2):
+            rr = {h: (v[j] if j < len(v) else '') for j, h in enumerate(rh)}
+            sid = clean(rr.get('Solicitation ID')); u = urlnorm(rr.get('Official Source URL'))
+            key = 'id:' + sid.casefold() if sid else ('url:' + u.casefold() if u else '')
+            if key:
+                existing_map[key] = rr; existing_rows[key] = i
+        review_appends, review_updates = [], []
         for x in reviews:
-            sid = clean(x.get('Solicitation ID'))
-            u = urlnorm(x.get('Official Source URL'))
-            k = 'id:' + sid.lower() if sid else ('url:' + u.lower() if u else '')
-            # For malformed records without either key, don't insert duplicates blindly.
-            if k and k not in known:
-                new_review_rows.append([x.get(h, '') for h in rh])
-                known.add(k)
-        if new_review_rows:
-            with_retry(lambda: reviewws.append_rows(new_review_rows, value_input_option='USER_ENTERED', table_range='A1'))
-    return len(append_rows), len(cell_updates)
+            sid = clean(x.get('Solicitation ID')); u = urlnorm(x.get('Official Source URL'))
+            key = 'id:' + sid.casefold() if sid else ('url:' + u.casefold() if u else '')
+            if not key:
+                continue
+            old = existing_map.get(key, {})
+            merged = dict(old); merged.update({k:v for k,v in x.items() if k in rh and v not in ('', None)})
+            if key in existing_rows:
+                rn = existing_rows[key]
+                for j,h in enumerate(rh, start=1):
+                    if h not in x or not x[h] or h not in REVIEW:
+                        continue
+                    if clean(old.get(h)) != clean(x.get(h)):
+                        review_updates.append({'range': rowcol_to_a1(rn,j), 'values': [[x[h]]]})
+            else:
+                review_appends.append([merged.get(h,'') for h in rh])
+                existing_map[key] = merged
+        if review_updates:
+            for i in range(0,len(review_updates),400):
+                chunk=review_updates[i:i+400]
+                with_retry(lambda chunk=chunk: reviewws.batch_update(chunk,value_input_option='USER_ENTERED'))
+        if review_appends:
+            with_retry(lambda: reviewws.append_rows(review_appends,value_input_option='USER_ENTERED',table_range='A1'))
+            review_added=len(review_appends)
+    return len(append_rows), len(cell_updates), review_added
 
 def fetch_api_candidates():
     """Fetch every page from the official MyFloridaMarketPlace JSON API."""
@@ -426,7 +438,7 @@ def main():
         'search_url': SEARCH,
         'configured_keyword_count': len(KEYWORDS),
         'errors': [], 'pages': [],
-        'manual_review_policy': 'Only missing/invalid critical fields or extraction/data problems; keyword mismatch alone is filtered out, not sent to Manual Review.'
+        'manual_review_policy': 'Manual Review contains extraction/data exceptions only; valid unmatched listings remain in Tracker with a screening label. Both Google Sheets tabs are upserted from the corresponding GitHub JSON/CSV records.'
     }
     try:
         candidates, api_diag = fetch_api_candidates()
@@ -501,14 +513,14 @@ def main():
         if (('id:' + clean(x.get('solicitation_id')).lower()) if clean(x.get('solicitation_id')) else ('url:' + urlnorm(x.get('url')).lower())) not in previous_keys
     )
     diag['status'] = 'extracted_local_pending_sheets'
-    diag['tracker_policy'] = 'All valid portal listings are sent to Florida Tracker; keyword matches are labeled for review and unmatched listings are explicitly marked for manual screening. Existing rows are never automatically deleted.'
+    diag['tracker_policy'] = 'All valid portal listings are upserted to Florida Tracker; keyword matches are labeled and unmatched listings are explicitly marked for manual screening. Existing rows and user-owned columns are preserved.'
     diag['date_time_policy'] = 'Published/open and closing date-time values are copied from official API fields when available. Source timestamps are preserved; missing times/time zones are left blank rather than guessed.'
     writej(diag_path, diag)
     log.info('Saved %d portal records locally; %d keyword-matching Tracker records; %d critical exceptions for Manual Review', len(all_history), len(matched_records), diag['manual_review_exception_count'])
 
     try:
-        added, updated = sync(matched_records, exceptions)
-        diag['sheets_sync'] = {'status': 'success', 'appended_rows': added, 'updated_cells': updated, 'tracker_candidates_sent': len(matched_records), 'manual_review_exceptions_sent': len(exceptions), 'write_verified': True}
+        added, updated, review_added = sync(matched_records, exceptions)
+        diag['sheets_sync'] = {'status': 'success', 'appended_rows': added, 'updated_cells': updated, 'tracker_candidates_sent': len(matched_records), 'manual_review_exceptions_sent': len(exceptions), 'manual_review_rows_appended': review_added, 'write_verified': True}
         diag['status'] = 'success'
         log.info('Google Sheets sync succeeded: %d appended rows; %d cell updates', added, updated)
     except Exception as exc:
