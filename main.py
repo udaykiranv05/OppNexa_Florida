@@ -320,14 +320,27 @@ def fetch_api_candidates():
         for raw in batch:
             title=clean(getv(raw,'title','advertisementTitle','adTitle','bidTitle','solicitationTitle','name'))
             sid=clean(getv(raw,'advertisementNumber','adNumber','solicitationNumber','solicitationId','advertisementId','id','referenceNumber'))
-            agency=clean(getv(raw,'agencyName','agency','organizationName','departmentName','buyerName'))
+            agency_value=getv(raw,'agencyName','agency','organizationName','departmentName','buyerName')
+            if isinstance(agency_value, dict):
+                agency_value=getv(agency_value,'name','organizationName','shortName','entity')
+            if not agency_value and isinstance(raw.get('organization'), dict):
+                agency_value=raw['organization'].get('name') or raw['organization'].get('shortName') or ''
+            agency=clean(agency_value)
             status=clean(getv(raw,'status','advertisementStatus','bidStatus'))
             pub=clean(getv(raw,'publishedDate','publicationDate','postedDate','datePosted','createdDate'))
             due=clean(getv(raw,'endDate','closeDate','dueDate','responseDueDate','openingDate'))
-            desc=clean(getv(raw,'description','summary','scope','advertisementDescription','details','shortDescription')) or clean(raw)
+            desc=clean(getv(raw,'description','summary','scope','advertisementDescription','details','shortDescription'))
+            if not desc:
+                desc=' | '.join(part for part in [
+                    'Advertisement type: '+clean(getv(raw,'type','advertisementType')) if getv(raw,'type','advertisementType') else '',
+                    'Status: '+clean(getv(raw,'status','advertisementStatus','bidStatus')) if getv(raw,'status','advertisementStatus','bidStatus') else '',
+                    'Reference: '+clean(getv(raw,'agencyAdNumber','agencyAdvertisementNumber')) if getv(raw,'agencyAdNumber','agencyAdvertisementNumber') else ''
+                ] if part)
             url=clean(getv(raw,'url','detailUrl','detailPageUrl','advertisementDetailUrl','advertisementUrl','advertisementLink','bidUrl','href','link'))
             url=urlnorm(url) if url else ''
-            if len(title)<4 or not (sid or url):continue
+            # Keep identifiable records even when the portal API omits a detail URL;
+            # records missing both title and ID are not useful and are skipped.
+            if len(title)<4 and not sid: continue
             rec={'title':title,'solicitation_id':sid,'agency':agency,'status':status,
                 'published_date':pub,'deadline_date':due,'description':desc,'text':' '.join([title,agency,desc,json.dumps(raw,ensure_ascii=False,default=str)]),
                 'url':url,'detail_verified':'Extracted from official MyFloridaMarketPlace JSON API'}
@@ -402,8 +415,6 @@ def main():
             missing.append('title is missing or too short')
         if not sid:
             missing.append('official advertisement/solicitation ID is missing')
-        if not u or urlparse(u).netloc.lower() not in ('vendor.myfloridamarketplace.com', 'www.myfloridamarketplace.com'):
-            missing.append('official individual listing URL is missing or invalid')
         if missing:
             exceptions.append(reviewrow(x, ', '.join(x.get('matched_keywords', [])), 'Critical field validation', '; '.join(missing)))
 
@@ -411,8 +422,10 @@ def main():
         saved.update({a: b for a, b in x.items() if b not in ('', None, [])})
         histmap[k] = saved
         all_records.append(saved)
-        # Tracker contains valid, keyword-matched opportunities only. Unmatched valid listings remain in leads.* for audit/keyword tuning.
-        if x.get('matched_keywords') and not missing:
+        # Tracker receives every valid official portal listing. Keyword matching is a
+        # classification field, NOT a gate: zero keyword matches must not empty the Tracker.
+        # The API often omits individual detail URLs, so a valid ID + title is sufficient.
+        if len(clean(x.get('title'))) >= 4 and sid and not missing:
             matched_records.append(x)
 
     all_history = list(histmap.values())
@@ -424,7 +437,8 @@ def main():
 
     diag['candidate_count'] = len(candidates)
     diag['historical_record_count'] = len(all_history)
-    diag['matched_candidates_count'] = len(matched_records)
+    diag['matched_candidates_count'] = sum(1 for x in all_records if x.get('matched_keywords'))
+    diag['tracker_eligible_count'] = len(matched_records)
     diag['unmatched_valid_count'] = sum(1 for x in all_records if not x.get('matched_keywords'))
     diag['manual_review_exception_count'] = len(exceptions)
     diag['new_records_this_run'] = sum(
@@ -432,8 +446,9 @@ def main():
         if (('id:' + clean(x.get('solicitation_id')).lower()) if clean(x.get('solicitation_id')) else ('url:' + urlnorm(x.get('url')).lower())) not in previous_keys
     )
     diag['status'] = 'extracted_local_pending_sheets'
+    diag['tracker_policy'] = 'All valid listings with a title and stable portal ID are sent to Florida Tracker; keyword matches are metadata, not a filter.'
     writej(diag_path, diag)
-    log.info('Saved %d total records; %d keyword matches for Tracker; %d critical exceptions for Manual Review', len(all_history), len(matched_records), len(exceptions))
+    log.info('Saved %d total records; %d valid Tracker records (%d keyword matches); %d critical exceptions for Manual Review', len(all_history), len(matched_records), diag['matched_candidates_count'], len(exceptions))
 
     try:
         added, updated = sync(matched_records, exceptions)
@@ -447,5 +462,5 @@ def main():
     writej(diag_path, diag)
     if diag['status'] != 'success':
         raise RuntimeError('Portal extraction saved locally, but Google Sheets sync failed. See data/portal_diagnostics.json and run_logs.')
-    log.info('Run complete: extracted=%d matched=%d exceptions=%d', len(candidates), len(matched_records), len(exceptions))
+    log.info('Run complete: extracted=%d tracker_rows=%d keyword_matches=%d exceptions=%d', len(candidates), len(matched_records), diag['matched_candidates_count'], len(exceptions))
 if __name__=='__main__': main()
