@@ -1,7 +1,7 @@
 {
-  "run_utc": "2026-10-19T06:57:27.785703+00:00",
-  "run_ist": "2026-10-19T12:27:27.785703+05:30",
-  "run_florida": "2026-10-19T02:57:27.785703-04:00",
+  "run_utc": "2026-10-19T07:06:04.706662+00:00",
+  "run_ist": "2026-10-19T12:36:04.706662+05:30",
+  "run_florida": "2026-10-19T03:06:04.706662-04:00",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
   "configured_keyword_count": 26,
   "errors": [],
@@ -45,15 +45,17 @@
   "candidate_count": 160,
   "historical_record_count": 160,
   "matched_candidates_count": 0,
+  "tracker_eligible_count": 160,
   "unmatched_valid_count": 160,
-  "manual_review_exception_count": 160,
+  "manual_review_exception_count": 0,
   "new_records_this_run": 160,
   "status": "success",
+  "tracker_policy": "All valid listings with a title and stable portal ID are sent to Florida Tracker; keyword matches are metadata, not a filter.",
   "sheets_sync": {
     "status": "success",
-    "appended_rows": 0,
+    "appended_rows": 160,
     "updated_cells": 0,
-    "tracker_candidates_sent": 0,
-    "manual_review_exceptions_sent": 160
+    "tracker_candidates_sent": 160,
+    "manual_review_exceptions_sent": 0
   }
 }
