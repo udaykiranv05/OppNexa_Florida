@@ -1,7 +1,7 @@
 {
-  "run_utc": "2026-10-19T13:33:08.194415+00:00",
-  "run_ist": "2026-10-19T19:03:08.194415+05:30",
-  "run_florida": "2026-10-19T09:33:08.194415-04:00",
+  "run_utc": "2026-10-19T14:07:48.514229+00:00",
+  "run_ist": "2026-10-19T19:37:48.514229+05:30",
+  "run_florida": "2026-10-19T10:07:48.514229-04:00",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
   "configured_keyword_count": 58,
   "errors": [],
@@ -42,6 +42,13 @@
   "api_count": 162,
   "pages_requested": 7,
   "records_extracted": 157,
+  "contact_enrichment": {
+    "attempted": 157,
+    "visited": 157,
+    "contacts_found": 110,
+    "errors": 0,
+    "skipped_no_url": 0
+  },
   "candidate_count": 157,
   "historical_record_count": 157,
   "matched_candidates_count": 0,
