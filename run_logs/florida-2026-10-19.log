@@ -58,3 +58,18 @@ gspread.exceptions.APIError: APIError: [429]: Quota exceeded for quota metric 'W
 2026-10-19 08:36:00,755 INFO Saved 156 portal records locally; 1 keyword-matching Tracker records; 0 critical exceptions for Manual Review
 2026-10-19 08:36:02,631 INFO Google Sheets sync succeeded: 1 appended rows; 0 cell updates
 2026-10-19 08:36:02,632 INFO Run complete: extracted=156 tracker_rows=1 keyword_matches=1 exceptions=0
+2026-10-19 08:46:28,045 INFO Extracted 156 records from official portal API
+2026-10-19 08:46:44,174 INFO Opportunity detail/contact enrichment: 10/100 pages visited
+2026-10-19 08:47:00,011 INFO Opportunity detail/contact enrichment: 20/100 pages visited
+2026-10-19 08:47:15,578 INFO Opportunity detail/contact enrichment: 30/100 pages visited
+2026-10-19 08:47:31,423 INFO Opportunity detail/contact enrichment: 40/100 pages visited
+2026-10-19 08:47:47,714 INFO Opportunity detail/contact enrichment: 50/100 pages visited
+2026-10-19 08:48:03,822 INFO Opportunity detail/contact enrichment: 60/100 pages visited
+2026-10-19 08:48:19,859 INFO Opportunity detail/contact enrichment: 70/100 pages visited
+2026-10-19 08:48:35,816 INFO Opportunity detail/contact enrichment: 80/100 pages visited
+2026-10-19 08:48:51,494 INFO Opportunity detail/contact enrichment: 90/100 pages visited
+2026-10-19 08:49:07,423 INFO Opportunity detail/contact enrichment: 100/100 pages visited
+2026-10-19 08:49:08,480 INFO Official detail pages visited=100; opportunity contacts found=94
+2026-10-19 08:49:08,764 INFO Saved 156 portal records locally; 0 keyword-matching Tracker records; 0 critical exceptions for Manual Review
+2026-10-19 08:49:09,766 INFO Google Sheets sync succeeded: 0 appended rows; 0 cell updates
+2026-10-19 08:49:09,767 INFO Run complete: extracted=156 tracker_rows=0 keyword_matches=0 exceptions=0
