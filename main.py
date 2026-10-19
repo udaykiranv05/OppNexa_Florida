@@ -20,7 +20,7 @@ SEARCH=CFG.get('search_url','https://vendor.myfloridamarketplace.com/search/bids
 KEYWORDS=[str(x).strip() for x in CFG.get('keywords',[]) if str(x).strip()]
 DELAY=max(.5,float(CFG.get('request_delay_seconds',2))); CAP=min(100,max(1,int(CFG.get('max_details_per_run',100))))
 SHEET_ID=CFG.get('spreadsheet_id',''); TRACKER_GID=int(CFG.get('worksheet_id',1466561086)); REVIEW_GID=int(CFG.get('manual_review_worksheet_id',53817621))
-CORE=['Opportunity ID','Date Found','State','Agency','Opportunity Title','Solicitation / Reference No.','Opportunity Type','Service Category','Official Source URL','Published Date','Deadline Date','Deadline Time / Time Zone','Estimated Value (if published)','Scope Summary','Eligibility / Mandatory Requirements','Required Certifications / Experience','Contract Duration / Options','Incumbent / Prior Award (verified only)','Healthcare IT Fit (0-25)','Eligibility & Compliance (0-20)','Customer / Contract Fit (0-15)','Delivery Capability (0-15)','Deadline Feasibility (0-10)','Commercial Attractiveness (0-10)','Information Completeness (0-5)','Total Score (0-100)','Mandatory Gate (Pass / Fail / Unknown)','Recommendation (Go / Investigate / No-Go)','Fit Rationale','Risks / Gaps','Next Action','Last Verified Date','Owner','Review Status','Reviewer Notes']
+CORE=['Opportunity ID','Date Found','State','Agency','Opportunity Title','Solicitation / Reference No.','Opportunity Type','Service Category','Official Source URL','Published Date','Opportunity Open Date & Time','Deadline Date','Deadline Time / Time Zone','Closing Date & Time (Source Time Zone)','Estimated Value (if published)','Scope Summary','Eligibility / Mandatory Requirements','Required Certifications / Experience','Contract Duration / Options','Incumbent / Prior Award (verified only)','Healthcare IT Fit (0-25)','Eligibility & Compliance (0-20)','Customer / Contract Fit (0-15)','Delivery Capability (0-15)','Deadline Feasibility (0-10)','Commercial Attractiveness (0-10)','Information Completeness (0-5)','Total Score (0-100)','Mandatory Gate (Pass / Fail / Unknown)','Recommendation (Go / Investigate / No-Go)','Fit Rationale','Risks / Gaps','Next Action','Last Verified Date','Owner','Review Status','Reviewer Notes']
 EXTRA=['Portal Advertisement ID','Advertisement Status','Matched Keywords','Keyword Match Count','First Seen Date','Last Seen Date','Last Source Update','Record Fingerprint','Scrape / Extraction Status','Detail Verification Status','Source Document URLs']
 REVIEW=['Date Detected','Keyword','Solicitation ID','Opportunity Title','Official Source URL','Failure Stage','Failure Reason','Retry Status','Last Attempt']
 
@@ -44,8 +44,16 @@ def urlnorm(u):
     return u.rstrip('/') if p.scheme in ('http','https') and p.path not in ('','/') else (f'{p.scheme}://{p.netloc}/' if p.scheme in ('http','https') else '')
 def fp(x): return hashlib.sha256('|'.join([clean(x.get('solicitation_id')).lower(),clean(x.get('title')).lower(),urlnorm(x.get('url')).lower()]).encode()).hexdigest()[:20]
 def matches(x):
-    text=' '.join(clean(x.get(k,'')) for k in ('title','description','agency','commodity','category','text')).lower()
-    return [k for k in KEYWORDS if k.lower() in text]
+    # Match against useful procurement fields; normalize whitespace/case, and allow
+    # any configured keyword to qualify a record. One or more matches are sufficient.
+    text = ' '.join(clean(x.get(k, '')) for k in
+                    ('title', 'description', 'agency', 'commodity', 'category', 'text')).casefold()
+    found = []
+    for keyword in KEYWORDS:
+        kw = clean(keyword).casefold()
+        if kw and kw in text and keyword not in found:
+            found.append(keyword)
+    return found
 def label(text, names):
     text=clean(text)
     for n in names:
@@ -117,9 +125,9 @@ def open_detail(page,x):
     return x
 def reviewrow(x,kw,stage,reason): return {'Date Detected':TODAY,'Keyword':kw or '(no keyword matched)','Solicitation ID':x.get('solicitation_id',''),'Opportunity Title':x.get('title',''),'Official Source URL':x.get('url',''),'Failure Stage':stage,'Failure Reason':str(reason)[:1000],'Retry Status':'Pending','Last Attempt':IST.strftime('%Y-%m-%d %H:%M:%S %Z')}
 def sheetrow(x,old=None):
-    old=old or {}; ms=x.get('matched_keywords',[]); u=urlnorm(x.get('url')); sid=clean(x.get('solicitation_id')); ident=sid or u or fp(x)
+    old=old or {}; ms=x.get('matched_keywords',[]); u=urlnorm(x.get('url')); sid=clean(x.get('solicitation_id')); pid=clean(x.get('portal_id')) or (sid if sid.isdigit() else ''); ident=pid or sid or u or fp(x)
     r={h:'' for h in CORE+EXTRA}; r.update(old)
-    vals={'Opportunity ID':ident,'Date Found':old.get('Date Found') or TODAY,'State':STATE,'Agency':clean(x.get('agency')),'Opportunity Title':clean(x.get('title')),'Solicitation / Reference No.':sid,'Opportunity Type':clean(x.get('opportunity_type')),'Service Category':', '.join(ms[:5]),'Official Source URL':u,'Published Date':clean(x.get('published_date')),'Deadline Date':clean(x.get('deadline_date')),'Scope Summary':clean(x.get('description'))[:1500],'Last Verified Date':TODAY,'Portal Advertisement ID':sid,'Matched Keywords':', '.join(ms),'Keyword Match Count':len(ms),'First Seen Date':old.get('First Seen Date') or x.get('first_seen_date') or TODAY,'Last Seen Date':TODAY,'Last Source Update':TODAY,'Record Fingerprint':fp(x),'Scrape / Extraction Status':('Listing extracted; keyword matched' if ms else 'Valid listing; no configured keyword matched'),'Detail Verification Status':x.get('detail_verified','Not visited'),'Source Document URLs':u}
+    vals={'Opportunity ID':ident,'Date Found':old.get('Date Found') or TODAY,'State':STATE,'Agency':clean(x.get('agency')),'Opportunity Title':clean(x.get('title')),'Solicitation / Reference No.':sid,'Opportunity Type':clean(x.get('opportunity_type')),'Service Category':', '.join(ms[:5]),'Official Source URL':u,'Published Date':clean(x.get('published_date')),'Opportunity Open Date & Time':clean(x.get('open_datetime') or x.get('opening_datetime')),'Deadline Date':clean(x.get('deadline_date')),'Deadline Time / Time Zone':clean(x.get('deadline_time_timezone')),'Closing Date & Time (Source Time Zone)':clean(x.get('closing_datetime') or x.get('deadline_date')),'Scope Summary':clean(x.get('description'))[:1500],'Last Verified Date':TODAY,'Portal Advertisement ID':pid,'Matched Keywords':', '.join(ms),'Keyword Match Count':len(ms),'First Seen Date':old.get('First Seen Date') or x.get('first_seen_date') or TODAY,'Last Seen Date':TODAY,'Last Source Update':TODAY,'Record Fingerprint':fp(x),'Scrape / Extraction Status':('Listing extracted; keyword matched' if ms else 'Valid listing; no configured keyword matched'),'Detail Verification Status':x.get('detail_verified','Not visited'),'Source Document URLs':clean(x.get('document_urls'))}
     r.update({k:v for k,v in vals.items() if v!=''})
     if not r.get('Mandatory Gate'): r['Mandatory Gate'] = 'Unknown'
     if not r.get('Recommendation'): r['Recommendation'] = 'Investigate'
@@ -157,8 +165,11 @@ def ensure_headers(ws, needed):
     return headers
 
 def keyrow(r):
-    sid=clean(r.get('Solicitation / Reference No.')) or clean(r.get('Portal Advertisement ID')); u=urlnorm(r.get('Official Source URL'))
-    return 'id:'+sid.lower() if sid else ('url:'+u.lower() if u else '')
+    # Portal advertisement ID is the most stable unique key; solicitation reference
+    # can be reused or formatted differently by agencies.
+    sid = clean(r.get('Portal Advertisement ID')) or clean(r.get('Solicitation / Reference No.'))
+    u = urlnorm(r.get('Official Source URL'))
+    return 'id:' + sid.casefold() if sid else ('url:' + u.casefold() if u else '')
 def with_retry(fn, attempts=6):
     """Retry Google API calls on quota/rate-limit/transient errors."""
     delay = 2
@@ -183,6 +194,32 @@ def sync(rows, reviews):
     tracker, reviewws = open_sheets()
     headers = with_retry(lambda: ensure_headers(tracker, CORE + EXTRA))
     vals = with_retry(lambda: tracker.get_all_values())
+    # Remove legacy non-matching rows and duplicate rows from the tracker first.
+    # This is safe only when config.json contains keywords; main() checks that before sync.
+    delete_rows = []
+    seen_sheet_keys = set()
+    for i, v in enumerate(vals[1:], start=2):
+        r = {h: (v[j] if j < len(v) else '') for j, h in enumerate(headers)}
+        if not clean(r.get('Opportunity Title')):
+            continue
+        k = keyrow(r)
+        probe = {
+            'title': r.get('Opportunity Title', ''),
+            'description': r.get('Scope Summary', ''),
+            'agency': r.get('Agency', ''),
+            'category': r.get('Service Category', ''),
+            'text': r.get('Opportunity Title', '') + ' ' + r.get('Scope Summary', '') + ' ' + r.get('Agency', '')
+        }
+        if not matches(probe) or (k and k in seen_sheet_keys):
+            delete_rows.append(i)
+        elif k:
+            seen_sheet_keys.add(k)
+    for row_index in reversed(delete_rows):
+        with_retry(lambda row_index=row_index: tracker.delete_rows(row_index))
+    if delete_rows:
+        log.info('Removed %d non-matching/duplicate legacy rows from Florida Tracker', len(delete_rows))
+        vals = with_retry(lambda: tracker.get_all_values())
+
     oldmap, rownum = {}, {}
     for i, v in enumerate(vals[1:], start=2):
         r = {h: (v[j] if j < len(v) else '') for j, h in enumerate(headers)}
@@ -203,9 +240,9 @@ def sync(rows, reviews):
     append_rows, cell_updates = [], []
     for x in rows:
         if 'solicitation_id' in x or 'title' in x:
-            sid = clean(x.get('solicitation_id'))
+            sid = clean(x.get('portal_id')) or clean(x.get('solicitation_id'))
             u = urlnorm(x.get('url'))
-            k = 'id:' + sid.lower() if sid else ('url:' + u.lower() if u else '')
+            k = 'id:' + sid.casefold() if sid else ('url:' + u.casefold() if u else '')
             merged = sheetrow(x, oldmap.get(k))
         else:
             k = keyrow(x)
@@ -319,7 +356,9 @@ def fetch_api_candidates():
             diag['errors'].append('No parseable rows on API page '+str(pn));diag['empty_page_preview']=str(response)[:1000];break
         for raw in batch:
             title=clean(getv(raw,'title','advertisementTitle','adTitle','bidTitle','solicitationTitle','name'))
-            sid=clean(getv(raw,'advertisementNumber','adNumber','solicitationNumber','solicitationId','advertisementId','id','referenceNumber'))
+            sid=clean(getv(raw,'agencyAdNumber','agencyAdvertisementNumber','advertisementNumber','adNumber','solicitationNumber','solicitationId','referenceNumber'))
+            portal_id=clean(getv(raw,'advertisementId','advertisementID','adId','id','bidId'))
+            if not portal_id and sid.isdigit(): portal_id=sid
             agency_value=getv(raw,'agencyName','agency','organizationName','departmentName','buyerName')
             if isinstance(agency_value, dict):
                 agency_value=getv(agency_value,'name','organizationName','shortName','entity')
@@ -328,7 +367,16 @@ def fetch_api_candidates():
             agency=clean(agency_value)
             status=clean(getv(raw,'status','advertisementStatus','bidStatus'))
             pub=clean(getv(raw,'publishedDate','publicationDate','postedDate','datePosted','createdDate'))
-            due=clean(getv(raw,'endDate','closeDate','dueDate','responseDueDate','openingDate'))
+            open_dt=clean(getv(raw,'openDate','openingDate','startDate','openDateTime','openingDateTime','availableDate','publishedDate','publicationDate','postedDate','datePosted'))
+            due=clean(getv(raw,'endDate','closeDate','dueDate','responseDueDate','closingDate','endDateTime','closeDateTime','responseDeadline','deadlineDate'))
+            due_time=clean(getv(raw,'endTime','closeTime','dueTime','responseDueTime','closingTime','deadlineTime'))
+            due_zone=clean(getv(raw,'timeZone','timezone','endDateTimeZone','closeDateTimeZone'))
+            # Keep source timestamps verbatim (including any timezone offset); do not guess missing times.
+            closing_dt = due if re.search(r'\d[T ]\d{2}:\d{2}', due) else ''
+            if not closing_dt and due and due_time and re.search(r'\d{1,2}:\d{2}', due_time):
+                closing_dt = due + ' ' + due_time
+            if due_zone:
+                due_time = (due_time + ' ' + due_zone).strip()
             desc=clean(getv(raw,'description','summary','scope','advertisementDescription','details','shortDescription'))
             if not desc:
                 desc=' | '.join(part for part in [
@@ -338,11 +386,15 @@ def fetch_api_candidates():
                 ] if part)
             url=clean(getv(raw,'url','detailUrl','detailPageUrl','advertisementDetailUrl','advertisementUrl','advertisementLink','bidUrl','href','link'))
             url=urlnorm(url) if url else ''
+            # Official public detail pages use /search/bids/detail/{advertisement-id}.
+            # Only construct it from a portal ID (not an arbitrary agency reference).
+            if not url and portal_id and portal_id.isdigit():
+                url = f'https://vendor.myfloridamarketplace.com/search/bids/detail/{portal_id}'
             # Keep identifiable records even when the portal API omits a detail URL;
             # records missing both title and ID are not useful and are skipped.
             if len(title)<4 and not sid: continue
-            rec={'title':title,'solicitation_id':sid,'agency':agency,'status':status,
-                'published_date':pub,'deadline_date':due,'description':desc,'text':' '.join([title,agency,desc,json.dumps(raw,ensure_ascii=False,default=str)]),
+            rec={'title':title,'solicitation_id':sid,'portal_id':portal_id,'agency':agency,'status':status,
+                'published_date':pub,'open_datetime':open_dt,'opening_datetime':open_dt,'deadline_date':(re.match(r'^\d{4}-\d{2}-\d{2}', due).group(0) if re.match(r'^\d{4}-\d{2}-\d{2}', due) else due),'deadline_time_timezone':due_time,'closing_datetime':closing_dt or due,'description':desc,'text':' '.join([title,agency,desc,json.dumps(raw,ensure_ascii=False,default=str)]),
                 'url':url,'detail_verified':'Extracted from official MyFloridaMarketPlace JSON API'}
             key=('id:'+sid.lower()) if sid else ('url:'+url.lower())
             if key not in seen:seen.add(key);allrows.append(rec)
@@ -355,12 +407,14 @@ def main():
     leads_path = DATA / 'leads.json'
     reviews_path = DATA / 'manual_review.json'
     diag_path = DATA / 'portal_diagnostics.json'
+    if not KEYWORDS:
+        raise RuntimeError('No keywords configured in config.json; refusing to run or modify the Tracker sheet.')
     history = readj(leads_path, [])
     histmap = {}
     for item in history:
-        sid = clean(item.get('solicitation_id'))
+        sid = clean(item.get('portal_id')) or clean(item.get('solicitation_id'))
         u = urlnorm(item.get('url'))
-        k = 'id:' + sid.lower() if sid else ('url:' + u.lower() if u else '')
+        k = 'id:' + sid.casefold() if sid else ('url:' + u.casefold() if u else '')
         if k:
             histmap[k] = item
 
@@ -371,7 +425,7 @@ def main():
         'search_url': SEARCH,
         'configured_keyword_count': len(KEYWORDS),
         'errors': [], 'pages': [],
-        'manual_review_policy': 'Only missing/invalid critical fields or extraction/data problems; keyword mismatch alone is not a manual-review exception.'
+        'manual_review_policy': 'Only missing/invalid critical fields or extraction/data problems; keyword mismatch alone is filtered out, not sent to Manual Review.'
     }
     try:
         candidates, api_diag = fetch_api_candidates()
@@ -397,9 +451,9 @@ def main():
     for x in candidates:
         x['matched_keywords'] = matches(x)
         x['record_fingerprint'] = fp(x)
-        sid = clean(x.get('solicitation_id'))
+        sid = clean(x.get('portal_id')) or clean(x.get('solicitation_id'))
         u = urlnorm(x.get('url'))
-        k = 'id:' + sid.lower() if sid else ('url:' + u.lower() if u else '')
+        k = 'id:' + sid.casefold() if sid else ('url:' + u.casefold() if u else '')
         if not k:
             exceptions.append(reviewrow(x, '', 'Identity validation', 'Record has neither a stable advertisement/solicitation ID nor an official detail URL.'))
             continue
@@ -413,7 +467,7 @@ def main():
         missing = []
         if len(clean(x.get('title'))) < 4:
             missing.append('title is missing or too short')
-        if not sid:
+        if not (clean(x.get('portal_id')) or sid):
             missing.append('official advertisement/solicitation ID is missing')
         if missing:
             exceptions.append(reviewrow(x, ', '.join(x.get('matched_keywords', [])), 'Critical field validation', '; '.join(missing)))
@@ -422,10 +476,8 @@ def main():
         saved.update({a: b for a, b in x.items() if b not in ('', None, [])})
         histmap[k] = saved
         all_records.append(saved)
-        # Tracker receives every valid official portal listing. Keyword matching is a
-        # classification field, NOT a gate: zero keyword matches must not empty the Tracker.
-        # The API often omits individual detail URLs, so a valid ID + title is sufficient.
-        if len(clean(x.get('title'))) >= 4 and sid and not missing:
+        # Only records matching at least one configured keyword enter Florida Tracker.
+        if len(clean(x.get('title'))) >= 4 and (clean(x.get('portal_id')) or sid) and not missing and x.get('matched_keywords'):
             matched_records.append(x)
 
     all_history = list(histmap.values())
@@ -446,9 +498,10 @@ def main():
         if (('id:' + clean(x.get('solicitation_id')).lower()) if clean(x.get('solicitation_id')) else ('url:' + urlnorm(x.get('url')).lower())) not in previous_keys
     )
     diag['status'] = 'extracted_local_pending_sheets'
-    diag['tracker_policy'] = 'All valid listings with a title and stable portal ID are sent to Florida Tracker; keyword matches are metadata, not a filter.'
+    diag['tracker_policy'] = 'Only valid listings matching at least one configured keyword are sent to Florida Tracker; existing unmatched rows are pruned.'
+    diag['date_time_policy'] = 'Published/open and closing date-time values are copied from official API fields when available. Source timestamps are preserved; missing times/time zones are left blank rather than guessed.'
     writej(diag_path, diag)
-    log.info('Saved %d total records; %d valid Tracker records (%d keyword matches); %d critical exceptions for Manual Review', len(all_history), len(matched_records), diag['matched_candidates_count'], len(exceptions))
+    log.info('Saved %d portal records locally; %d keyword-matching Tracker records; %d critical exceptions for Manual Review', len(all_history), len(matched_records), diag['manual_review_exception_count'])
 
     try:
         added, updated = sync(matched_records, exceptions)
