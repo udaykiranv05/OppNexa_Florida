@@ -1,4 +1,3 @@
-
 {
   "state": "Florida",
   "source_url": "https://vendor.myfloridamarketplace.com/",
@@ -7,7 +6,9 @@
   "worksheet_id": 1466561086,
   "manual_review_worksheet_id": 53817621,
   "max_details_per_run": 100,
-  "request_delay_seconds": 2,
+  "request_delay_seconds": 0.5,
+  "page_size": 25,
+  "max_pages": 100,
   "keywords": [
     "Electronic Health Record",
     "Electronic Medical Record",
@@ -34,6 +35,30 @@
     "Florida Agency for Health Care Administration",
     "Florida Department of Health",
     "Florida Medicaid",
-    "Integrated Eligibility"
+    "Integrated Eligibility",
+    "healthcare",
+    "health care",
+    "medical",
+    "clinical",
+    "hospital",
+    "patient information system",
+    "health data",
+    "health information",
+    "health IT",
+    "Medicaid",
+    "electronic records",
+    "software development",
+    "application services",
+    "information technology",
+    "IT services",
+    "data analytics",
+    "data management",
+    "systems integration",
+    "cybersecurity",
+    "cloud services",
+    "Department of Health",
+    "Agency for Health Care Administration",
+    "AHCA",
+    "DOH"
   ]
 }
