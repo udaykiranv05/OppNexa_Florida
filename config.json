@@ -56,11 +56,6 @@
     "Healthcare IT Consulting",
     "Healthcare IT Support",
     "Healthcare Systems Integration",
-    "Florida Agency for Health Care Administration",
-    "Agency for Health Care Administration",
-    "Florida Department of Health",
-    "Florida Medicaid",
-    "Integrated Eligibility",
     "Medicaid claims processing",
     "Medicaid enrollment system",
     "Health care information technology",
@@ -73,5 +68,6 @@
     "health information system modernization",
     "healthcare application support",
     "healthcare data analytics"
-  ]
+  ],
+  "matching_policy": "Conservative healthcare IT: match specific technical/system/data phrases in opportunity title or actual scope; agency names alone do not qualify; no contact/footer boilerplate matching."
 }
