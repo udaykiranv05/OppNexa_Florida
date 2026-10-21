@@ -68,11 +68,11 @@
     "contact_email": "Sabina.Flanagan@FloridaDEP.gov",
     "contact_address": "3800 Commonwealth Blvd, MS93 Carr Building Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "a76a8b2896e19c5ada5c",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Okaloacoochee Slough WMA Fire Line Installation - Agency Decision",
@@ -97,7 +97,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "9822bb694d1d7476cd68",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Babcock Ranch Preserve Road Work - Agency Decision",
@@ -141,7 +141,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "3c536d6c0edccb05c6be",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Tanisha Miller",
     "contact_phone": "(850) 717-7305",
     "contact_email": "Tanisha.Miller@floridarevenue.com",
@@ -171,7 +171,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "92f76f7823f7e827d839",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "ROAD MAINTENANCE GRADING PROJECT IN FRANKLIN AND GULF COUNTIES",
@@ -192,11 +192,11 @@
     "contact_email": "elbert.orellana@myfwc.com",
     "contact_address": "1875 E Orange Avenue Tallahassee, FL 32311",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "b3bb3e9cb338f0e4a428",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Criminal Justice, Mental Health, and Substance Abuse Reinvestment Grant Program",
@@ -221,7 +221,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "ede00f8d98b1216343e8",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Integrated Mobile Community and Jail Medication Assisted Treatment (MAT)",
@@ -237,11 +237,11 @@
     "text": "Integrated Mobile Community and Jail Medication Assisted Treatment (MAT) Department of Children and Families (DCF) Advertisement type: Grant Opportunities | Status: OPEN | Reference: DCF RFA 2526 048 {\"agencyAdNumber\": \"DCF RFA 2526 048\", \"type\": \"Grant Opportunities\", \"title\": \"Integrated Mobile Community and Jail Medication Assisted Treatment (MAT)\", \"openDate\": \"2026-07-13T19:39:33.000+00:00\", \"closeDate\": \"2026-11-27T21:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"2\", \"version\": 3, \"advertisementId\": 16456, \"uniqueName\": \"GO-16456\", \"publishDate\": \"2026-07-13T19:39:33.000+00:00\", \"organization\": {\"organizationId\": 30000023, \"entity\": \"600000\", \"shortName\": \"DCF\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Children and Families (DCF)\"}, \"agency\": \"Department of Children and Families (DCF)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/16456",
     "detail_verified": "Visited official detail page; contact extraction attempted",
-    "contact_extraction_status": "Contact found",
-    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "3f132ead2331816efb28",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Sally Johns",
     "contact_phone": "(000) 000-0000",
     "contact_email": "sally.johns@myflfamilies.com",
@@ -271,7 +271,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "c78a2ca11b177cd33a07",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "FOSTER AND FAMILY SUPPORT GRANT PROGRAM",
@@ -292,11 +292,11 @@
     "contact_email": "hqw.procurement.team.activities@myflfamilies.com",
     "contact_address": "Via email only, applications due 10/28/2026 at 2:00 PM Tallahassee, FL 32303",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "4f3ae227240873f2cf13",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Targeted Outreach for Pregnant Women Act (TOPWA)",
@@ -316,7 +316,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "588cac472c45495cdca9",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Michelle Battles",
     "contact_phone": "(850) 901-6716",
     "contact_email": "michelle.battles@flhealth.gov",
@@ -342,11 +342,11 @@
     "contact_email": "Tiffane.Evans@flhealth.gov",
     "contact_address": "RFA Timeline See RFA timeline, Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "ba12ba0c944b0d619b56",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Advanced Business Intelligence and Analytics Platform",
@@ -370,7 +370,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "3891ce4b9fd1be455ad3",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Conner Lab Corridor Structural Improvement - FDACS Project No. 1116",
@@ -395,7 +395,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "d73cd50c844515ab2fb8",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Lawn Care Services",
@@ -416,11 +416,11 @@
     "contact_email": "araceli.serna@dms.fl.gov",
     "contact_address": "4050 Esplanade Way Tallahassee Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "d8f701432eb4a9dbf162",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Statewide Roof Maintenance, Repair, and Replacement Services",
@@ -440,7 +440,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "7c2c7fceef1c29e396c6",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Sarah Weirick",
     "contact_phone": "(850) 717-3700",
     "contact_email": "purchasing@fdc.myflorida.com",
@@ -470,7 +470,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "d03041bf925e3a979f72",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Non-Regulated Trash Collection Services Regions 1 and 2",
@@ -486,11 +486,11 @@
     "text": "Non-Regulated Trash Collection Services Regions 1 and 2 Florida Department of Corrections (FDC) Advertisement type: Invitation to Bid | Status: OPEN | Reference: FDC ITB-26-034 {\"agencyAdNumber\": \"FDC ITB-26-034\", \"type\": \"Invitation to Bid\", \"title\": \"Non-Regulated Trash Collection Services Regions 1 and 2\", \"openDate\": \"2026-02-04T22:00:00.000+00:00\", \"closeDate\": \"2026-10-29T21:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 4, \"advertisementId\": 15047, \"uniqueName\": \"ITB-15047\", \"publishDate\": \"2026-02-04T13:27:06.000+00:00\", \"organization\": {\"organizationId\": 30000030, \"entity\": \"700000\", \"shortName\": \"FDC\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Department of Corrections (FDC)\"}, \"agency\": \"Florida Department of Corrections (FDC)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/15047",
     "detail_verified": "Visited official detail page; contact extraction attempted",
-    "contact_extraction_status": "Contact found",
-    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "f7ab0700578e94f33494",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Miranda Tatum",
     "contact_phone": "(850) 717-3700",
     "contact_email": "Purchasing@fdc.myflorida.com",
@@ -511,11 +511,11 @@
     "text": "FDC-CM20007 Lake CI Modernization Project Florida Department of Corrections (FDC) Advertisement type: Invitation to Bid | Status: OPEN | Reference: 50000392 {\"agencyAdNumber\": \"50000392\", \"type\": \"Invitation to Bid\", \"title\": \"FDC-CM20007 Lake CI Modernization Project\", \"openDate\": \"2026-05-01T19:59:56.000+00:00\", \"closeDate\": \"2026-10-30T20:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 1, \"advertisementId\": 15842, \"uniqueName\": \"ITB-15842\", \"publishDate\": \"2026-05-01T19:59:56.000+00:00\", \"organization\": {\"organizationId\": 30000030, \"entity\": \"700000\", \"shortName\": \"FDC\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Department of Corrections (FDC)\"}, \"agency\": \"Florida Department of Corrections (FDC)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/15842",
     "detail_verified": "Visited official detail page; contact extraction attempted",
-    "contact_extraction_status": "Contact found",
-    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "a9c797106cb7d9f58609",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Paul Fernandes",
     "contact_phone": "(352) 418-6140",
     "contact_email": "Paul.Fernandes@ajaxbuilding.com For questions on a specific advertisement, contact the agency advertisement owner. Advertisements include the contact information for the agency advertisement. The agency advertisement owner is the point of contact for vendors with specific questions. Copyright © 2020 State of Florida MFMP Help Desk: 866-FLA-EPRO (866-352-3776) Privacy Statement",
@@ -545,7 +545,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "5976b98c62feef9f607d",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Florida State Hospital Elevator Maintenance and Repair",
@@ -570,7 +570,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "96d489163740727e3fa1",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Electrical Maintenenace and Repair Services",
@@ -595,7 +595,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "1f33547d7374db73b96c",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "ITB-27-002B- Bennett Lochinvar Boiler #2 Replacement",
@@ -620,7 +620,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "3e0281f4847f38df6003",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "St Pete Campus Fire Alarm Replacement",
@@ -645,7 +645,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "7d23a257d1070289da41",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Spirit of The Wild Modular Home",
@@ -715,7 +715,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "e53b9bf6703eeec61169",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Medium and Heavy Trucks ITB",
@@ -735,7 +735,7 @@
     "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "8488d6c7913ff8a92d31",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Invitation to Bid BDC04-26/27 Suwannee River State Park – Bathhouse Replacement",
@@ -905,7 +905,7 @@
     "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "5623bcf8887500265ba6",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Comprehensive Mechanical Systems Maintenance and Repair Services - Bronson Animal Disease Lab",
@@ -921,11 +921,11 @@
     "text": "Comprehensive Mechanical Systems Maintenance and Repair Services - Bronson Animal Disease Lab Department of Agriculture and Consumer Services (FDACS) Advertisement type: Invitation to Bid | Status: OPEN | Reference: ITB DAI 26 27 43 {\"agencyAdNumber\": \"ITB DAI 26 27 43\", \"type\": \"Invitation to Bid\", \"title\": \"Comprehensive Mechanical Systems Maintenance and Repair Services - Bronson Animal Disease Lab\", \"openDate\": \"2026-09-22T13:12:27.000+00:00\", \"closeDate\": \"2026-11-04T22:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 5, \"advertisementId\": 17047, \"uniqueName\": \"ITB-17047\", \"publishDate\": \"2026-09-22T13:12:27.000+00:00\", \"organization\": {\"organizationId\": 30000015, \"entity\": \"420000\", \"shortName\": \"FDACS\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Agriculture and Consumer Services (FDACS)\"}, \"agency\": \"Department of Agriculture and Consumer Services (FDACS)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17047",
     "detail_verified": "Visited official detail page; contact extraction attempted",
-    "contact_extraction_status": "Contact found",
-    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "72e87a0e6ed79ec8561d",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Brenda Paul",
     "contact_phone": "(850) 617-7180",
     "contact_email": "Bids@fdacs.gov",
@@ -950,7 +950,7 @@
     "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "6778af212502de9479d1",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Installation of Window Shades",
@@ -971,11 +971,11 @@
     "contact_email": "DFSPurchasing@myfloridacfo.com",
     "contact_address": "200 East Gaines Street Larson Building Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "889a25f8cb8940ffdd20",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Okaloacoochee Slough WMA Fence Line Project",
@@ -995,7 +995,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "f5d69cf79e64b31504b8",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Randy Golightly",
     "contact_phone": "(850) 617-9648",
     "contact_email": "Randolph.Golightly@MyFWC.com",
@@ -1025,7 +1025,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "35a255bec413ca4821b5",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "ECEP Cooling Tower Basin Improvements",
@@ -1046,11 +1046,11 @@
     "contact_email": "krodrigues@oversightdistrict.org",
     "contact_address": "1900 Hotel Plaza Blvd Lake Buena Vista, FL 32830",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "4c3d4b869e72eeeac023",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Deicer Pellets",
@@ -1063,7 +1063,7 @@
     "deadline_date": "2026-11-09",
     "closing_datetime": "2026-11-09T22:00:00.000+00:00",
     "description": "Advertisement type: Invitation to Bid | Status: OPEN | Reference: DOT-ITB-27-3004-SC",
-    "text": "Deicer Pellets Florida Department of Transportation (FDOT) Advertisement type: Invitation to Bid | Status: OPEN | Reference: DOT-ITB-27-3004-SC {\"agencyAdNumber\": \"DOT-ITB-27-3004-SC\", \"type\": \"Invitation to Bid\", \"title\": \"Deicer Pellets\", \"openDate\": \"2026-09-28T18:55:16.000+00:00\", \"closeDate\": \"2026-11-09T22:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 2, \"advertisementId\": 17073, \"uniqueName\": \"ITB-17073\", \"publishDate\": \"2026-09-28T18:55:16.000+00:00\", \"organization\": {\"organizationId\": 30000021, \"entity\": \"550000\", \"shortName\": \"FDOT\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Department of Transportation (FDOT)\"}, \"agency\": \"Florida Department of Transportation (FDOT)\"}",
+    "text": "Deicer Pellets Florida Department of Transportation (FDOT) Advertisement type: Invitation to Bid | Status: OPEN | Reference: DOT-ITB-27-3004-SC {\"agencyAdNumber\": \"DOT-ITB-27-3004-SC\", \"type\": \"Invitation to Bid\", \"title\": \"Deicer Pellets\", \"openDate\": \"2026-09-28T18:55:16.000+00:00\", \"closeDate\": \"2026-11-09T22:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 3, \"advertisementId\": 17073, \"uniqueName\": \"ITB-17073\", \"publishDate\": \"2026-09-28T18:55:16.000+00:00\", \"organization\": {\"organizationId\": 30000021, \"entity\": \"550000\", \"shortName\": \"FDOT\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Department of Transportation (FDOT)\"}, \"agency\": \"Florida Department of Transportation (FDOT)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17073",
     "detail_verified": "Visited official detail page; contact extraction attempted",
     "contact_name": "Sommer Crews",
@@ -1075,7 +1075,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "646ea814fa654277602d",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "DISTRICTWIDE FENCING FOR FLORIDA DEPARTMENT OF TRANSPORTATION – DISTRICT FOUR",
@@ -1100,7 +1100,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "b6d38b0db8889938c692",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Lake Miccosukee Mechanical Muck Management",
@@ -1125,7 +1125,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "5682bde1f484ab5e1583",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Liquid Deicer",
@@ -1138,7 +1138,7 @@
     "deadline_date": "2026-11-09",
     "closing_datetime": "2026-11-09T22:00:00.000+00:00",
     "description": "Advertisement type: Invitation to Bid | Status: OPEN | Reference: DOT-ITB-27-3003-SC",
-    "text": "Liquid Deicer Florida Department of Transportation (FDOT) Advertisement type: Invitation to Bid | Status: OPEN | Reference: DOT-ITB-27-3003-SC {\"agencyAdNumber\": \"DOT-ITB-27-3003-SC\", \"type\": \"Invitation to Bid\", \"title\": \"Liquid Deicer\", \"openDate\": \"2026-09-28T18:48:28.000+00:00\", \"closeDate\": \"2026-11-09T22:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 2, \"advertisementId\": 17092, \"uniqueName\": \"ITB-17092\", \"publishDate\": \"2026-09-28T18:48:28.000+00:00\", \"organization\": {\"organizationId\": 30000021, \"entity\": \"550000\", \"shortName\": \"FDOT\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Department of Transportation (FDOT)\"}, \"agency\": \"Florida Department of Transportation (FDOT)\"}",
+    "text": "Liquid Deicer Florida Department of Transportation (FDOT) Advertisement type: Invitation to Bid | Status: OPEN | Reference: DOT-ITB-27-3003-SC {\"agencyAdNumber\": \"DOT-ITB-27-3003-SC\", \"type\": \"Invitation to Bid\", \"title\": \"Liquid Deicer\", \"openDate\": \"2026-09-28T18:48:28.000+00:00\", \"closeDate\": \"2026-11-09T22:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 3, \"advertisementId\": 17092, \"uniqueName\": \"ITB-17092\", \"publishDate\": \"2026-09-28T18:48:28.000+00:00\", \"organization\": {\"organizationId\": 30000021, \"entity\": \"550000\", \"shortName\": \"FDOT\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Department of Transportation (FDOT)\"}, \"agency\": \"Florida Department of Transportation (FDOT)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17092",
     "detail_verified": "Visited official detail page; contact extraction attempted",
     "contact_name": "Sommer Crews",
@@ -1150,7 +1150,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "59e7217b2a8f3ba0618f",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "East Woody 26/27 Timber Sale",
@@ -1199,7 +1199,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "32f7574d0065e3535b36",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Apalachicola Bay Oyster Restoration",
@@ -1224,7 +1224,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "54b06fc7d9c08bc230e9",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "DISTRICT 1 HQ HVAC IMPROVEMENTS",
@@ -1245,11 +1245,11 @@
     "contact_email": "D1-Contracts@dot.state.fl.us",
     "contact_address": "801 N. Broadway Ave Bartow, FL 33830",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "5c1396a3381857abbdfe",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Fern Dog 0315 26/27 Timber Sale",
@@ -1264,11 +1264,11 @@
     "text": "Fern Dog 0315 26/27 Timber Sale Department of Agriculture and Consumer Services (FDACS) Advertisement type: Invitation to Bid | Status: OPEN {\"agencyAdNumber\": null, \"type\": \"Invitation to Bid\", \"title\": \"Fern Dog 0315 26/27 Timber Sale\", \"openDate\": \"2026-10-02T12:28:46.000+00:00\", \"closeDate\": \"2026-10-22T14:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 1, \"advertisementId\": 17110, \"uniqueName\": \"ITB-17110\", \"publishDate\": \"2026-10-02T12:28:46.000+00:00\", \"organization\": {\"organizationId\": 30000015, \"entity\": \"420000\", \"shortName\": \"FDACS\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Agriculture and Consumer Services (FDACS)\"}, \"agency\": \"Department of Agriculture and Consumer Services (FDACS)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17110",
     "detail_verified": "Visited official detail page; contact extraction attempted",
-    "contact_extraction_status": "Contact found",
-    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "0d0d82a2fafbdf689f25",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Tyler Gilbert",
     "contact_phone": "(850) 697-0024",
     "contact_email": "tyler.gilbert@fdacs.gov",
@@ -1298,7 +1298,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "74371cb3f32836f2b2d5",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Invitation to Bid: BDC06-26-27 Letchworth - Pavilion - Hurricane Debby",
@@ -1319,11 +1319,11 @@
     "contact_email": "Alisha.Sadler@FloridaDEP.gov",
     "contact_address": "3800 Commonwealth Blvd. MS#520 Tallahassee, FL 32399-3000",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "ae340b93f82072871b1d",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Awning and Sunshade Installation for Miami-Dade County Health Dept",
@@ -1348,7 +1348,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "241f53f6af4cc98ed0bf",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Invitation to Bid: BDC09-26-27 Sebastian Inlet - Water Holding Tank",
@@ -1364,11 +1364,11 @@
     "text": "Invitation to Bid: BDC09-26-27 Sebastian Inlet - Water Holding Tank Department of Environmental Protection (DEP) Advertisement type: Invitation to Bid | Status: OPEN | Reference: BDC09-26/27 {\"agencyAdNumber\": \"BDC09-26/27\", \"type\": \"Invitation to Bid\", \"title\": \"Invitation to Bid: BDC09-26-27 Sebastian Inlet - Water Holding Tank\", \"openDate\": \"2026-10-02T12:52:29.000+00:00\", \"closeDate\": \"2026-10-27T19:30:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 1, \"advertisementId\": 17132, \"uniqueName\": \"ITB-17132\", \"publishDate\": \"2026-10-02T12:52:29.000+00:00\", \"organization\": {\"organizationId\": 30000011, \"entity\": \"370000\", \"shortName\": \"DEP\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Environmental Protection (DEP)\"}, \"agency\": \"Department of Environmental Protection (DEP)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17132",
     "detail_verified": "Visited official detail page; contact extraction attempted",
-    "contact_extraction_status": "Contact found",
-    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "8364b23dad2911242521",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Alisha Sadler",
     "contact_phone": "(850) 245-3127",
     "contact_email": "Alisha.Sadler@FloridaDEP.gov",
@@ -1389,11 +1389,11 @@
     "text": "Landscape Maintenance Services Central Florida Tourism Oversight District Advertisement type: Invitation to Bid | Status: OPEN | Reference: ITB #C007087 {\"agencyAdNumber\": \"ITB #C007087\", \"type\": \"Invitation to Bid\", \"title\": \"Landscape Maintenance Services\", \"openDate\": \"2026-10-02T20:25:08.000+00:00\", \"closeDate\": \"2026-11-02T19:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 1, \"advertisementId\": 17138, \"uniqueName\": \"ITB-17138\", \"publishDate\": \"2026-10-02T20:25:08.000+00:00\", \"organization\": {\"organizationId\": 50000012, \"entity\": \" - EU\", \"shortName\": null, \"vbsAgency\": true, \"version\": 0, \"name\": \"Central Florida Tourism Oversight District\"}, \"agency\": \"Central Florida Tourism Oversight District\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17138",
     "detail_verified": "Visited official detail page; contact extraction attempted",
-    "contact_extraction_status": "Contact found",
-    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "e773bdea2fba1427b0f3",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Karina Rodrigues",
     "contact_phone": "(689) 254-3170",
     "contact_email": "krodrigues@oversightdistrict.org",
@@ -1419,11 +1419,11 @@
     "contact_email": "ng.fl.flarng.list.cfmo-contracting@army.mil",
     "contact_address": "DMA - CFMO Contracting 2305 State Road 207 St. Augustine, FL 32086",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "0055cac6da7f91e34dea",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "PUBLIC ANNOUNCEMENT FOR TRANSFORMER REPLACEMENT (PHASE II) ITB-27-049",
@@ -1443,7 +1443,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "79c7cac4fb25c396ca05",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Elizabeth Nimitz",
     "contact_phone": "(904) 827-2331",
     "contact_email": "nimitze@fsdbk12.org",
@@ -1469,11 +1469,11 @@
     "contact_email": "krodrigues@oversightdistrict.org",
     "contact_address": "1900 Hotel Plaza Blvd Lake Buena Vista, FL 32830",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "9a9792b57c50d0895da8",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Law Enforcement Night Vision Binocular Kit with Mount System",
@@ -1486,7 +1486,7 @@
     "deadline_date": "2026-11-03",
     "closing_datetime": "2026-11-03T19:00:00.000+00:00",
     "description": "Advertisement type: Invitation to Bid | Status: OPEN | Reference: FLHSMV-ITB-032-27",
-    "text": "Law Enforcement Night Vision Binocular Kit with Mount System Department of Highway Safety and Motor Vehicles (HSMV) Advertisement type: Invitation to Bid | Status: OPEN | Reference: FLHSMV-ITB-032-27 {\"agencyAdNumber\": \"FLHSMV-ITB-032-27\", \"type\": \"Invitation to Bid\", \"title\": \"Law Enforcement Night Vision Binocular Kit with Mount System\", \"openDate\": \"2026-10-05T19:33:50.000+00:00\", \"closeDate\": \"2026-11-03T19:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 1, \"advertisementId\": 17165, \"uniqueName\": \"ITB-17165\", \"publishDate\": \"2026-10-05T19:33:50.000+00:00\", \"organization\": {\"organizationId\": 30000035, \"entity\": \"760000\", \"shortName\": \"HSMV\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Highway Safety and Motor Vehicles (HSMV)\"}, \"agency\": \"Department of Highway Safety and Motor Vehicles (HSMV)\"}",
+    "text": "Law Enforcement Night Vision Binocular Kit with Mount System Department of Highway Safety and Motor Vehicles (HSMV) Advertisement type: Invitation to Bid | Status: OPEN | Reference: FLHSMV-ITB-032-27 {\"agencyAdNumber\": \"FLHSMV-ITB-032-27\", \"type\": \"Invitation to Bid\", \"title\": \"Law Enforcement Night Vision Binocular Kit with Mount System\", \"openDate\": \"2026-10-05T19:33:50.000+00:00\", \"closeDate\": \"2026-11-03T19:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 2, \"advertisementId\": 17165, \"uniqueName\": \"ITB-17165\", \"publishDate\": \"2026-10-05T19:33:50.000+00:00\", \"organization\": {\"organizationId\": 30000035, \"entity\": \"760000\", \"shortName\": \"HSMV\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Highway Safety and Motor Vehicles (HSMV)\"}, \"agency\": \"Department of Highway Safety and Motor Vehicles (HSMV)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17165",
     "detail_verified": "Visited official detail page; contact extraction attempted",
     "contact_name": "Alma Sanchez",
@@ -1494,11 +1494,11 @@
     "contact_email": "almasanchez@flhsmv.gov",
     "contact_address": "2900 Apalachee Parkway Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "f83f842f9c1415e0e325",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "New Carolina Skiff E21 DLX CC with New Motor and New Trailer",
@@ -1514,11 +1514,11 @@
     "text": "New Carolina Skiff E21 DLX CC with New Motor and New Trailer Florida Fish and Wildlife Conservation Commission (FWC) Advertisement type: Invitation to Bid | Status: OPEN | Reference: FWC 26/27-18 {\"agencyAdNumber\": \"FWC 26/27-18\", \"type\": \"Invitation to Bid\", \"title\": \"New Carolina Skiff E21 DLX CC with New Motor and New Trailer\", \"openDate\": \"2026-10-06T17:02:33.000+00:00\", \"closeDate\": \"2026-10-29T17:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 1, \"advertisementId\": 17177, \"uniqueName\": \"ITB-17177\", \"publishDate\": \"2026-10-06T17:02:33.000+00:00\", \"organization\": {\"organizationId\": 30000036, \"entity\": \"770000\", \"shortName\": \"FWC\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Fish and Wildlife Conservation Commission (FWC)\"}, \"agency\": \"Florida Fish and Wildlife Conservation Commission (FWC)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17177",
     "detail_verified": "Visited official detail page; contact extraction attempted",
-    "contact_extraction_status": "Contact found",
-    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "9de02c15ff8376b5beec",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Xavier Wilson",
     "contact_phone": "(850) 404-6109",
     "contact_email": "Xavier.Wilson@myfwc.com",
@@ -1547,7 +1547,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "2d8f0f39f901ac5ab152",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "LITTLE RIVER #7 TIMBER SALE",
@@ -1572,7 +1572,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "b2083c5642ccb1e7c004",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "BDC10-26/27 Dr. Von D. Mizell-Eula Johnson State Park – Education Center Roof Replacement",
@@ -1597,7 +1597,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "086783a285bfc38b1aaa",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "DJJ ITB 26/27 008 Lawn Care Services - Pine Hills",
@@ -1622,7 +1622,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "dfa2226d5c2d8e6acc21",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "ITB: BDC07-26/27 - Long Key State Park – Long Key Beach Nourishment and Campground Rebuild",
@@ -1647,7 +1647,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "3613e2f531818c48ad9f",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Roadway Litter Control",
@@ -1672,7 +1672,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "3ff37fbe0d3742fd7c17",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Addendum 1 BDC08-26-27 Charlotte Harbor Preserve State Park - Maintenance Building Replacement",
@@ -1693,11 +1693,11 @@
     "contact_email": "logan.leemarple@floridadep.gov",
     "contact_address": "3800 Common Wealth Blvd Tallahassee, FL 32399-3000",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "5cadde1884120d0d2c9c",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "PURCHASE OF CORRUGATED ALUMINUM PIPE CULVERT",
@@ -1722,7 +1722,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "210154b12b2bb9392933",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "2026-2027 V-Blade Planting – Blackwater River State Forest",
@@ -1747,7 +1747,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "f20fa0041c69abd228e2",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "District-Wide Mowing, Landscape Maintenance, and Debris Removal Services",
@@ -1768,11 +1768,11 @@
     "contact_email": "D7-PurchQuestions@dot.state.fl.us",
     "contact_address": "11201 North McKinley Drive Flamingo Conference Room Tampa, FL 33612-6456",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "b6454e0555ad37f33ab5",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Total Vehicle Upfitting Services",
@@ -1797,7 +1797,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "45afd4a0979c3479ff12",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Joshua Creek West 26/27 Grazing Lease",
@@ -1822,7 +1822,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "97e44fd7c4c512d12b6a",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Four Post Automotive Lift for District Seven",
@@ -1847,7 +1847,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "734d7aeab5bb955226a4",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Tacachale Refuse Removal",
@@ -1867,7 +1867,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "cd32ea362dec8cd163ef",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Bridgett Jackson",
     "contact_phone": "(850) 414-8879",
     "contact_email": "Bridgett.Jackson@apdcares.org",
@@ -1897,7 +1897,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "ee5ea658d3545f90315b",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Rapid Incident Scene Clearance (RISC) Services for District Seven.",
@@ -1917,7 +1917,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "641c3a8e4d8a1b16ca18",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Enrique Garcia",
     "contact_phone": "(813) 975-6156",
     "contact_email": "enrique.garcia@dot.state.fl.us",
@@ -1943,11 +1943,11 @@
     "contact_email": "Lester.Silva@dot.state.fl.us",
     "contact_address": "1000 NW 111th Avenue Miami, FL 33172",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Checked; no contact section/details found",
-    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
     "record_fingerprint": "752a74ce74b9778f18a4",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Rapid Incident Scene Clearance (RISC) District 3",
@@ -1972,7 +1972,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "fb8e5294563e7030ff07",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Rapid Incident Scene Clearance (RISC) For District Two",
@@ -1997,7 +1997,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "fa0bef50a064f10295e4",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Community-Based Care Lead Agency Circuit 6",
@@ -2013,11 +2013,11 @@
     "text": "Community-Based Care Lead Agency Circuit 6 Department of Children and Families (DCF) Advertisement type: Invitation to Negotiate | Status: OPEN | Reference: DCF ITN 2526 082 {\"agencyAdNumber\": \"DCF ITN 2526 082\", \"type\": \"Invitation to Negotiate\", \"title\": \"Community-Based Care Lead Agency Circuit 6\", \"openDate\": \"2026-07-21T20:26:39.000+00:00\", \"closeDate\": \"2027-04-21T21:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"5\", \"version\": 5, \"advertisementId\": 16526, \"uniqueName\": \"ITN-16526\", \"publishDate\": \"2026-07-21T20:26:39.000+00:00\", \"organization\": {\"organizationId\": 30000023, \"entity\": \"600000\", \"shortName\": \"DCF\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Children and Families (DCF)\"}, \"agency\": \"Department of Children and Families (DCF)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/16526",
     "detail_verified": "Visited official detail page; contact extraction attempted",
-    "contact_extraction_status": "Contact found",
-    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "2cc568f9592cfcf22cbb",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Sally Johns",
     "contact_phone": "(000) 000-0000",
     "contact_email": "sally.johns@myflfamilies.com",
@@ -2035,14 +2035,14 @@
     "deadline_date": "2026-12-07",
     "closing_datetime": "2026-12-07T15:00:00.000+00:00",
     "description": "Advertisement type: Invitation to Negotiate | Status: OPEN | Reference: DMS-26/27-025",
-    "text": "MyFloridaNet-3 ITN Department of Management Services (DMS) Advertisement type: Invitation to Negotiate | Status: OPEN | Reference: DMS-26/27-025 {\"agencyAdNumber\": \"DMS-26/27-025\", \"type\": \"Invitation to Negotiate\", \"title\": \"MyFloridaNet-3 ITN\", \"openDate\": \"2026-08-24T14:32:42.000+00:00\", \"closeDate\": \"2026-12-07T15:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"5\", \"version\": 1, \"advertisementId\": 16760, \"uniqueName\": \"ITN-16760\", \"publishDate\": \"2026-08-24T14:32:42.000+00:00\", \"organization\": {\"organizationId\": 30000032, \"entity\": \"720000\", \"shortName\": \"DMS\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Management Services (DMS)\"}, \"agency\": \"Department of Management Services (DMS)\"}",
+    "text": "MyFloridaNet-3 ITN Department of Management Services (DMS) Advertisement type: Invitation to Negotiate | Status: OPEN | Reference: DMS-26/27-025 {\"agencyAdNumber\": \"DMS-26/27-025\", \"type\": \"Invitation to Negotiate\", \"title\": \"MyFloridaNet-3 ITN\", \"openDate\": \"2026-08-24T14:32:42.000+00:00\", \"closeDate\": \"2026-12-07T15:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"5\", \"version\": 3, \"advertisementId\": 16760, \"uniqueName\": \"ITN-16760\", \"publishDate\": \"2026-08-24T14:32:42.000+00:00\", \"organization\": {\"organizationId\": 30000032, \"entity\": \"720000\", \"shortName\": \"DMS\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Management Services (DMS)\"}, \"agency\": \"Department of Management Services (DMS)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/16760",
     "detail_verified": "Visited official detail page; contact extraction attempted",
     "contact_extraction_status": "No contact details found on checked official detail page",
     "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "4939ba466bb3b4149ab5",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Rapid Incident Scene Clearance (RISC) for District One",
@@ -2067,7 +2067,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "0bb6d6130d18d3408f38",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Holiday 730:0448 ITN",
@@ -2087,7 +2087,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "7a98a5b9ad9050eb0ed7",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Torie Swain",
     "contact_phone": "(850) 717-7427",
     "contact_email": "torie.swain@floridarevenue.com",
@@ -2113,11 +2113,11 @@
     "contact_email": "purchasing@fdc.myflorida.com",
     "contact_address": "501 S. Calhoun Street Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "ed7dd4dee3d9b9c5e2e9",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "District Five Right-of-Way Appraisal, Cost Estimates, Design Support and Valuation Support Services",
@@ -2142,7 +2142,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "96e1567a96cb61371536",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "STATEWIDE MOBILE PANIC ALERT SYSTEM",
@@ -2162,7 +2162,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "c3151d1fccbca0f00343",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Winston McGriff",
     "contact_phone": "(850) 245-0733",
     "contact_email": "Winston.McGriff1@fldoe.org",
@@ -2192,7 +2192,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "3f308d683cbcbac3c7aa",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Customer Service and Records Administration Services for ABLE United",
@@ -2217,7 +2217,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "4bf9061b790460d502c4",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "CMR for Translational Research Institute",
@@ -2242,7 +2242,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "6790ec260d9bbd0aade7",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "USF Environmental & Oceanographic Sciences",
@@ -2267,7 +2267,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "9d14e0ce613866a008cc",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Investment Analytics Software",
@@ -2292,7 +2292,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "227d4593f788f36d234c",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "FAU College of Medicine Medical Billing and Credentialing Services",
@@ -2337,7 +2337,7 @@
     "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "982a1e5e12f3f8c26321",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Florida Institute of Oceanography (FIO) Shipyard Maintenance and Drydocking",
@@ -2362,7 +2362,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "c0e62fef6520fedf7803",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Reinsurance Brokerage and Advisory Services",
@@ -2383,11 +2383,11 @@
     "contact_email": "citizens.purchasing@citizensfla.com For questions on a specific advertisement, contact the agency advertisement owner. Advertisements include the contact information for the agency advertisement. The agency advertisement owner is the point of contact for vendors with specific questions. Copyright © 2020 State of Florida MFMP Help Desk: 866-FLA-EPRO (866-352-3776) Privacy Statement",
     "contact_address": "2101 Maryland Circle Tallahassee, FL 32303",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "700dce97ed1930916d39",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Actuarial Services for the Stanley G. Tate Florida Prepaid College Program",
@@ -2407,7 +2407,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "d9340de8889a911a58f4",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Shanna Rains",
     "contact_phone": "(850) 413-1409",
     "contact_email": "ITNinfo.Prepaid@MyFloridaPrepaid.com",
@@ -2432,7 +2432,7 @@
     "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "9966b6f0ff30a7894049",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "RFQ 2026-04 Notice of Public Meeting-Evaluation of Written Proposals",
@@ -2478,11 +2478,11 @@
     "contact_email": "Purchasing@fdc.myflorida.com",
     "contact_address": "501 S. Calhoun Street Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "8bce3244e7a6f9202c8a",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Mediation Services to Address Workload Increases Resulting from Natural and other Disasters",
@@ -2507,7 +2507,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "59ad645869559babdd5b",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Healthy SNAP Evaluation",
@@ -2527,7 +2527,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "fd3cbe62ca8ad49b1d3b",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Alicia Reifinger",
     "contact_phone": "(000) 000-0000",
     "contact_email": "alicia.reifinger@myflfamilies.com",
@@ -2552,7 +2552,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "23b417b757a34516160b",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Joseph Ruis",
     "contact_phone": "(000) 000-0000",
     "contact_email": "joseph.ruis@myflfamilies.com",
@@ -2578,11 +2578,11 @@
     "contact_email": "Jeri.Roberts@myfloridalegal.com",
     "contact_address": "107 W Gaines St Tallahassee, FL 32301",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "3c861e5683ae068effd3",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "QUALIFIED EVALUATOR NETWORK (QEN)",
@@ -2607,7 +2607,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "d9dd7051bf734305d9fc",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Emergency Opioid Antagonist Products and Resources",
@@ -2627,7 +2627,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "0230b5acf87a1067ab70",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Sally Johns",
     "contact_phone": "(000) 000-0000",
     "contact_email": "sally.johns@myflfamilies.com",
@@ -2653,11 +2653,11 @@
     "contact_email": "John.Kinneer@floridarevenue.com",
     "contact_address": "Building 2, Suite 1600 2450 Shumard Oak Boulevard Tallahassee, FL 32399-0100",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "2b2864775fb243c345e8",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Child Care Training Curriculum and Exam Services",
@@ -2682,7 +2682,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "cfede97f67ab8a5b5d0f",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Preadmission Screening and Resident Review",
@@ -2702,7 +2702,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "3d2b4024030a1e9a4597",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Weston McKain",
     "contact_phone": "(000) 000-0000",
     "contact_email": "solicitation.questions@ahca.myflorida.com",
@@ -2732,7 +2732,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "bbd95ad054671dea9092",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "South Florida Evaluation and Treatment Center (SFETC) Operations",
@@ -2752,7 +2752,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "7b56dcb2e7ae0835b00c",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Joshua Burns",
     "contact_phone": "(000) 000-0000",
     "contact_email": "joshua.burns@myflfamilies.com",
@@ -2777,7 +2777,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "c630e3ca5d506c0c1551",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Christine Skaggs",
     "contact_phone": "(904) 827-2364",
     "contact_email": "skaggsc@fsdbk12.org",
@@ -2807,7 +2807,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "465b087bd1290f2f17db",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "DENTAL SUPPLIES AND RELATED SERVICES",
@@ -2828,11 +2828,11 @@
     "contact_email": "rreynol2@broward.edu",
     "contact_address": "6400 NW 6th Way 6400 NW 6th Way Fort Lauderdale, FL 33309",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "de6b7658d86f8389e4ce",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Auditing and Related Services (RFP)",
@@ -2852,7 +2852,7 @@
     "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "a4c6d2e088166debaf39",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "PUBLIC ANNOUNCEMENT FOR PALM ROW ROADWAY IMPROVEMENTS-RFP-27-063",
@@ -2873,11 +2873,11 @@
     "contact_email": "skaggsc@fsdbk12.org",
     "contact_address": "207 San Marco Avenue St Augustine, FL 32084",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "040c977b11f8ee585470",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "PUBLIC ANNOUNCEMENT FOR CAMPUS PERIMETER FENCING RFP-27-046",
@@ -2902,7 +2902,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "1f992fbe4aecf7a26444",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Market Conduct Multi-State Examination",
@@ -2952,7 +2952,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "8ce1aec95b96f91af25f",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Districtwide Public Strategic Communications Consulting Services on Misc Construction Projects FDOT",
@@ -2977,7 +2977,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "d8e76509976e98891924",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Large- Capacity Central Plant Chillers Installation, Repair & Emergency Response",
@@ -2997,7 +2997,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "f14c40b53641ba6b9fb7",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Devin Ager",
     "contact_phone": "(407) 371-4963",
     "contact_email": "dager@oversightdistrict.org",
@@ -3027,7 +3027,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "4d876ea858962f2a44a0",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Logo Sign Program - Region 1",
@@ -3048,11 +3048,11 @@
     "contact_email": "CO.Purch@dot.state.fl.us",
     "contact_address": "FDOT Procurement Office 605 Suwannee St. MS20 Tallahassee, FL 32399-0450",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "826d99b64325c7e11148",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "FLMCEISR",
@@ -3073,11 +3073,11 @@
     "contact_email": "floridacommerce.purchasing@commerce.fl.gov",
     "contact_address": "107 E. Madison Street Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "344952f8283c9cfa706b",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Target Zero Outreach and Public Awareness for District Seven",
@@ -3102,7 +3102,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "97481d6a64bd7bc73a09",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "RES-42-Beds-High-Risk-Males-MHOS/SAOS-Northwest-C1",
@@ -3127,7 +3127,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "7966e4b416e19203b3dc",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Janitorial Services RFP",
@@ -3147,7 +3147,7 @@
     "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "70be5cb6b077e0aa97ba",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Child Nutrition Program Administrative Reviews",
@@ -3160,7 +3160,7 @@
     "deadline_date": "2026-11-02",
     "closing_datetime": "2026-11-02T22:00:00.000+00:00",
     "description": "Advertisement type: Request for Proposals | Status: OPEN | Reference: RFP FNW 26 27 10",
-    "text": "Child Nutrition Program Administrative Reviews Department of Agriculture and Consumer Services (FDACS) Advertisement type: Request for Proposals | Status: OPEN | Reference: RFP FNW 26 27 10 {\"agencyAdNumber\": \"RFP FNW 26 27 10\", \"type\": \"Request for Proposals\", \"title\": \"Child Nutrition Program Administrative Reviews\", \"openDate\": \"2026-10-13T16:13:54.000+00:00\", \"closeDate\": \"2026-11-02T22:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"6\", \"version\": 1, \"advertisementId\": 17240, \"uniqueName\": \"RFP-17240\", \"publishDate\": \"2026-10-13T16:13:54.000+00:00\", \"organization\": {\"organizationId\": 30000015, \"entity\": \"420000\", \"shortName\": \"FDACS\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Agriculture and Consumer Services (FDACS)\"}, \"agency\": \"Department of Agriculture and Consumer Services (FDACS)\"}",
+    "text": "Child Nutrition Program Administrative Reviews Department of Agriculture and Consumer Services (FDACS) Advertisement type: Request for Proposals | Status: OPEN | Reference: RFP FNW 26 27 10 {\"agencyAdNumber\": \"RFP FNW 26 27 10\", \"type\": \"Request for Proposals\", \"title\": \"Child Nutrition Program Administrative Reviews\", \"openDate\": \"2026-10-13T16:13:54.000+00:00\", \"closeDate\": \"2026-11-02T22:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"6\", \"version\": 2, \"advertisementId\": 17240, \"uniqueName\": \"RFP-17240\", \"publishDate\": \"2026-10-13T16:13:54.000+00:00\", \"organization\": {\"organizationId\": 30000015, \"entity\": \"420000\", \"shortName\": \"FDACS\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Agriculture and Consumer Services (FDACS)\"}, \"agency\": \"Department of Agriculture and Consumer Services (FDACS)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17240",
     "detail_verified": "Visited official detail page; contact extraction attempted",
     "contact_name": "Stephanie Bergozza",
@@ -3168,11 +3168,11 @@
     "contact_email": "Bids@FDACS.gov",
     "contact_address": "407 S. Calhoun Street, Mayo Building, SB-8 Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "fe25a3f572955fe12734",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "RFSQ/RFQ -16278 Continuing Construction Management Services",
@@ -3192,7 +3192,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "518688f9a0baa59d91c1",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Carol Walters",
     "contact_phone": "(850) 756-8117",
     "contact_email": "Carol.Walters@fldjj.gov",
@@ -3222,7 +3222,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "b5ef5be3b0678dd1d508",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Continuing Architectural/Engineering (A/E) Services - Region 4",
@@ -3243,11 +3243,11 @@
     "contact_email": "purchasing@fdc.myflorida.com",
     "contact_address": "501 S Calhoun St Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "0638e45beb2cb3660f7a",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Continuing Architectural/Engineering (A/E) Services - Region 1",
@@ -3267,7 +3267,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "94ce6eb87636f999ef0c",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Sarah Weirick",
     "contact_phone": "(850) 717-3700",
     "contact_email": "purchasing@fdc.myflorida.com",
@@ -3293,11 +3293,11 @@
     "contact_email": "purchasing@fdc.myflorida.com",
     "contact_address": "501 S Calhoun St Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "bb2c8da0d3a79315ab5b",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "CONNER COMPLEX NEW LABORATORY FACILITY",
@@ -3322,7 +3322,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "6b47862e6cfe8d16c292",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Architectural Services: FSCJ Cecil Training Institute/Hub",
@@ -3343,11 +3343,11 @@
     "contact_email": "noelle.tafaoa@fscj.edu",
     "contact_address": "501 West State St. Jacksonville, FL 32202",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "e48d0897ac414206edd4",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "BRONSON ANIMAL DISEASE DIAGNOSTIC LABORATORY BLDG 1000 EXPANSION - Construction Management Services",
@@ -3372,7 +3372,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "a29f5b6e408f341a68b3",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "COLLEGE PRESIDENTIAL SEARCH FIRM",
@@ -3392,7 +3392,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "5de32cfabfced3856a8b",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Orlando Aponte",
     "contact_phone": "(954) 201-7897",
     "contact_email": "oaponte@broward.edu",
@@ -3422,7 +3422,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "0b033b85fae902ce9039",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "EquipmentWatch License for Rental Rate Blue Book Subscription",
@@ -3447,7 +3447,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "75a9e532234a43271a20",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Advertising Services for the University of Miami",
@@ -3468,11 +3468,11 @@
     "contact_email": "AlmaSanchez@flhsmv.gov",
     "contact_address": "2900 Apalachee Parkway Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "b4e2e19038d7fa35e05e",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Single Source Provider for Pikmykid software appliactions",
@@ -3493,11 +3493,11 @@
     "contact_email": "whitwamk@fsdbk12.org",
     "contact_address": "207 San Marco Ave. SAINT AUGUSTINE, FL 32084",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "f465f84d59d6462b522d",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Advertising Services",
@@ -3517,7 +3517,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "968ae9e6d91f1fa5d3d8",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Alma Sanchez",
     "contact_phone": "(850) 617-3176",
     "contact_email": "AlmaSanchez@flhsmv.gov",
@@ -3542,7 +3542,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "9bf0ee95dacddbedba26",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Yasemin Sulker",
     "contact_phone": "(850) 245-4931",
     "contact_email": "yasemin.sulker@flhealth.gov",
@@ -3567,7 +3567,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "5e5cb86423ff7d6939a0",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Destyne Grayson",
     "contact_phone": "(850) 414-4253",
     "contact_email": "CO.Purch@dot.state.fl.us",
@@ -3597,7 +3597,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "602647f84e159b5352c2",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Statewide Records Management System (RMS) Annual Maintenance and Support",
@@ -3618,11 +3618,11 @@
     "contact_email": "FDLEOGSContracts@fdle.state.fl.us",
     "contact_address": "2331 Phillips Road Tallahassee, FL 32308",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "ed0064e690b9bfdba9ab",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Malvern Panalytical - X-Ray Flourence (XRF) Service Agreement",
@@ -3642,7 +3642,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "09aba5e42308b9192b7d",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Destyne Grayson",
     "contact_phone": "(850) 414-4253",
     "contact_email": "CO.Purch@dot.state.fl.us",
@@ -3667,7 +3667,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "00b61717255f67e0f053",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Brittany Harvey",
     "contact_phone": "(850) 617-7181",
     "contact_email": "procurement@fdacs.gov",
@@ -3697,7 +3697,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "b918ac825f6d9d855550",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Advertising Services - University Athletic Association, Inc.",
@@ -3713,11 +3713,11 @@
     "text": "Advertising Services - University Athletic Association, Inc. Department of Highway Safety and Motor Vehicles (HSMV) Advertisement type: Single Source | Status: OPEN | Reference: FLHSMV-SS-011-27 {\"agencyAdNumber\": \"FLHSMV-SS-011-27\", \"type\": \"Single Source\", \"title\": \"Advertising Services - University Athletic Association, Inc.\", \"openDate\": \"2026-10-07T16:03:12.000+00:00\", \"closeDate\": \"2026-10-27T15:57:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"10\", \"version\": 1, \"advertisementId\": 17199, \"uniqueName\": \"SS-17199\", \"publishDate\": \"2026-10-07T16:03:12.000+00:00\", \"organization\": {\"organizationId\": 30000035, \"entity\": \"760000\", \"shortName\": \"HSMV\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Highway Safety and Motor Vehicles (HSMV)\"}, \"agency\": \"Department of Highway Safety and Motor Vehicles (HSMV)\"}",
     "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17199",
     "detail_verified": "Visited official detail page; contact extraction attempted",
-    "contact_extraction_status": "Contact found",
-    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
     "record_fingerprint": "0294f5cdcca10cf4dd19",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Katie Downey",
     "contact_phone": "(850) 617-3198",
     "contact_email": "katiedowney@flhsmv.gov",
@@ -3742,7 +3742,7 @@
     "contact_verification_status": "Extracted from official detail page",
     "record_fingerprint": "549f80a88c98b62c3827",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20",
+    "last_seen_date": "2026-10-21",
     "contact_name": "Becky Hale",
     "contact_phone": "(850) 413-2070",
     "contact_email": "dfspurchasing@myfloridacfo.com",
@@ -3768,11 +3768,11 @@
     "contact_email": "Tanisha.Miller@floridarevenue.com",
     "contact_address": "2450 Shumard Oak Boulevard, Building 2-1653 Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "73f469313548ac725dc5",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "VR Systems Inc.",
@@ -3793,11 +3793,11 @@
     "contact_email": "purchasing@dos.fl.gov",
     "contact_address": "500 S. Bronough St Tallahassee, FL 32399-0250",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "fe0ca9b362dfe8b32748",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "V2X Aerospace LLC Commodities & Engineering Services Required to Maintain Support of the Florida’s T",
@@ -3818,11 +3818,11 @@
     "contact_email": "TP.Purch@dot.state.fl.us",
     "contact_address": "Florida's Turnpike, MP 263 Turkey Lk Svc Plaza, Bldg 5315 Ocoee, FL 34761",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "2ef3977eb106de53c576",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "IDEXX Laboratories, Inc.",
@@ -3847,7 +3847,7 @@
     "contact_extraction_status": "Contact found",
     "record_fingerprint": "e9bf3931088524426942",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Nextpoint e-Discovery Platform",
@@ -3868,11 +3868,11 @@
     "contact_email": "dfspurchasing@myfloridacfo.com",
     "contact_address": "200 E Gaines Street Larson Bldg Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "751b413a842b6371ee50",
     "first_seen_date": "2026-10-19",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "OFF DUTY DETAIL MANAGEMENT SOFTWARE FOR FLORIDA HIGHWAY PATROL",
@@ -3893,11 +3893,11 @@
     "contact_email": "dawngunter@flhsmv.gov",
     "contact_address": "2900 Apalachee Parkway Tallahassee, FL 32399",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "a1043ecaa2afc4b86d91",
     "first_seen_date": "2026-10-20",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "PUBLIC ANNOUNCEMENT FOR HOGLE BOILERS (PHASE II) ITB-27-055",
@@ -3918,11 +3918,11 @@
     "contact_email": "nimitze@fsdbk12.org",
     "contact_address": "207 San Marco Avenue St. Augustine, FL 32084-2799",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "dab538eaf9385fd9d87d",
     "first_seen_date": "2026-10-20",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Laboratory, Medical, and Industrial Gases, Accessories, and Services",
@@ -3943,11 +3943,11 @@
     "contact_email": "rjahn@usf.edu",
     "contact_address": "4202 E Fowler Ave Tampa, FL 33620",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "50dee5b08395d9a261ab",
     "first_seen_date": "2026-10-20",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
   },
   {
     "title": "Controlled Substances and Alcohol Use Testing",
@@ -3968,10 +3968,370 @@
     "contact_email": "CO.Purch@dot.state.fl.us",
     "contact_address": "FDOT Procurement Office 605 Suwannee Street, MS 20 Tallahassee, FL 32399-0450",
     "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
-    "contact_verification_status": "Extracted from official detail page",
-    "contact_extraction_status": "Contact found",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "contact_extraction_status": "No contact details found on checked official detail page",
     "record_fingerprint": "78ede3b0f70225cdd660",
     "first_seen_date": "2026-10-20",
-    "last_seen_date": "2026-10-20"
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Three Lakes G111 Replacement",
+    "solicitation_id": "FWC 26/27-10C",
+    "portal_id": "17270",
+    "agency": "Florida Fish and Wildlife Conservation Commission (FWC)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T16:09:32.000+00:00",
+    "opening_datetime": "2026-10-20T16:09:32.000+00:00",
+    "deadline_date": "2026-10-23",
+    "closing_datetime": "2026-10-23T16:00:00.000+00:00",
+    "description": "Advertisement type: Agency Decision | Status: OPEN | Reference: FWC 26/27-10C",
+    "text": "Three Lakes G111 Replacement Florida Fish and Wildlife Conservation Commission (FWC) Advertisement type: Agency Decision | Status: OPEN | Reference: FWC 26/27-10C {\"agencyAdNumber\": \"FWC 26/27-10C\", \"type\": \"Agency Decision\", \"title\": \"Three Lakes G111 Replacement\", \"openDate\": \"2026-10-20T16:09:32.000+00:00\", \"closeDate\": \"2026-10-23T16:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"1\", \"version\": 1, \"advertisementId\": 17270, \"uniqueName\": \"AD-17270\", \"publishDate\": \"2026-10-20T16:09:32.000+00:00\", \"organization\": {\"organizationId\": 30000036, \"entity\": \"770000\", \"shortName\": \"FWC\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Fish and Wildlife Conservation Commission (FWC)\"}, \"agency\": \"Florida Fish and Wildlife Conservation Commission (FWC)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17270",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "record_fingerprint": "81422b967d2d7b00f57b",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Heating, ventilation, and air conditioning (HVAC) maintenance and repair services for District Seven",
+    "solicitation_id": "DOT-ITB-27-7002-EG",
+    "portal_id": "17271",
+    "agency": "Florida Department of Transportation (FDOT)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T21:00:00.000+00:00",
+    "opening_datetime": "2026-10-20T21:00:00.000+00:00",
+    "deadline_date": "2026-10-23",
+    "closing_datetime": "2026-10-23T21:00:00.000+00:00",
+    "description": "Advertisement type: Agency Decision | Status: OPEN | Reference: DOT-ITB-27-7002-EG",
+    "text": "Heating, ventilation, and air conditioning (HVAC) maintenance and repair services for District Seven Florida Department of Transportation (FDOT) Advertisement type: Agency Decision | Status: OPEN | Reference: DOT-ITB-27-7002-EG {\"agencyAdNumber\": \"DOT-ITB-27-7002-EG\", \"type\": \"Agency Decision\", \"title\": \"Heating, ventilation, and air conditioning (HVAC) maintenance and repair services for District Seven\", \"openDate\": \"2026-10-20T21:00:00.000+00:00\", \"closeDate\": \"2026-10-23T21:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"1\", \"version\": 1, \"advertisementId\": 17271, \"uniqueName\": \"AD-17271\", \"publishDate\": \"2026-10-20T18:29:48.000+00:00\", \"organization\": {\"organizationId\": 30000021, \"entity\": \"550000\", \"shortName\": \"FDOT\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Department of Transportation (FDOT)\"}, \"agency\": \"Florida Department of Transportation (FDOT)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17271",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Enrique Garcia Granados",
+    "contact_phone": "(813) 975-6156",
+    "contact_email": "D7-PurchQuestions@dot.state.fl.us",
+    "contact_address": "11201 North McKinley Drive Tampa, FL 33612-6456",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "32e0f0e7f883a4c71b80",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "HEATING, VENTILATION, AND AIRCONDITIONING (HVAC) REPLACEMENTNORTH REGION",
+    "solicitation_id": "DOT-ITB-27-8008-MB",
+    "portal_id": "17272",
+    "agency": "Florida Department of Transportation (FDOT)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T19:42:23.000+00:00",
+    "opening_datetime": "2026-10-20T19:42:23.000+00:00",
+    "deadline_date": "2026-10-23",
+    "closing_datetime": "2026-10-23T20:00:00.000+00:00",
+    "description": "Advertisement type: Agency Decision | Status: OPEN | Reference: DOT-ITB-27-8008-MB",
+    "text": "HEATING, VENTILATION, AND AIRCONDITIONING (HVAC) REPLACEMENTNORTH REGION Florida Department of Transportation (FDOT) Advertisement type: Agency Decision | Status: OPEN | Reference: DOT-ITB-27-8008-MB {\"agencyAdNumber\": \"DOT-ITB-27-8008-MB\", \"type\": \"Agency Decision\", \"title\": \"HEATING, VENTILATION, AND AIRCONDITIONING (HVAC) REPLACEMENTNORTH REGION\", \"openDate\": \"2026-10-20T19:42:23.000+00:00\", \"closeDate\": \"2026-10-23T20:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"1\", \"version\": 1, \"advertisementId\": 17272, \"uniqueName\": \"AD-17272\", \"publishDate\": \"2026-10-20T19:42:23.000+00:00\", \"organization\": {\"organizationId\": 30000021, \"entity\": \"550000\", \"shortName\": \"FDOT\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Department of Transportation (FDOT)\"}, \"agency\": \"Florida Department of Transportation (FDOT)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17272",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Marlene Barnes",
+    "contact_phone": "(000) 000-0000",
+    "contact_email": "TP.Purch@dot.state.fl.us",
+    "contact_address": "Florida's Turnpike, MP 263 Turkey Lk Svc Plaza, Bldg 5315 Ocoee, FL 34761",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "94a69079939ed63ddb0c",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Dinner Island Ranch WMA Canal Cleaning and Maintenance",
+    "solicitation_id": "FWC 26/27-27",
+    "portal_id": "17274",
+    "agency": "Florida Fish and Wildlife Conservation Commission (FWC)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T20:47:52.000+00:00",
+    "opening_datetime": "2026-10-20T20:47:52.000+00:00",
+    "deadline_date": "2026-10-23",
+    "closing_datetime": "2026-10-23T21:00:00.000+00:00",
+    "description": "Advertisement type: Agency Decision | Status: OPEN | Reference: FWC 26/27-27",
+    "text": "Dinner Island Ranch WMA Canal Cleaning and Maintenance Florida Fish and Wildlife Conservation Commission (FWC) Advertisement type: Agency Decision | Status: OPEN | Reference: FWC 26/27-27 {\"agencyAdNumber\": \"FWC 26/27-27\", \"type\": \"Agency Decision\", \"title\": \"Dinner Island Ranch WMA Canal Cleaning and Maintenance\", \"openDate\": \"2026-10-20T20:47:52.000+00:00\", \"closeDate\": \"2026-10-23T21:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"1\", \"version\": 1, \"advertisementId\": 17274, \"uniqueName\": \"AD-17274\", \"publishDate\": \"2026-10-20T20:47:52.000+00:00\", \"organization\": {\"organizationId\": 30000036, \"entity\": \"770000\", \"shortName\": \"FWC\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Fish and Wildlife Conservation Commission (FWC)\"}, \"agency\": \"Florida Fish and Wildlife Conservation Commission (FWC)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17274",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Randy Golightly",
+    "contact_phone": "(850) 617-9648",
+    "contact_email": "Randolph.Golightly@MyFWC.com",
+    "contact_address": "1875 E Orange Ave Tallahassee, FL 32311",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "19f1fd538bee9d056821",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Telogia Creek Sand Pine Removal",
+    "solicitation_id": "FWC 26/27-15",
+    "portal_id": "17284",
+    "agency": "Florida Fish and Wildlife Conservation Commission (FWC)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T12:37:59.000+00:00",
+    "opening_datetime": "2026-10-20T12:37:59.000+00:00",
+    "deadline_date": "2026-10-23",
+    "closing_datetime": "2026-10-23T12:30:00.000+00:00",
+    "description": "Advertisement type: Agency Decision | Status: OPEN | Reference: FWC 26/27-15",
+    "text": "Telogia Creek Sand Pine Removal Florida Fish and Wildlife Conservation Commission (FWC) Advertisement type: Agency Decision | Status: OPEN | Reference: FWC 26/27-15 {\"agencyAdNumber\": \"FWC 26/27-15\", \"type\": \"Agency Decision\", \"title\": \"Telogia Creek Sand Pine Removal\", \"openDate\": \"2026-10-20T12:37:59.000+00:00\", \"closeDate\": \"2026-10-23T12:30:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"1\", \"version\": 1, \"advertisementId\": 17284, \"uniqueName\": \"AD-17284\", \"publishDate\": \"2026-10-20T12:37:59.000+00:00\", \"organization\": {\"organizationId\": 30000036, \"entity\": \"770000\", \"shortName\": \"FWC\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Fish and Wildlife Conservation Commission (FWC)\"}, \"agency\": \"Florida Fish and Wildlife Conservation Commission (FWC)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17284",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Elbert Orellana",
+    "contact_phone": "(850) 617-9658",
+    "contact_email": "elbert.orellana@myfwc.com",
+    "contact_address": "1875 E Orange Avenue Tallahassee, FL 32311",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "dc1039f01ef00c67f8b2",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Peace River State Forest – Shell Road Base Material Project No. 15200ROAD25",
+    "solicitation_id": "ITB FFS 26 27 53",
+    "portal_id": "17287",
+    "agency": "Department of Agriculture and Consumer Services (FDACS)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T16:00:00.000+00:00",
+    "opening_datetime": "2026-10-20T16:00:00.000+00:00",
+    "deadline_date": "2026-10-23",
+    "closing_datetime": "2026-10-23T16:00:00.000+00:00",
+    "description": "Advertisement type: Agency Decision | Status: OPEN | Reference: ITB FFS 26 27 53",
+    "text": "Peace River State Forest – Shell Road Base Material Project No. 15200ROAD25 Department of Agriculture and Consumer Services (FDACS) Advertisement type: Agency Decision | Status: OPEN | Reference: ITB FFS 26 27 53 {\"agencyAdNumber\": \"ITB FFS 26 27 53\", \"type\": \"Agency Decision\", \"title\": \"Peace River State Forest – Shell Road Base Material Project No. 15200ROAD25\", \"openDate\": \"2026-10-20T16:00:00.000+00:00\", \"closeDate\": \"2026-10-23T16:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"1\", \"version\": 1, \"advertisementId\": 17287, \"uniqueName\": \"AD-17287\", \"publishDate\": \"2026-10-20T15:47:49.000+00:00\", \"organization\": {\"organizationId\": 30000015, \"entity\": \"420000\", \"shortName\": \"FDACS\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Agriculture and Consumer Services (FDACS)\"}, \"agency\": \"Department of Agriculture and Consumer Services (FDACS)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17287",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Brenda Paul",
+    "contact_phone": "(850) 617-7180",
+    "contact_email": "bids@fdacs.gov",
+    "contact_address": "407 South Calhoun Street tallahassee, FL 32309",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "019fbe34adbb891960ef",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Darley Brush Truck Pumps",
+    "solicitation_id": "ITB FFS 26 27 42",
+    "portal_id": "17288",
+    "agency": "Department of Agriculture and Consumer Services (FDACS)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T16:30:00.000+00:00",
+    "opening_datetime": "2026-10-20T16:30:00.000+00:00",
+    "deadline_date": "2026-10-23",
+    "closing_datetime": "2026-10-23T16:30:00.000+00:00",
+    "description": "Advertisement type: Agency Decision | Status: OPEN | Reference: ITB FFS 26 27 42",
+    "text": "Darley Brush Truck Pumps Department of Agriculture and Consumer Services (FDACS) Advertisement type: Agency Decision | Status: OPEN | Reference: ITB FFS 26 27 42 {\"agencyAdNumber\": \"ITB FFS 26 27 42\", \"type\": \"Agency Decision\", \"title\": \"Darley Brush Truck Pumps\", \"openDate\": \"2026-10-20T16:30:00.000+00:00\", \"closeDate\": \"2026-10-23T16:30:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"1\", \"version\": 1, \"advertisementId\": 17288, \"uniqueName\": \"AD-17288\", \"publishDate\": \"2026-10-20T16:19:54.000+00:00\", \"organization\": {\"organizationId\": 30000015, \"entity\": \"420000\", \"shortName\": \"FDACS\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Agriculture and Consumer Services (FDACS)\"}, \"agency\": \"Department of Agriculture and Consumer Services (FDACS)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17288",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Brittany Harvey",
+    "contact_phone": "(850) 617-7181",
+    "contact_email": "bids@fdacs.gov",
+    "contact_address": "407 S. Calhoun Street SB-8 Mayo Building Tallahassee, FL 32399",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "0c3bee7042ab97de3c32",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Orange Hammock WMA- Road Repairs",
+    "solicitation_id": "FWC 26/27-29",
+    "portal_id": "17291",
+    "agency": "Florida Fish and Wildlife Conservation Commission (FWC)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T19:00:53.000+00:00",
+    "opening_datetime": "2026-10-20T19:00:53.000+00:00",
+    "deadline_date": "2026-10-23",
+    "closing_datetime": "2026-10-23T19:00:00.000+00:00",
+    "description": "Advertisement type: Agency Decision | Status: OPEN | Reference: FWC 26/27-29",
+    "text": "Orange Hammock WMA- Road Repairs Florida Fish and Wildlife Conservation Commission (FWC) Advertisement type: Agency Decision | Status: OPEN | Reference: FWC 26/27-29 {\"agencyAdNumber\": \"FWC 26/27-29\", \"type\": \"Agency Decision\", \"title\": \"Orange Hammock WMA- Road Repairs\", \"openDate\": \"2026-10-20T19:00:53.000+00:00\", \"closeDate\": \"2026-10-23T19:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"1\", \"version\": 1, \"advertisementId\": 17291, \"uniqueName\": \"AD-17291\", \"publishDate\": \"2026-10-20T18:50:38.000+00:00\", \"organization\": {\"organizationId\": 30000036, \"entity\": \"770000\", \"shortName\": \"FWC\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida Fish and Wildlife Conservation Commission (FWC)\"}, \"agency\": \"Florida Fish and Wildlife Conservation Commission (FWC)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17291",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Elbert Orellana",
+    "contact_phone": "(850) 617-9658",
+    "contact_email": "elbert.orellana@myfwc.com",
+    "contact_address": "1875 E Orange Avenue Tallahassee, FL 32311",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "26b4027de56a96e0f883",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "RFQ 2026-04 Annual Architectural Services- Short Listed Firms",
+    "solicitation_id": "RFQ 2026-04",
+    "portal_id": "17290",
+    "agency": "Tallahassee State College",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T18:46:04.000+00:00",
+    "opening_datetime": "2026-10-20T18:46:04.000+00:00",
+    "deadline_date": "2026-10-23",
+    "closing_datetime": "2026-10-23T19:00:00.000+00:00",
+    "description": "Advertisement type: Informational Notice | Status: OPEN | Reference: RFQ 2026-04",
+    "text": "RFQ 2026-04 Annual Architectural Services- Short Listed Firms Tallahassee State College Advertisement type: Informational Notice | Status: OPEN | Reference: RFQ 2026-04 {\"agencyAdNumber\": \"RFQ 2026-04\", \"type\": \"Informational Notice\", \"title\": \"RFQ 2026-04 Annual Architectural Services- Short Listed Firms\", \"openDate\": \"2026-10-20T18:46:04.000+00:00\", \"closeDate\": \"2026-10-23T19:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"3\", \"version\": 1, \"advertisementId\": 17290, \"uniqueName\": \"IN-17290\", \"publishDate\": \"2026-10-20T18:46:04.000+00:00\", \"organization\": {\"organizationId\": 40000050, \"entity\": \" - EU\", \"shortName\": null, \"vbsAgency\": true, \"version\": 1, \"name\": \"Tallahassee State College\"}, \"agency\": \"Tallahassee State College\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17290",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Dustin Frost",
+    "contact_phone": "(850) 201-8484",
+    "contact_email": "Dustin.frost@tsc.fl.edu",
+    "contact_address": "444 Appleyard Drive Tallahassee, FL 32304",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "3575dcaa770c57650b64",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "DMA-RFP-361 X-TIC EVOLUTION ACFT LANE SYSTEM",
+    "solicitation_id": "DMA-RFP-361",
+    "portal_id": "17004",
+    "agency": "Department of Military Affairs (DMA)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T19:58:52.000+00:00",
+    "opening_datetime": "2026-10-20T19:58:52.000+00:00",
+    "deadline_date": "2026-11-04",
+    "closing_datetime": "2026-11-04T19:00:00.000+00:00",
+    "description": "Advertisement type: Invitation to Bid | Status: OPEN | Reference: DMA-RFP-361",
+    "text": "DMA-RFP-361 X-TIC EVOLUTION ACFT LANE SYSTEM Department of Military Affairs (DMA) Advertisement type: Invitation to Bid | Status: OPEN | Reference: DMA-RFP-361 {\"agencyAdNumber\": \"DMA-RFP-361\", \"type\": \"Invitation to Bid\", \"title\": \"DMA-RFP-361 X-TIC EVOLUTION ACFT LANE SYSTEM\", \"openDate\": \"2026-10-20T19:58:52.000+00:00\", \"closeDate\": \"2026-11-04T19:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 1, \"advertisementId\": 17004, \"uniqueName\": \"ITB-17004\", \"publishDate\": \"2026-10-20T19:58:52.000+00:00\", \"organization\": {\"organizationId\": 30000025, \"entity\": \"620000\", \"shortName\": \"DMA\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Military Affairs (DMA)\"}, \"agency\": \"Department of Military Affairs (DMA)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17004",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Janie Pacetti",
+    "contact_phone": "(904) 823-0243",
+    "contact_email": "purchasing@dma.fl.gov",
+    "contact_address": "82 Marine St St. Augustine, FL 32084",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "abd49da3b9758d52ab16",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Addendum 1 BDC04-26/27 Suwannee River State Park – Bathhouse Replacement",
+    "solicitation_id": "BDC04-26/27",
+    "portal_id": "17279",
+    "agency": "Department of Environmental Protection (DEP)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-19T14:44:08.000+00:00",
+    "opening_datetime": "2026-10-19T14:44:08.000+00:00",
+    "deadline_date": "2026-10-27",
+    "closing_datetime": "2026-10-27T19:30:00.000+00:00",
+    "description": "Advertisement type: Invitation to Bid | Status: OPEN | Reference: BDC04-26/27",
+    "text": "Addendum 1 BDC04-26/27 Suwannee River State Park – Bathhouse Replacement Department of Environmental Protection (DEP) Advertisement type: Invitation to Bid | Status: OPEN | Reference: BDC04-26/27 {\"agencyAdNumber\": \"BDC04-26/27\", \"type\": \"Invitation to Bid\", \"title\": \"Addendum 1 BDC04-26/27 Suwannee River State Park – Bathhouse Replacement\", \"openDate\": \"2026-10-19T14:44:08.000+00:00\", \"closeDate\": \"2026-10-27T19:30:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 1, \"advertisementId\": 17279, \"uniqueName\": \"ITB-17279\", \"publishDate\": \"2026-10-19T14:44:08.000+00:00\", \"organization\": {\"organizationId\": 30000011, \"entity\": \"370000\", \"shortName\": \"DEP\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Environmental Protection (DEP)\"}, \"agency\": \"Department of Environmental Protection (DEP)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17279",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "record_fingerprint": "53897838d3685d21eb8b",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Longleaf Flatwoods Reserve, Alachua County, River Styx Timber Salvage",
+    "solicitation_id": "42790",
+    "portal_id": "17285",
+    "agency": "St. Johns River Water Management Dist",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T14:33:25.000+00:00",
+    "opening_datetime": "2026-10-20T14:33:25.000+00:00",
+    "deadline_date": "2026-10-27",
+    "closing_datetime": "2026-10-27T18:00:00.000+00:00",
+    "description": "Advertisement type: Invitation to Bid | Status: OPEN | Reference: 42790",
+    "text": "Longleaf Flatwoods Reserve, Alachua County, River Styx Timber Salvage St. Johns River Water Management Dist Advertisement type: Invitation to Bid | Status: OPEN | Reference: 42790 {\"agencyAdNumber\": \"42790\", \"type\": \"Invitation to Bid\", \"title\": \"Longleaf Flatwoods Reserve, Alachua County, River Styx Timber Salvage\", \"openDate\": \"2026-10-20T14:33:25.000+00:00\", \"closeDate\": \"2026-10-27T18:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 1, \"advertisementId\": 17285, \"uniqueName\": \"ITB-17285\", \"publishDate\": \"2026-10-20T14:33:25.000+00:00\", \"organization\": {\"organizationId\": 40000055, \"entity\": \" - EU\", \"shortName\": null, \"vbsAgency\": true, \"version\": 0, \"name\": \"St. Johns River Water Management Dist\"}, \"agency\": \"St. Johns River Water Management Dist\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17285",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Breanna Pierce",
+    "contact_phone": "(386) 643-1168",
+    "contact_email": "bpierce@sjrwmd.com",
+    "contact_address": "4049 Reid St. Palatka, FL 32177",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "ee9126f1a4b4412e0e14",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "PUBLIC ANNOUNCEMENT FOR NIGARA BUILDING PREVENTATIVE MAINTENANCE ITB-27-050",
+    "solicitation_id": "ITB-27-050",
+    "portal_id": "17289",
+    "agency": "Florida School for the Deaf and the Blind (FSDB)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T19:00:00.000+00:00",
+    "opening_datetime": "2026-10-20T19:00:00.000+00:00",
+    "deadline_date": "2026-11-03",
+    "closing_datetime": "2026-11-03T19:00:00.000+00:00",
+    "description": "Advertisement type: Invitation to Bid | Status: OPEN | Reference: ITB-27-050",
+    "text": "PUBLIC ANNOUNCEMENT FOR NIGARA BUILDING PREVENTATIVE MAINTENANCE ITB-27-050 Florida School for the Deaf and the Blind (FSDB) Advertisement type: Invitation to Bid | Status: OPEN | Reference: ITB-27-050 {\"agencyAdNumber\": \"ITB-27-050\", \"type\": \"Invitation to Bid\", \"title\": \"PUBLIC ANNOUNCEMENT FOR NIGARA BUILDING PREVENTATIVE MAINTENANCE ITB-27-050\", \"openDate\": \"2026-10-20T19:00:00.000+00:00\", \"closeDate\": \"2026-11-03T19:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"4\", \"version\": 1, \"advertisementId\": 17289, \"uniqueName\": \"ITB-17289\", \"publishDate\": \"2026-10-20T17:47:14.000+00:00\", \"organization\": {\"organizationId\": 30000019, \"entity\": \"489000\", \"shortName\": \"FSDB\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Florida School for the Deaf and the Blind (FSDB)\"}, \"agency\": \"Florida School for the Deaf and the Blind (FSDB)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17289",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_extraction_status": "No contact details found on checked official detail page",
+    "contact_verification_status": "Checked; no contact section/details found",
+    "record_fingerprint": "27c0fd4eb880ccea7d3e",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Workforce Ongoing Temporary Disaster-Recovery Staffing",
+    "solicitation_id": "27-RFP-006-LJ",
+    "portal_id": "17273",
+    "agency": "Department of Commerce (DOC)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T20:07:06.000+00:00",
+    "opening_datetime": "2026-10-20T20:07:06.000+00:00",
+    "deadline_date": "2026-11-23",
+    "closing_datetime": "2026-11-23T20:00:00.000+00:00",
+    "description": "Advertisement type: Request for Proposals | Status: OPEN | Reference: 27-RFP-006-LJ",
+    "text": "Workforce Ongoing Temporary Disaster-Recovery Staffing Department of Commerce (DOC) Advertisement type: Request for Proposals | Status: OPEN | Reference: 27-RFP-006-LJ {\"agencyAdNumber\": \"27-RFP-006-LJ\", \"type\": \"Request for Proposals\", \"title\": \"Workforce Ongoing Temporary Disaster-Recovery Staffing\", \"openDate\": \"2026-10-20T20:07:06.000+00:00\", \"closeDate\": \"2026-11-23T20:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"6\", \"version\": 1, \"advertisementId\": 17273, \"uniqueName\": \"RFP-17273\", \"publishDate\": \"2026-10-20T20:07:06.000+00:00\", \"organization\": {\"organizationId\": 30000012, \"entity\": \"400000\", \"shortName\": \"DOC\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Commerce (DOC)\"}, \"agency\": \"Department of Commerce (DOC)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17273",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Lori",
+    "contact_phone": "(850) 245-7462",
+    "contact_email": "FloridaCommerce.Purchasing@commerce.fl.gov",
+    "contact_address": "107 E. Madison Street Caldwell Building- B-047 Tallahassee, FL 32399",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "6056e0efa324ad09c9a8",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
+  },
+  {
+    "title": "Architect-Engineering Services for the FL 6th District Court of Appeal – New Courthouse",
+    "solicitation_id": "RFQ REDM2627-01",
+    "portal_id": "17286",
+    "agency": "Department of Management Services (DMS)",
+    "status": "OPEN",
+    "open_datetime": "2026-10-20T15:02:14.000+00:00",
+    "opening_datetime": "2026-10-20T15:02:14.000+00:00",
+    "deadline_date": "2027-03-31",
+    "closing_datetime": "2027-03-31T21:00:00.000+00:00",
+    "description": "Advertisement type: Request for Statement of Qualifications | Status: OPEN | Reference: RFQ REDM2627-01",
+    "text": "Architect-Engineering Services for the FL 6th District Court of Appeal – New Courthouse Department of Management Services (DMS) Advertisement type: Request for Statement of Qualifications | Status: OPEN | Reference: RFQ REDM2627-01 {\"agencyAdNumber\": \"RFQ REDM2627-01\", \"type\": \"Request for Statement of Qualifications\", \"title\": \"Architect-Engineering Services for the FL 6th District Court of Appeal – New Courthouse\", \"openDate\": \"2026-10-20T15:02:14.000+00:00\", \"closeDate\": \"2027-03-31T21:00:00.000+00:00\", \"favorite\": false, \"status\": \"OPEN\", \"typeId\": \"9\", \"version\": 1, \"advertisementId\": 17286, \"uniqueName\": \"RFSQ-17286\", \"publishDate\": \"2026-10-20T15:02:14.000+00:00\", \"organization\": {\"organizationId\": 30000032, \"entity\": \"720000\", \"shortName\": \"DMS\", \"vbsAgency\": true, \"version\": 0, \"name\": \"Department of Management Services (DMS)\"}, \"agency\": \"Department of Management Services (DMS)\"}",
+    "url": "https://vendor.myfloridamarketplace.com/search/bids/detail/17286",
+    "detail_verified": "Visited official detail page; contact extraction attempted",
+    "contact_name": "Procurement Liaison",
+    "contact_phone": "(850) 414-8521",
+    "contact_email": "REDMProcurement@dms.fl.gov",
+    "contact_address": "4050 Esplanade Way Suite 315.5Y Tallahassee, FL 32399",
+    "contact_source": "Official MyFloridaMarketPlace opportunity detail page",
+    "contact_verification_status": "Extracted from official detail page",
+    "contact_extraction_status": "Contact found",
+    "record_fingerprint": "2963f86660d109e391f8",
+    "first_seen_date": "2026-10-21",
+    "last_seen_date": "2026-10-21"
   }
 ]
