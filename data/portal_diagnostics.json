@@ -1,9 +1,9 @@
 {
-  "run_utc": "2026-10-22T04:03:44.129251+00:00",
-  "run_ist": "2026-10-22T09:33:44.129251+05:30",
-  "run_florida": "2026-10-22T00:03:44.129251-04:00",
+  "run_utc": "2026-10-23T04:07:17.521622+00:00",
+  "run_ist": "2026-10-23T09:37:17.521622+05:30",
+  "run_florida": "2026-10-23T00:07:17.521622-04:00",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
-  "configured_keyword_count": 58,
+  "configured_keyword_count": 55,
   "errors": [],
   "pages": [
     {
@@ -32,38 +32,38 @@
     },
     {
       "page": 7,
-      "records_found": 12
+      "records_found": 9
     }
   ],
   "manual_review_policy": "Manual Review contains extraction/data exceptions only; valid unmatched listings remain in Tracker with a screening label. Both Google Sheets tabs are upserted from the corresponding GitHub JSON/CSV records.",
   "method": "official_json_api",
   "endpoint": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
-  "count_response": 162,
-  "api_count": 162,
+  "count_response": 159,
+  "api_count": 159,
   "pages_requested": 7,
-  "records_extracted": 158,
+  "records_extracted": 157,
   "contact_enrichment": {
-    "attempted": 158,
-    "visited": 158,
-    "contacts_found": 150,
+    "attempted": 157,
+    "visited": 157,
+    "contacts_found": 149,
     "errors": 0,
     "skipped_no_url": 0
   },
-  "candidate_count": 158,
-  "historical_record_count": 181,
+  "candidate_count": 157,
+  "historical_record_count": 190,
   "matched_candidates_count": 0,
-  "tracker_eligible_count": 158,
-  "unmatched_valid_count": 158,
+  "tracker_eligible_count": 157,
+  "unmatched_valid_count": 157,
   "manual_review_exception_count": 0,
-  "new_records_this_run": 158,
+  "new_records_this_run": 157,
   "status": "success",
   "tracker_policy": "All valid portal listings are upserted to Florida Tracker; keyword matches are labeled and unmatched listings are explicitly marked for manual screening. Existing rows and user-owned columns are preserved.",
   "date_time_policy": "Published/open and closing date-time values are copied from official API fields when available. Source timestamps are preserved; missing times/time zones are left blank rather than guessed.",
   "sheets_sync": {
     "status": "success",
-    "appended_rows": 5,
-    "updated_cells": 730,
-    "tracker_candidates_sent": 158,
+    "appended_rows": 9,
+    "updated_cells": 593,
+    "tracker_candidates_sent": 157,
     "manual_review_exceptions_sent": 0,
     "manual_review_rows_appended": 0,
     "write_verified": true
