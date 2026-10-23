@@ -4,3 +4,9 @@
 2026-10-23 04:12:23,075 INFO Verified 9 appended rows in tracker 'Florida Tracker' (gid=1466561086), range A183:BD191
 2026-10-23 04:12:23,424 INFO Google Sheets sync succeeded: 9 appended rows; 593 cell updates
 2026-10-23 04:12:23,429 INFO Run complete: extracted=157 tracker_rows=157 keyword_matches=0 exceptions=0
+2026-10-23 16:05:43,893 INFO Extracted 161 records from official portal API
+2026-10-23 16:10:52,788 INFO Contact enrichment: attempted=161 visited=161 contacts_found=153 errors=0
+2026-10-23 16:10:52,967 INFO Saved 197 portal records locally; 161 keyword-matching Tracker records; 0 critical exceptions for Manual Review
+2026-10-23 16:10:58,146 INFO Verified 7 appended rows in tracker 'Florida Tracker' (gid=1466561086), range A192:BD198
+2026-10-23 16:10:58,681 INFO Google Sheets sync succeeded: 7 appended rows; 636 cell updates
+2026-10-23 16:10:58,682 INFO Run complete: extracted=161 tracker_rows=161 keyword_matches=2 exceptions=0
