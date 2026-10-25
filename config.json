@@ -1,5 +1,5 @@
 
-{
+{{
   "state": "Florida",
   "source_url": "https://vendor.myfloridamarketplace.com/",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
@@ -11,29 +11,25 @@
   "page_size": 25,
   "request_delay_seconds": 1.0,
   "keywords": [
-    "Electronic Health Record",
-    "Electronic Medical Record",
-    "Health Information Exchange",
-    "Health Information Technology",
-    "Healthcare Information System",
-    "Clinical Information System",
-    "Hospital Information System",
-    "Electronic Visit Verification",
-    "Medicaid Management Information System",
-    "Public Health Information System",
-    "Healthcare Analytics",
-    "Healthcare Interoperability",
     "Application Development",
+    "Custom Software Development",
     "Application Modernization",
+    "Software Maintenance",
     "Data Integration",
     "API Integration",
+    "System Integration",
     "Cloud Migration",
+    "Cloud Application Hosting",
     "Managed Security Services",
-    "Healthcare Cybersecurity",
+    "Cybersecurity Assessment",
+    "Penetration Testing",
     "IT Staff Augmentation",
+    "Managed IT Services",
+    "Business Intelligence Platform",
+    "Data Analytics Platform",
+    "Dashboard Development",
     "Artificial Intelligence",
-    "Machine Learning",
-    "Integrated Eligibility"
+    "Machine Learning"
   ],
   "matching_policy": "Conservative healthcare IT: match specific technical/system/data phrases in opportunity title, scope summary, or description. Agency names alone do not qualify. Ignore contact details and footer boilerplate."
 }
