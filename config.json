@@ -1,4 +1,4 @@
-<code>{
+{
   "state": "Florida",
   "source_url": "https://vendor.myfloridamarketplace.com/",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
@@ -31,4 +31,4 @@
     "Machine Learning"
   ],
   "matching_policy": "Conservative healthcare IT: match specific technical/system/data phrases in opportunity title, scope summary, or description. Agency names alone do not qualify. Ignore contact details and footer boilerplate."
-}</code>
+}
