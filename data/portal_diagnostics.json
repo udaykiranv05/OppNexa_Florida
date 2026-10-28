@@ -1,7 +1,7 @@
 {
-  "run_utc": "2026-10-27T04:03:34.271584+00:00",
-  "run_ist": "2026-10-27T09:33:34.271584+05:30",
-  "run_florida": "2026-10-27T00:03:34.271584-04:00",
+  "run_utc": "2026-10-28T04:13:33.681546+00:00",
+  "run_ist": "2026-10-28T09:43:33.681546+05:30",
+  "run_florida": "2026-10-28T00:13:33.681546-04:00",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
   "configured_keyword_count": 19,
   "errors": [],
@@ -28,32 +28,28 @@
     },
     {
       "page": 6,
-      "records_found": 25
-    },
-    {
-      "page": 7,
-      "records_found": 5
+      "records_found": 18
     }
   ],
   "manual_review_policy": "Manual Review contains extraction/data exceptions only; valid unmatched listings remain in Tracker with a screening label. Both Google Sheets tabs are upserted from the corresponding GitHub JSON/CSV records.",
   "method": "official_json_api",
   "endpoint": "https://vendor.myfloridamarketplace.com/mfmp/pub/search/bids",
-  "count_response": 155,
-  "api_count": 155,
-  "pages_requested": 7,
-  "records_extracted": 155,
+  "count_response": 143,
+  "api_count": 143,
+  "pages_requested": 6,
+  "records_extracted": 143,
   "contact_enrichment": {
-    "attempted": 155,
-    "visited": 155,
-    "contacts_found": 102,
+    "attempted": 143,
+    "visited": 143,
+    "contacts_found": 137,
     "errors": 0,
     "skipped_no_url": 0
   },
-  "candidate_count": 155,
-  "historical_record_count": 165,
-  "matched_candidates_count": 6,
-  "tracker_eligible_count": 155,
-  "unmatched_valid_count": 149,
+  "candidate_count": 143,
+  "historical_record_count": 173,
+  "matched_candidates_count": 4,
+  "tracker_eligible_count": 143,
+  "unmatched_valid_count": 139,
   "manual_review_exception_count": 0,
   "new_records_this_run": 8,
   "status": "success",
@@ -62,8 +58,8 @@
   "sheets_sync": {
     "status": "success",
     "appended_rows": 8,
-    "updated_cells": 727,
-    "tracker_candidates_sent": 155,
+    "updated_cells": 686,
+    "tracker_candidates_sent": 143,
     "manual_review_exceptions_sent": 0,
     "manual_review_rows_appended": 0,
     "write_verified": true
