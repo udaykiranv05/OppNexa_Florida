@@ -1,0 +1,5 @@
+2026-11-16 04:59:43,749 INFO Extracted 120 records from official portal API
+2026-11-16 05:03:03,159 INFO Contact enrichment: attempted=120 visited=120 contacts_found=118 errors=0
+2026-11-16 05:03:03,359 INFO Saved 276 portal records locally; 120 keyword-matching Tracker records; 0 critical exceptions for Manual Review
+2026-11-16 05:03:06,257 INFO Google Sheets sync succeeded: 0 appended rows; 481 cell updates
+2026-11-16 05:03:06,258 INFO Run complete: extracted=120 tracker_rows=120 keyword_matches=3 exceptions=0
