@@ -1,0 +1,6 @@
+2026-11-17 12:17:28,397 INFO Extracted 119 records from official portal API
+2026-11-17 12:21:32,392 INFO Contact enrichment: attempted=119 visited=119 contacts_found=85 errors=0
+2026-11-17 12:21:32,548 INFO Saved 281 portal records locally; 119 keyword-matching Tracker records; 0 critical exceptions for Manual Review
+2026-11-17 12:21:37,500 INFO Verified 5 appended rows in tracker 'Florida Tracker' (gid=1466561086), range A278:BD282
+2026-11-17 12:21:37,773 INFO Google Sheets sync succeeded: 5 appended rows; 560 cell updates
+2026-11-17 12:21:37,773 INFO Run complete: extracted=119 tracker_rows=119 keyword_matches=3 exceptions=0
