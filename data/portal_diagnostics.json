@@ -1,7 +1,7 @@
 {
-  "run_utc": "2026-11-22T11:47:42.401157+00:00",
-  "run_ist": "2026-11-22T17:17:42.401157+05:30",
-  "run_florida": "2026-11-22T06:47:42.401157-05:00",
+  "run_utc": "2026-11-23T13:27:58.962381+00:00",
+  "run_ist": "2026-11-23T18:57:58.962381+05:30",
+  "run_florida": "2026-11-23T08:27:58.962381-05:00",
   "search_url": "https://vendor.myfloridamarketplace.com/search/bids",
   "configured_keyword_count": 19,
   "errors": [],
@@ -54,7 +54,7 @@
   "sheets_sync": {
     "status": "success",
     "appended_rows": 0,
-    "updated_cells": 634,
+    "updated_cells": 493,
     "tracker_candidates_sent": 123,
     "manual_review_exceptions_sent": 0,
     "manual_review_rows_appended": 0,
